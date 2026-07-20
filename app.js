@@ -232,7 +232,7 @@ async function deleteExpense(id){
 }
 
 function updateSyncUi({state,message,configured,connected}){
-  const panel=document.querySelector("#view-expenses .sync-panel"),button=document.getElementById("connectGoogle"),routePanel=document.querySelector(".route-sync-panel"),routeButton=document.getElementById("connectRouteGoogle");
+  const panel=document.querySelector("#view-expenses .sync-panel"),button=document.getElementById("connectGoogle"),routePanel=document.querySelector(".route-sync-panel"),routeButton=document.getElementById("connectRouteGoogle"),browserRequired=window.sheetExpenseStore?.needsBrowser?.()||state==="browser";
   panel.dataset.state=state;routePanel.dataset.state=state;
   document.getElementById("syncTitle").textContent=connected?"Google Sheets conectado":configured?"Gastos en este dispositivo":"Falta configurar Google";
   document.getElementById("syncStatus").textContent=message;
@@ -241,6 +241,9 @@ function updateSyncUi({state,message,configured,connected}){
   document.getElementById("routeSyncStatus").textContent=connected?(guideData.loadedAt?`Rutas actualizadas · ${fmtDate(guideData.loadedAt.slice(0,10),{day:"numeric",month:"short"})}`:"Google Sheets conectado"):message;
   routeButton.textContent=connected?"Actualizar":"Conectar";
   routeButton.disabled=["connecting","syncing"].includes(state);
+  button.classList.toggle("hidden",browserRequired&&!connected);routeButton.classList.toggle("hidden",browserRequired&&!connected);
+  document.getElementById("openExpensesInBrowser").classList.toggle("hidden",!browserRequired||connected);
+  document.getElementById("openRouteInBrowser").classList.toggle("hidden",!browserRequired||connected);
 }
 function setupSheetSync(){
   if(!window.sheetExpenseStore)return updateSyncUi({state:"error",message:"No se ha cargado el conector de Google.",configured:false,connected:false});
@@ -256,7 +259,7 @@ async function connectAndSync(){
     if(window.sheetExpenseStore?.isConnected())await window.sheetExpenseStore.loadAll();
     else await window.sheetExpenseStore?.connect();
     await flushPendingSync();
-  }catch(error){console.error(error);updateSyncUi({state:"error",message:error.message||"No se ha podido conectar con Google.",configured:true,connected:false});toast("No se ha podido sincronizar");}
+  }catch(error){console.error(error);updateSyncUi({state:error.state||"error",message:error.message||"No se ha podido conectar con Google.",configured:true,connected:false});toast(error.state==="browser"?"Abre la app en Safari o Chrome":"No se ha podido sincronizar");}
 }
 
 async function refreshExchangeRate({announce=false}={}){

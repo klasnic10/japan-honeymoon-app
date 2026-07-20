@@ -16,6 +16,9 @@
 
   const configured = () => Boolean(config.googleClientId && config.googleApiKey && config.googleAppId && config.spreadsheetId);
   const connected = () => Boolean(accessToken && selectedSpreadsheetId === config.spreadsheetId);
+  const standalone = () => window.matchMedia?.("(display-mode: standalone)").matches || navigator.standalone === true;
+  const embeddedBrowser = () => /(?:FBAN|FBAV|Instagram|Line\/|; wv\)|GSA\/)/i.test(navigator.userAgent||"");
+  const needsBrowser = () => standalone() || embeddedBrowser();
   const status = (state, message) => onStatus({state, message, configured:configured(), connected:connected()});
   const truthy = value => value === true || String(value).toUpperCase() === "TRUE";
 
@@ -132,13 +135,33 @@
   async function connect(){
     if(!configured()){status("setup","Falta configurar Google OAuth para este despliegue.");return false;}
     if(!window.google?.accounts?.oauth2){status("error","No se ha cargado Google Identity Services.");return false;}
+    if(needsBrowser()){
+      const error=new Error("Abre la app directamente en Safari o Chrome para conectar Google; la ventana instalada o integrada no puede devolver la autorización.");
+      error.state="browser";status("browser",error.message);throw error;
+    }
     status("connecting","Conectando con Google…");
-    accessToken=await new Promise((resolve,reject)=>{tokenClient=tokenClient||google.accounts.oauth2.initTokenClient({client_id:config.googleClientId,scope:TOKEN_SCOPE,callback:response=>response.error?reject(new Error(response.error)):resolve(response.access_token)});tokenClient.callback=response=>response.error?reject(new Error(response.error)):resolve(response.access_token);tokenClient.requestAccessToken({prompt:"consent"});});
+    accessToken=await new Promise((resolve,reject)=>{
+      let settled=false;
+      const finish=(fn,value)=>{if(settled)return;settled=true;clearTimeout(timer);fn(value);};
+      const callback=response=>{
+        if(response.error)return finish(reject,new Error(`Google no ha autorizado el acceso: ${response.error}`));
+        if(!response.access_token)return finish(reject,new Error("Google no ha devuelto un token de acceso."));
+        finish(resolve,response.access_token);
+      };
+      const errorCallback=detail=>{
+        const messages={popup_failed_to_open:"El navegador ha bloqueado la ventana de Google.",popup_closed:"La ventana de Google se cerró antes de devolver la autorización."};
+        const error=new Error(messages[detail?.type]||"No se ha podido completar la ventana de autorización de Google.");
+        error.state="browser";finish(reject,error);
+      };
+      const timer=setTimeout(()=>{const error=new Error("Google no ha podido devolver la autorización a esta pestaña. Ábrela directamente en Safari o Chrome.");error.state="browser";finish(reject,error);},60000);
+      tokenClient=google.accounts.oauth2.initTokenClient({client_id:config.googleClientId,scope:TOKEN_SCOPE,callback,error_callback:errorCallback});
+      tokenClient.requestAccessToken(selectedSpreadsheetId?{}:{prompt:"consent"});
+    });
     if(selectedSpreadsheetId===config.spreadsheetId){try{await loadAll();return true;}catch{status("connecting","Selecciona de nuevo la hoja compartida.");}}
     const pickedId=await chooseSpreadsheet();
     if(pickedId!==config.spreadsheetId){accessToken="";status("error","Selecciona la hoja “Viaje Japón 2026”.");return false;}
     selectedSpreadsheetId=pickedId;localStorage.setItem(SELECTED_FILE_KEY,pickedId);await loadAll();return true;
   }
   function init(callbacks={}){onStatus=callbacks.onStatus||onStatus;onExpenses=callbacks.onExpenses||onExpenses;onGuideData=callbacks.onGuideData||onGuideData;status(configured()?"disconnected":"setup",configured()?"Conecta Google para sincronizar gastos, rutas y guía.":"Google OAuth todavía no está configurado.");}
-  window.sheetExpenseStore={init,connect,loadAll,loadExpenses,loadGuideData,upsert,remove,setChecklist,addNote,removeNote,isConnected:connected,isConfigured:configured};
+  window.sheetExpenseStore={init,connect,loadAll,loadExpenses,loadGuideData,upsert,remove,setChecklist,addNote,removeNote,isConnected:connected,isConfigured:configured,needsBrowser};
 })();
