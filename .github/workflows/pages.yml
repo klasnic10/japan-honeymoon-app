@@ -1,0 +1,36 @@
+name: Deploy GitHub Pages
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Inject public Google configuration
+        env:
+          GOOGLE_CLIENT_ID: ${{ vars.GOOGLE_CLIENT_ID }}
+          GOOGLE_API_KEY: ${{ vars.GOOGLE_API_KEY }}
+          GOOGLE_APP_ID: ${{ vars.GOOGLE_APP_ID }}
+        run: |
+          node -e 'const fs=require("fs");let s=fs.readFileSync("config.js","utf8");for(const [key,value] of [["googleClientId",process.env.GOOGLE_CLIENT_ID],["googleApiKey",process.env.GOOGLE_API_KEY],["googleAppId",process.env.GOOGLE_APP_ID]])s=s.replace(new RegExp(`${key}: "[^"]*"`),`${key}: ${JSON.stringify(value||"")}`);fs.writeFileSync("config.js",s)'
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

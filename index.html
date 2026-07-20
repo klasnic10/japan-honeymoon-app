@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#173f3a">
+  <meta name="description" content="Guía móvil de la luna de miel de Jorge y Lali en Japón, noviembre de 2026.">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <title>Japón 2026 · Jorge & Lali</title>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" type="button" data-nav="home" aria-label="Ir al inicio">
+        <span class="brand-mark">日</span>
+        <span><strong>Japón 2026</strong><small>Jorge & Lali</small></span>
+      </button>
+      <button id="installButton" class="icon-button hidden" type="button" title="Instalar aplicación" aria-label="Instalar aplicación">↓</button>
+    </header>
+
+    <main id="mainContent" tabindex="-1">
+      <section id="view-home" class="view active" data-view="home" aria-labelledby="homeTitle">
+        <div class="hero">
+          <div>
+            <p class="eyebrow">Luna de miel · 2–21 noviembre</p>
+            <h1 id="homeTitle">El viaje, sin buscar entre veinte correos.</h1>
+            <p id="countdown" class="hero-copy"></p>
+          </div>
+          <div class="route-line" aria-label="Ruta principal">
+            <span>Tokio</span><i></i><span>Kanazawa</span><i></i><span>Takayama</span><i></i><span>Kioto</span><i></i><span>Tokio</span>
+          </div>
+        </div>
+
+        <section id="todayCard" class="panel today-card"></section>
+
+        <div class="section-heading">
+          <div><p class="eyebrow">Antes de salir</p><h2>Pendientes importantes</h2></div>
+          <button class="text-button" type="button" data-nav="bookings">Ver reservas</button>
+        </div>
+        <div id="pendingList" class="stack"></div>
+
+        <div class="quick-grid">
+          <button class="quick-card" type="button" data-nav="route"><span>🗓️</span><strong>Ruta</strong><small>20 días organizados</small></button>
+          <button class="quick-card" type="button" data-nav="bookings"><span>🎫</span><strong>Reservas</strong><small>Vuelos y hoteles</small></button>
+          <button class="quick-card" type="button" data-nav="expenses"><span>¥</span><strong>Gastos</strong><small id="expenseQuickSummary">Control por moneda</small></button>
+          <button class="quick-card" type="button" data-nav="more"><span>🧭</span><strong>Más</strong><small>Documentos y utilidades</small></button>
+        </div>
+      </section>
+
+      <section id="view-route" class="view" data-view="route" aria-labelledby="routeTitle">
+        <div class="page-heading">
+          <p class="eyebrow">Itinerario validado</p>
+          <h1 id="routeTitle">Ruta día a día</h1>
+          <p>El borrador manda. Los horarios todavía no publicados aparecen como pendientes de confirmar.</p>
+        </div>
+        <div class="filter-row" id="cityFilters" role="group" aria-label="Filtrar por ciudad"></div>
+        <div id="routeList" class="timeline"></div>
+      </section>
+
+      <section id="view-bookings" class="view" data-view="bookings" aria-labelledby="bookingsTitle">
+        <div class="page-heading">
+          <p class="eyebrow">Todo localizado</p>
+          <h1 id="bookingsTitle">Reservas y transportes</h1>
+          <p>Los localizadores sensibles se abren en vuestro correo; no quedan expuestos en una web pública.</p>
+        </div>
+        <div id="bookingFilters" class="filter-row" role="group" aria-label="Filtrar reservas"></div>
+        <div id="bookingList" class="booking-list"></div>
+      </section>
+
+      <section id="view-expenses" class="view" data-view="expenses" aria-labelledby="expensesTitle">
+        <div class="page-heading with-action">
+          <div><p class="eyebrow">Presupuesto real</p><h1 id="expensesTitle">Gastos</h1><p>Reservas conocidas y gastos que añadáis durante el viaje.</p></div>
+          <button id="openExpenseForm" class="primary-button" type="button">＋ Añadir</button>
+        </div>
+
+        <section class="sync-panel" aria-live="polite">
+          <div class="sync-copy"><span id="syncIndicator" class="sync-dot"></span><div><strong id="syncTitle">Gastos en este dispositivo</strong><small id="syncStatus">Conecta Google para usar la hoja compartida.</small></div></div>
+          <button id="connectGoogle" class="secondary-button" type="button">Conectar Google</button>
+        </section>
+
+        <div class="summary-grid">
+          <article class="metric"><small>Euros</small><strong id="totalEur">0 €</strong></article>
+          <article class="metric"><small>Yenes</small><strong id="totalJpy">0 ¥</strong></article>
+          <article class="metric wide">
+            <small>Cambio de referencia</small><strong id="convertedTotal">Consultando cambio…</strong>
+            <div class="rate-row">
+              <label class="inline-field">1 € = <input id="exchangeRate" inputmode="decimal" type="number" min="1" step="0.01" placeholder="p. ej. 170"> ¥</label>
+              <button id="refreshRate" class="text-button" type="button">Actualizar</button>
+            </div>
+            <span id="exchangeRateMeta">Fuente: BCE</span>
+          </article>
+        </div>
+
+        <section class="panel budget-panel">
+          <div class="section-heading compact"><div><p class="eyebrow">Distribución</p><h2>Por categoría</h2></div></div>
+          <div id="categoryBreakdown" class="breakdown"></div>
+        </section>
+
+        <div class="expense-filter-groups">
+          <div class="currency-switch" aria-label="Moneda de los importes">
+            <span>Mostrar importes en</span>
+            <div id="expenseCurrencyFilters" class="segmented-control" role="group">
+              <button type="button" data-expense-currency="EUR">EUR</button>
+              <button type="button" data-expense-currency="JPY">JPY</button>
+            </div>
+          </div>
+          <div id="expenseStatusFilters" class="filter-row" role="group" aria-label="Filtrar gastos por estado"></div>
+          <div id="expenseCategoryFilters" class="filter-row" role="group" aria-label="Filtrar gastos por categoría"></div>
+        </div>
+        <div class="toolbar">
+          <button id="exportCsv" class="secondary-button" type="button">Exportar CSV</button>
+        </div>
+        <div id="expenseList" class="expense-list"></div>
+      </section>
+
+      <section id="view-more" class="view" data-view="more" aria-labelledby="moreTitle">
+        <div class="page-heading"><p class="eyebrow">Utilidades</p><h1 id="moreTitle">Más</h1><p>Accesos rápidos y copias de seguridad.</p></div>
+        <div class="settings-list">
+          <a class="setting-row" href="https://docs.google.com/spreadsheets/d/18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8/edit" target="_blank" rel="noreferrer"><span>📊</span><div><strong>Abrir hoja del viaje</strong><small>Fuente original y detalle</small></div><b>›</b></a>
+          <a class="setting-row" href="https://www.google.com/maps/search/?api=1&query=Japan" target="_blank" rel="noreferrer"><span>🗺️</span><div><strong>Abrir Google Maps</strong><small>Buscar cualquier punto</small></div><b>›</b></a>
+          <button id="exportBackup" class="setting-row" type="button"><span>💾</span><div><strong>Exportar copia</strong><small>Ruta, ajustes y gastos en JSON</small></div><b>›</b></button>
+          <label class="setting-row file-row"><span>📥</span><div><strong>Importar copia</strong><small>Restaura gastos y ajustes</small></div><b>›</b><input id="importBackup" type="file" accept="application/json"></label>
+          <button id="resetExpenses" class="setting-row danger" type="button"><span>↺</span><div><strong>Restaurar gastos iniciales</strong><small>Elimina los gastos añadidos manualmente</small></div><b>›</b></button>
+        </div>
+        <section class="panel privacy-note"><h2>Privacidad</h2><p>Los gastos se sincronizan con la hoja compartida después de conectar Google. El navegador mantiene una copia local para mostrar la última información disponible. Las confirmaciones se abren en Gmail y los PIN no se incluyen en la aplicación.</p></section>
+      </section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Navegación principal">
+      <button class="active" type="button" data-nav="home"><span>⌂</span><small>Inicio</small></button>
+      <button type="button" data-nav="route"><span>⌁</span><small>Ruta</small></button>
+      <button type="button" data-nav="bookings"><span>▣</span><small>Reservas</small></button>
+      <button type="button" data-nav="expenses"><span>¥</span><small>Gastos</small></button>
+      <button type="button" data-nav="more"><span>•••</span><small>Más</small></button>
+    </nav>
+  </div>
+
+  <dialog id="expenseDialog">
+    <form id="expenseForm">
+      <div class="dialog-heading"><div><p class="eyebrow">Nuevo movimiento</p><h2 id="expenseDialogTitle">Añadir gasto</h2></div><button id="closeExpenseDialog" class="icon-button" type="button" aria-label="Cerrar">×</button></div>
+      <input id="expenseId" type="hidden">
+      <div class="form-grid">
+        <label class="full">Concepto<input id="expenseDescription" required maxlength="80" placeholder="Cena, taxi, entradas…"></label>
+        <label>Importe<input id="expenseAmount" required type="number" min="0" step="0.01" inputmode="decimal"></label>
+        <label>Moneda<select id="expenseCurrency"><option value="JPY">JPY · ¥</option><option value="EUR">EUR · €</option></select></label>
+        <label>Categoría<select id="expenseCategory"></select></label>
+        <label>Fecha<input id="expenseDate" required type="date"></label>
+        <label>Pagado por<select id="expensePayer"><option>Común</option><option>Jorge</option><option>Lali</option></select></label>
+        <label>Método<select id="expenseMethod"><option>Tarjeta</option><option>Wise</option><option>Efectivo</option><option>Otro</option></select></label>
+        <label class="check-label"><input id="expensePaid" type="checkbox" checked><span>Ya está pagado</span></label>
+        <label class="full">Notas<textarea id="expenseNotes" rows="3" maxlength="240" placeholder="Opcional"></textarea></label>
+      </div>
+      <div class="dialog-actions"><button id="cancelExpenseDialog" class="secondary-button" type="button">Cancelar</button><button class="primary-button" id="saveExpense" type="submit">Guardar gasto</button></div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="config.js" defer></script>
+  <script src="https://accounts.google.com/gsi/client" defer></script>
+  <script src="https://apis.google.com/js/api.js" defer></script>
+  <script src="sheets-sync.js" defer></script>
+  <script src="trip-data.js" defer></script>
+  <script src="app.js" defer></script>
+</body>
+</html>
