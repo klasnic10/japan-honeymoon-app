@@ -9,5 +9,7 @@ window.APP_CONFIG = {
   spreadsheetId: "18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8",
   expenseSheetName: "Gastos",
   expenseSheetId: 20260720,
-  expenseTableId: "1809618102"
+  expenseTableId: "1809618102",
+  notesSheetId: 160980186,
+  notesTableId: "1830877837"
 };

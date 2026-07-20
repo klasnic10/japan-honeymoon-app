@@ -1,16 +1,20 @@
 # Japón 2026 · Jorge & Lali
 
-Primera versión funcional y móvil de la aplicación de la luna de miel.
+Aplicación móvil compartida para la luna de miel.
 
 ## Qué incluye
 
 - Itinerario del 2 al 21 de noviembre de 2026.
-- Correcciones realizadas usando `Borrador` como fuente de verdad.
+- Trayectos diarios paso a paso y enlaces directos a Google Maps.
+- Fichas de las visitas con contexto, comida, consejos y fuentes oficiales.
+- Modo `Ahora` para consultar el día del viaje de un vistazo.
+- Guía de frases, comida por zonas y emergencias.
+- Checklist y notas compartidas en Google Sheets.
 - Vuelos de Qatar Airways y alojamientos ya confirmados.
 - Enlaces privados a las confirmaciones de Gmail.
 - Enlaces directos a Google Maps y a webs oficiales de transporte.
 - Registro de gastos manuales, edición, eliminación y filtros.
-- Totales separados en EUR y JPY y conversión opcional con un cambio manual.
+- Totales filtrables en EUR y JPY con cambio diario del BCE.
 - Gastos iniciales de vuelos y alojamientos, separando pagados y pendientes.
 - Exportación CSV y copia/restauración JSON.
 - Caché offline e instalación como PWA cuando se sirve mediante HTTPS.
@@ -27,6 +31,4 @@ Después, abrir `http://localhost:8080`.
 
 ## Datos y privacidad
 
-Los gastos se guardan en `localStorage`, por lo que en esta primera versión pertenecen al navegador y dispositivo donde se introducen. Se pueden mover mediante la copia JSON. Los PIN de Booking y los billetes electrónicos no están incrustados en la aplicación; se abren en la cuenta de Gmail autorizada.
-
-La siguiente evolución natural es conectar los gastos y restaurantes a una tabla compartida para sincronizar los teléfonos de Jorge y Lali.
+Gastos, rutas, guía, checklist y notas se leen de la hoja compartida tras conectar Google. El navegador conserva una copia local para consulta sin conexión. Los PIN de Booking y los billetes electrónicos no están incrustados en la aplicación; se abren en la cuenta de Gmail autorizada.

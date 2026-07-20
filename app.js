@@ -7,6 +7,7 @@ const RATE_KEY = "japon2026.exchangeRate.v1";
 const RATE_DATE_KEY = "japon2026.exchangeRateDate.v1";
 const DISPLAY_CURRENCY_KEY = "japon2026.displayCurrency.v1";
 const PENDING_SYNC_KEY = "japon2026.pendingSheetSync.v1";
+const GUIDE_KEY = "japon2026.guideData.v1";
 const RATE_ENDPOINT = "https://api.frankfurter.dev/v2/rate/EUR/JPY?providers=ECB";
 
 const gmail = id => `https://mail.google.com/mail/#all/${id}`;
@@ -26,12 +27,17 @@ let bookingFilter = "all";
 let expenseCategoryFilter = "all";
 let expenseStatusFilter = "all";
 let expenseDisplayCurrency = localStorage.getItem(DISPLAY_CURRENCY_KEY)==="JPY"?"JPY":"EUR";
+let guideData = loadGuideData();
+let routeMode = "days";
+let guideTab = "Frase";
 let deferredInstallPrompt = null;
 
 function loadExpenses(){
   try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Array.isArray(saved) ? saved : structuredClone(seedExpenses); }
   catch { return structuredClone(seedExpenses); }
 }
+function loadGuideData(){try{const saved=JSON.parse(localStorage.getItem(GUIDE_KEY));return saved&&Array.isArray(saved.routes)?saved:{routes:[],places:[],practical:[],checklist:[],notes:[]};}catch{return {routes:[],places:[],practical:[],checklist:[],notes:[]};}}
+function saveGuideData(data){guideData=data;localStorage.setItem(GUIDE_KEY,JSON.stringify(data));renderRoute();renderGuide();}
 function saveExpenses(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses)); renderExpenses(); renderHome(); }
 function loadPendingSync(){try{const value=JSON.parse(localStorage.getItem(PENDING_SYNC_KEY));return Array.isArray(value)?value:[];}catch{return [];}}
 function queueSheetSync(operation){
@@ -57,6 +63,7 @@ async function flushPendingSync(){
 function fmtDate(iso, options={day:"numeric",month:"short"}){ return new Intl.DateTimeFormat("es-ES",options).format(new Date(`${iso}T12:00:00`)); }
 function fmtMoney(amount,currency){ return new Intl.NumberFormat("es-ES",{style:"currency",currency,maximumFractionDigits:currency==="JPY"?0:2}).format(amount); }
 function escapeHtml(value=""){ return String(value).replace(/[&<>'"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[ch])); }
+function safeUrl(value){try{const url=new URL(String(value));return ["http:","https:"].includes(url.protocol)?url.href:"";}catch{return "";}}
 function statusLabel(status){ return status === "confirmed" ? "Confirmado" : "Pendiente"; }
 
 function navigate(view){
@@ -89,22 +96,66 @@ function renderHome(){
   document.getElementById("expenseQuickSummary").textContent=`${fmtMoney(totals.EUR,"EUR")} + ${fmtMoney(totals.JPY,"JPY")}`;
 }
 
+function routeLegMarkup(leg){
+  const icons={"A pie":"🚶","Metro":"Ⓜ️","Tren":"🚆","Bus":"🚌","Taxi":"🚕"};
+  const map=safeUrl(leg.map),source=safeUrl(leg.source);
+  return `<article class="route-leg"><div class="route-leg-icon">${icons[leg.type]||"➜"}</div><div class="route-leg-copy"><div class="route-leg-head"><strong>${escapeHtml(leg.origin)} → ${escapeHtml(leg.destination)}</strong><span class="chip ${leg.status==="Validado"?"confirmed":"pending"}">${escapeHtml(leg.status)}</span></div><p>${escapeHtml(leg.instruction)}</p>${leg.line?`<small><b>${escapeHtml(leg.line)}</b>${leg.stops?` · ${escapeHtml(leg.stops)}`:""}${leg.duration?` · ${escapeHtml(leg.duration)}`:""}</small>`:""}${leg.notes?`<small class="route-warning">${escapeHtml(leg.notes)}</small>`:""}<div class="mini-actions">${map?`<a href="${map}" target="_blank" rel="noreferrer">Abrir trayecto</a>`:""}${source?`<a href="${source}" target="_blank" rel="noreferrer">Fuente</a>`:""}</div></div></article>`;
+}
+function placeMarkup(place){
+  const source=safeUrl(place.source);
+  return `<details class="place-guide"><summary><span>📖</span><div><strong>${escapeHtml(place.title||place.zone)}</strong><small>${escapeHtml([place.slot,place.time,place.duration].filter(Boolean).join(" · "))}</small></div><b>›</b></summary><div><p>${escapeHtml(place.description)}</p>${place.food?`<p><strong>🍜 Para comer:</strong> ${escapeHtml(place.food)}</p>`:""}${place.tips?`<p><strong>💡 Consejo:</strong> ${escapeHtml(place.tips)}</p>`:""}${place.reservation?`<p><strong>🎟️ Reserva:</strong> ${escapeHtml(place.reservation)}</p>`:""}${source?`<a href="${source}" target="_blank" rel="noreferrer">Información oficial</a>`:""}</div></details>`;
+}
 function renderRoute(){
   const cities=["Todos",...new Set(days.map(day=>day.city))];
   document.getElementById("cityFilters").innerHTML=cities.map(city=>`<button class="${routeFilter===city?"active":""}" data-city="${escapeHtml(city)}">${escapeHtml(city)}</button>`).join("");
   const selected=routeFilter==="Todos"?days:days.filter(day=>day.city===routeFilter);
   document.getElementById("routeList").innerHTML=selected.map((day,index)=>{
     const d=new Date(`${day.date}T12:00:00`),month=new Intl.DateTimeFormat("es-ES",{month:"short"}).format(d),weekday=new Intl.DateTimeFormat("es-ES",{weekday:"long"}).format(d);
-    return `<details class="day-card" ${isToday(day.date)||index===0?"open":""}><summary><div class="date-tile"><strong>${d.getDate()}</strong><small>${month}</small></div><div><h2>${escapeHtml(day.title)}</h2><p>${escapeHtml(weekday)} · ${escapeHtml(day.city)} · duerme en ${escapeHtml(day.sleep)}</p></div><span>›</span></summary><div class="day-detail">${day.slots.map(slot=>`<div class="slot"><time>${escapeHtml(slot.label)}<br>${escapeHtml(slot.time)}</time><div><strong>${escapeHtml(slot.title)}</strong><p>${escapeHtml(slot.desc)}</p></div></div>`).join("")}${day.transport?`<div class="transport-note"><strong>Desplazamiento:</strong> ${escapeHtml(day.transport)}</div>`:""}<div class="day-actions"><a href="${mapsSearch(day.map)}" target="_blank" rel="noreferrer">📍 Abrir en Maps</a><a href="${mapsNavigate(day.map,"walking")}" target="_blank" rel="noreferrer">↗ Cómo llegar</a></div></div></details>`;
+    const legs=guideData.routes.filter(item=>item.date===day.date).sort((a,b)=>a.order-b.order);
+    const places=guideData.places.filter(item=>item.date===day.date);
+    return `<details class="day-card" ${isToday(day.date)||index===0?"open":""}><summary><div class="date-tile"><strong>${d.getDate()}</strong><small>${month}</small></div><div><h2>${escapeHtml(day.title)}</h2><p>${escapeHtml(weekday)} · ${escapeHtml(day.city)} · duerme en ${escapeHtml(day.sleep)}</p></div><span>›</span></summary><div class="day-detail">${day.slots.map(slot=>`<div class="slot"><time>${escapeHtml(slot.label)}<br>${escapeHtml(slot.time)}</time><div><strong>${escapeHtml(slot.title)}</strong><p>${escapeHtml(slot.desc)}</p></div></div>`).join("")}${day.transport?`<div class="transport-note"><strong>Desplazamiento:</strong> ${escapeHtml(day.transport)}</div>`:""}${legs.length?`<section class="day-section"><h3>Cómo moveros</h3>${legs.map(routeLegMarkup).join("")}</section>`:`<div class="guide-placeholder">Conecta Google para ver los trayectos paso a paso.</div>`}${places.length?`<section class="day-section"><h3>Guía de las visitas</h3>${places.map(placeMarkup).join("")}</section>`:""}<div class="day-actions"><a href="${mapsSearch(day.map)}" target="_blank" rel="noreferrer">📍 Ver la zona</a></div></div></details>`;
   }).join("");
+  renderNow();
 }
-function isToday(iso){ return new Date().toISOString().slice(0,10)===iso; }
+function japanToday(){return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());}
+function isToday(iso){ return japanToday()===iso; }
+function renderNow(){
+  const panel=document.getElementById("routeNowPanel");if(!panel)return;
+  const today=japanToday();let day=days.find(item=>item.date===today);
+  const phase=today<days[0].date?"before":today>days.at(-1).date?"after":"during";
+  if(!day)day=phase==="before"?days[0]:days.at(-1);
+  const places=guideData.places.filter(item=>item.date===day.date),legs=guideData.routes.filter(item=>item.date===day.date).sort((a,b)=>a.order-b.order);
+  const nowHour=Number(new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Tokyo",hour:"2-digit",hour12:false}).format(new Date()));
+  const current=places.find(item=>{const hour=Number(String(item.time).match(/\d{1,2}/)?.[0]);return Number.isFinite(hour)&&hour>=nowHour;})||places[0];
+  panel.innerHTML=`<section class="now-card panel"><p class="eyebrow">${phase==="during"?"En Japón ahora":"Vista previa"}</p><h2>${escapeHtml(day.title)}</h2><p>${phase==="before"?`El viaje todavía no ha empezado. Este será el primer día.`:phase==="after"?"El viaje ya ha terminado. Este fue el último día.":`Hoy es ${escapeHtml(fmtDate(day.date,{weekday:"long",day:"numeric",month:"long"}))}.`}</p>${current?`<div class="now-focus"><small>Siguiente visita</small><strong>${escapeHtml(current.title)}</strong><p>${escapeHtml(current.description)}</p></div>`:""}${legs.length?`<div class="day-section"><h3>Trayectos de hoy</h3>${legs.map(routeLegMarkup).join("")}</div>`:`<div class="guide-placeholder">Conecta Google para cargar los trayectos del día.</div>`}</section>`;
+}
 
 function renderBookings(){
   const filters=[{id:"all",label:"Todas"},{id:"hotel",label:"Hoteles"},{id:"flight",label:"Vuelos"},{id:"transport",label:"Trenes y buses"},{id:"pending",label:"Pendientes"}];
   document.getElementById("bookingFilters").innerHTML=filters.map(f=>`<button class="${bookingFilter===f.id?"active":""}" data-booking-filter="${f.id}">${f.label}</button>`).join("");
   const selected=bookings.filter(b=>bookingFilter==="all"||b.kind===bookingFilter||(bookingFilter==="pending"&&b.status==="pending"));
   document.getElementById("bookingList").innerHTML=selected.map(b=>`<article class="booking-card"><div class="booking-top"><div><span class="booking-type">${b.icon}</span><h2>${escapeHtml(b.title)}</h2><p class="sub">${escapeHtml(b.subtitle)}</p></div><span class="chip ${b.status}">${statusLabel(b.status)}</span></div><div class="booking-info"><div><small>${escapeHtml(b.from)}</small><strong>${escapeHtml(b.dates)}</strong></div><div><small>${escapeHtml(b.to)}</small><strong>${escapeHtml(b.detail)}</strong></div></div><div class="booking-links">${b.emailId?`<a href="${gmail(b.emailId)}" target="_blank" rel="noreferrer">Ver confirmación</a>`:""}${b.url?`<a href="${b.url}" target="_blank" rel="noreferrer">Web oficial</a>`:""}${b.map?`<a class="secondary" href="${mapsSearch(b.map)}" target="_blank" rel="noreferrer">Google Maps</a>`:""}</div></article>`).join("");
+}
+
+function practicalMarkup(item){
+  const link=safeUrl(item.link),source=safeUrl(item.source);
+  return `<article class="guide-card"><span class="guide-context">${escapeHtml(item.context||item.type)}</span><h2>${escapeHtml(item.title)}</h2>${item.japanese?`<div class="japanese"><strong>${escapeHtml(item.japanese)}</strong><small>${escapeHtml(item.pronunciation)}</small></div>`:""}<p>${escapeHtml(item.content)}</p>${item.detail?`<p class="guide-detail">${escapeHtml(item.detail)}</p>`:""}<div class="mini-actions">${link?`<a href="${link}" target="_blank" rel="noreferrer">Abrir mapa</a>`:""}${source?`<a href="${source}" target="_blank" rel="noreferrer">Fuente oficial</a>`:""}</div></article>`;
+}
+function renderGuide(){
+  const content=document.getElementById("guideContent");if(!content)return;
+  document.querySelectorAll("[data-guide-tab]").forEach(button=>button.classList.toggle("active",button.dataset.guideTab===guideTab));
+  if(guideTab==="Checklist"){
+    const items=guideData.checklist||[];
+    content.innerHTML=items.length?`<div class="guide-summary panel"><strong>${items.filter(item=>item.done).length}/${items.length}</strong><span>tareas completadas</span></div><div class="checklist-list">${items.map(item=>`<label class="check-item ${item.done?"done":""}"><input type="checkbox" data-checklist-id="${escapeHtml(item.id)}" ${item.done?"checked":""}><span><strong>${escapeHtml(item.task)}</strong><small>${escapeHtml([item.phase,item.category,item.owner,item.notes].filter(Boolean).join(" · "))}</small></span></label>`).join("")}</div>`:`<div class="panel empty">Conecta Google para cargar el checklist compartido.</div>`;
+    return;
+  }
+  if(guideTab==="Notas"){
+    const notes=(guideData.notes||[]).sort((a,b)=>String(b.updated).localeCompare(String(a.updated)));
+    content.innerHTML=`<div class="guide-toolbar"><p>Lo que escribáis aquí se guarda en la hoja compartida.</p><button class="primary-button" id="openNoteForm" type="button">＋ Nota</button></div><div class="notes-list">${notes.map(note=>`<article class="note-card"><div><small>${escapeHtml([note.date?fmtDate(note.date):"",note.place,note.author].filter(Boolean).join(" · "))}</small><p>${escapeHtml(note.text)}</p></div>${note.id!=="note-welcome"?`<button type="button" data-delete-note="${escapeHtml(note.id)}" aria-label="Eliminar nota">×</button>`:""}</article>`).join("")||`<div class="panel empty">Todavía no hay notas.</div>`}</div>`;
+    return;
+  }
+  const selected=(guideData.practical||[]).filter(item=>item.type===guideTab);
+  content.innerHTML=selected.length?selected.map(practicalMarkup).join(""):`<div class="panel empty">Conecta Google para cargar esta parte de la guía.</div>`;
 }
 
 function renderExpenses(){
@@ -181,19 +232,31 @@ async function deleteExpense(id){
 }
 
 function updateSyncUi({state,message,configured,connected}){
-  const panel=document.querySelector(".sync-panel"),button=document.getElementById("connectGoogle");
-  panel.dataset.state=state;
+  const panel=document.querySelector("#view-expenses .sync-panel"),button=document.getElementById("connectGoogle"),routePanel=document.querySelector(".route-sync-panel"),routeButton=document.getElementById("connectRouteGoogle");
+  panel.dataset.state=state;routePanel.dataset.state=state;
   document.getElementById("syncTitle").textContent=connected?"Google Sheets conectado":configured?"Gastos en este dispositivo":"Falta configurar Google";
   document.getElementById("syncStatus").textContent=message;
   button.textContent=connected?"Sincronizar":"Conectar Google";
   button.disabled=["connecting","syncing"].includes(state);
+  document.getElementById("routeSyncStatus").textContent=connected?(guideData.loadedAt?`Rutas actualizadas · ${fmtDate(guideData.loadedAt.slice(0,10),{day:"numeric",month:"short"})}`:"Google Sheets conectado"):message;
+  routeButton.textContent=connected?"Actualizar":"Conectar";
+  routeButton.disabled=["connecting","syncing"].includes(state);
 }
 function setupSheetSync(){
   if(!window.sheetExpenseStore)return updateSyncUi({state:"error",message:"No se ha cargado el conector de Google.",configured:false,connected:false});
   window.sheetExpenseStore.init({
     onStatus:updateSyncUi,
-    onExpenses:remoteExpenses=>{expenses=mergePendingSync(remoteExpenses);saveExpenses();}
+    onExpenses:remoteExpenses=>{expenses=mergePendingSync(remoteExpenses);saveExpenses();},
+    onGuideData:saveGuideData
   });
+}
+
+async function connectAndSync(){
+  try{
+    if(window.sheetExpenseStore?.isConnected())await window.sheetExpenseStore.loadAll();
+    else await window.sheetExpenseStore?.connect();
+    await flushPendingSync();
+  }catch(error){console.error(error);updateSyncUi({state:"error",message:error.message||"No se ha podido conectar con Google.",configured:true,connected:false});toast("No se ha podido sincronizar");}
 }
 
 async function refreshExchangeRate({announce=false}={}){
@@ -229,10 +292,27 @@ function exportBackup(){ exportFile("japon-2026-backup.json",JSON.stringify({ver
 async function importBackup(file){ try{const data=JSON.parse(await file.text());if(!Array.isArray(data.expenses))throw new Error();expenses=data.expenses;localStorage.setItem(RATE_KEY,data.exchangeRate||"");document.getElementById("exchangeRate").value=data.exchangeRate||"";saveExpenses();toast("Copia restaurada");}catch{alert("No se ha podido leer esta copia de seguridad.");} }
 function toast(message){ const el=document.getElementById("toast");el.textContent=message;el.classList.add("show");clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove("show"),2200); }
 
+function openNote(){
+  if(!window.sheetExpenseStore?.isConnected()){toast("Conecta Google antes de añadir una nota");return;}
+  document.getElementById("noteDate").value=(japanToday()>=days[0].date&&japanToday()<=days.at(-1).date)?japanToday():"";
+  document.getElementById("notePlace").value="";document.getElementById("noteText").value="";document.getElementById("noteDialog").showModal();
+}
+function closeNote(){const dialog=document.getElementById("noteDialog");if(dialog.open)dialog.close();}
+async function submitNote(event){
+  event.preventDefault();if(!event.currentTarget.reportValidity())return;
+  const note={id:`note-${Date.now()}`,date:document.getElementById("noteDate").value,place:document.getElementById("notePlace").value.trim(),text:document.getElementById("noteText").value.trim(),author:document.getElementById("noteAuthor").value};
+  try{await window.sheetExpenseStore.addNote(note);closeNote();toast("Nota compartida");}catch(error){console.error(error);toast(error.message||"No se ha podido guardar");}
+}
+
 function bindEvents(){
   document.addEventListener("click",event=>{
     const nav=event.target.closest("[data-nav]");if(nav){navigate(nav.dataset.nav);return;}
     const city=event.target.closest("[data-city]");if(city){routeFilter=city.dataset.city;renderRoute();return;}
+    const mode=event.target.closest("[data-route-mode]");if(mode){routeMode=mode.dataset.routeMode;document.querySelectorAll("[data-route-mode]").forEach(button=>button.classList.toggle("active",button===mode));document.getElementById("routeDaysPanel").classList.toggle("hidden",routeMode!=="days");document.getElementById("routeNowPanel").classList.toggle("hidden",routeMode!=="now");renderNow();return;}
+    const tab=event.target.closest("[data-guide-tab]");if(tab){guideTab=tab.dataset.guideTab;renderGuide();return;}
+    const openNoteButton=event.target.closest("#openNoteForm");if(openNoteButton){openNote();return;}
+    const deleteNoteButton=event.target.closest("[data-delete-note]");if(deleteNoteButton){if(confirm("¿Eliminar esta nota compartida?"))window.sheetExpenseStore.removeNote(deleteNoteButton.dataset.deleteNote).then(()=>toast("Nota eliminada")).catch(error=>toast(error.message));return;}
+    const checklist=event.target.closest("[data-checklist-id]");if(checklist){const done=checklist.checked;checklist.disabled=true;window.sheetExpenseStore?.setChecklist(checklist.dataset.checklistId,done).then(()=>toast(done?"Tarea completada":"Tarea reabierta")).catch(error=>{checklist.checked=!done;checklist.disabled=false;toast(error.message||"Conecta Google para actualizarla");});return;}
     const booking=event.target.closest("[data-booking-filter]");if(booking){bookingFilter=booking.dataset.bookingFilter;renderBookings();return;}
     const expenseStatus=event.target.closest("[data-expense-status]");if(expenseStatus){expenseStatusFilter=expenseStatus.dataset.expenseStatus;renderExpenses();return;}
     const expenseCategory=event.target.closest("[data-expense-category]");if(expenseCategory){expenseCategoryFilter=expenseCategory.dataset.expenseCategory;renderExpenses();return;}
@@ -245,16 +325,15 @@ function bindEvents(){
   document.getElementById("closeExpenseDialog").addEventListener("click",closeExpense);
   document.getElementById("cancelExpenseDialog").addEventListener("click",closeExpense);
   document.getElementById("expenseDialog").addEventListener("click",event=>{if(event.target===event.currentTarget)closeExpense();});
-  document.getElementById("routeList").addEventListener("click",event=>{const summary=event.target.closest(".day-card summary");if(!summary)return;const current=summary.parentElement;document.querySelectorAll("#routeList .day-card[open]").forEach(card=>{if(card!==current)card.removeAttribute("open");});});
+  document.getElementById("routeList").addEventListener("click",event=>{const summary=event.target.closest("summary");if(!summary||!summary.parentElement.matches(".day-card"))return;const current=summary.parentElement;document.querySelectorAll("#routeList .day-card[open]").forEach(card=>{if(card!==current)card.removeAttribute("open");});});
   document.getElementById("exchangeRate").addEventListener("input",event=>{localStorage.setItem(RATE_KEY,event.target.value);localStorage.removeItem(RATE_DATE_KEY);document.getElementById("exchangeRateMeta").textContent="Cambio introducido manualmente";renderExpenses();});
   document.getElementById("refreshRate").addEventListener("click",()=>refreshExchangeRate({announce:true}));
-  document.getElementById("connectGoogle").addEventListener("click",async()=>{
-    try{
-      if(window.sheetExpenseStore?.isConnected())await window.sheetExpenseStore.loadExpenses();
-      else await window.sheetExpenseStore?.connect();
-      await flushPendingSync();
-    }catch(error){console.error(error);updateSyncUi({state:"error",message:error.message||"No se ha podido conectar con Google.",configured:true,connected:false});}
-  });
+  document.getElementById("connectGoogle").addEventListener("click",connectAndSync);
+  document.getElementById("connectRouteGoogle").addEventListener("click",connectAndSync);
+  document.getElementById("noteForm").addEventListener("submit",submitNote);
+  document.getElementById("closeNoteDialog").addEventListener("click",closeNote);
+  document.getElementById("cancelNoteDialog").addEventListener("click",closeNote);
+  document.getElementById("noteDialog").addEventListener("click",event=>{if(event.target===event.currentTarget)closeNote();});
   document.getElementById("exportCsv").addEventListener("click",exportCsv);
   document.getElementById("exportBackup").addEventListener("click",exportBackup);
   document.getElementById("importBackup").addEventListener("change",event=>event.target.files[0]&&importBackup(event.target.files[0]));
@@ -278,7 +357,7 @@ function bindEvents(){
 
 function init(){
   populateExpenseSelects(); document.getElementById("exchangeRate").value=localStorage.getItem(RATE_KEY)||"";
-  bindEvents(); setupSheetSync(); renderHome(); renderRoute(); renderBookings(); renderExpenses();
+  bindEvents(); setupSheetSync(); renderHome(); renderRoute(); renderBookings(); renderExpenses(); renderGuide();
   refreshExchangeRate();
   if("serviceWorker" in navigator){
     const isLocal=["localhost","127.0.0.1","::1"].includes(location.hostname);

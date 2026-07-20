@@ -34,8 +34,8 @@ Después activa GitHub Pages con `GitHub Actions` como origen de publicación. E
 ## 4. Primera conexión
 
 1. Abre la app publicada.
-2. En Gastos, pulsa **Conectar Google**.
+2. En Ruta o Gastos, pulsa **Conectar Google**.
 3. Autoriza el acceso solicitado.
 4. Selecciona `Viaje Japón 2026` en Google Picker.
 
-La app leerá la pestaña `Gastos`. Las altas, ediciones y eliminaciones posteriores se escribirán en la misma tabla cuando haya conexión.
+La app leerá `Gastos`, `Rutas`, `Detalle del viaje`, `Guía práctica`, `Checklist` y `Notas`. Los gastos, tareas y notas se actualizarán en la misma hoja cuando haya conexión.
