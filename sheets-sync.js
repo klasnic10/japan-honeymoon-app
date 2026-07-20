@@ -155,9 +155,19 @@
       };
       const timer=setTimeout(()=>{const error=new Error("Google no ha podido devolver la autorización a esta pestaña. Ábrela directamente en Safari o Chrome.");error.state="browser";finish(reject,error);},60000);
       tokenClient=google.accounts.oauth2.initTokenClient({client_id:config.googleClientId,scope:TOKEN_SCOPE,callback,error_callback:errorCallback});
-      tokenClient.requestAccessToken(selectedSpreadsheetId?{}:{prompt:"consent"});
+      tokenClient.requestAccessToken({prompt:"select_account"});
     });
-    if(selectedSpreadsheetId===config.spreadsheetId){try{await loadAll();return true;}catch{status("connecting","Selecciona de nuevo la hoja compartida.");}}
+    status("connecting","Cuenta autorizada · comprobando la hoja compartida…");
+    selectedSpreadsheetId=config.spreadsheetId;
+    try{
+      await loadAll();
+      localStorage.setItem(SELECTED_FILE_KEY,config.spreadsheetId);
+      return true;
+    }catch(error){
+      if(!/Google Sheets 403/.test(error.message||""))throw error;
+      selectedSpreadsheetId="";
+      status("connecting","Google necesita que selecciones la hoja una vez.");
+    }
     const pickedId=await chooseSpreadsheet();
     if(pickedId!==config.spreadsheetId){accessToken="";status("error","Selecciona la hoja “Viaje Japón 2026”.");return false;}
     selectedSpreadsheetId=pickedId;localStorage.setItem(SELECTED_FILE_KEY,pickedId);await loadAll();return true;
