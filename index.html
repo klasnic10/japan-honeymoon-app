@@ -192,6 +192,17 @@
     </form>
   </dialog>
 
+  <dialog id="placeDialog" class="place-dialog" aria-labelledby="placeDialogTitle">
+    <div class="place-dialog-shell">
+      <header class="place-dialog-header">
+        <button id="closePlaceDialog" class="place-dialog-back" type="button" aria-label="Volver a la ruta">‹</button>
+        <strong>Guía de la visita</strong>
+        <span aria-hidden="true"></span>
+      </header>
+      <article id="placeDialogContent" class="place-dialog-content"></article>
+    </div>
+  </dialog>
+
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="config.js" defer></script>
   <script src="https://accounts.google.com/gsi/client" defer></script>

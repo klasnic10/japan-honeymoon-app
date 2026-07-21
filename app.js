@@ -31,13 +31,16 @@ let guideData = loadGuideData();
 let routeMode = "days";
 let guideTab = "Frase";
 let deferredInstallPrompt = null;
+let selectedPlaceId = "";
+
+function emptyGuideData(){return {routes:[],places:[],placeGuides:[],recommendations:[],practical:[],checklist:[],notes:[]};}
 
 function loadExpenses(){
   try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Array.isArray(saved) ? saved : structuredClone(seedExpenses); }
   catch { return structuredClone(seedExpenses); }
 }
-function loadGuideData(){try{const saved=JSON.parse(localStorage.getItem(GUIDE_KEY));return saved&&Array.isArray(saved.routes)?saved:{routes:[],places:[],practical:[],checklist:[],notes:[]};}catch{return {routes:[],places:[],practical:[],checklist:[],notes:[]};}}
-function saveGuideData(data){guideData=data;localStorage.setItem(GUIDE_KEY,JSON.stringify(data));renderRoute();renderGuide();}
+function loadGuideData(){try{const saved=JSON.parse(localStorage.getItem(GUIDE_KEY));return saved&&Array.isArray(saved.routes)?{...emptyGuideData(),...saved}:emptyGuideData();}catch{return emptyGuideData();}}
+function saveGuideData(data){guideData={...emptyGuideData(),...data};localStorage.setItem(GUIDE_KEY,JSON.stringify(guideData));renderRoute();renderGuide();openPlaceFromHash();}
 function saveExpenses(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses)); renderExpenses(); renderHome(); }
 function loadPendingSync(){try{const value=JSON.parse(localStorage.getItem(PENDING_SYNC_KEY));return Array.isArray(value)?value:[];}catch{return [];}}
 function queueSheetSync(operation){
@@ -65,6 +68,14 @@ function fmtMoney(amount,currency){ return new Intl.NumberFormat("es-ES",{style:
 function escapeHtml(value=""){ return String(value).replace(/[&<>'"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[ch])); }
 function safeUrl(value){try{const url=new URL(String(value));return ["http:","https:"].includes(url.protocol)?url.href:"";}catch{return "";}}
 function statusLabel(status){ return status === "confirmed" ? "Confirmado" : "Pendiente"; }
+function normalized(value=""){return String(value).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
+function richGuideFor(place){return (guideData.placeGuides||[]).find(item=>item.date===place.date&&normalized(item.title)===normalized(place.title));}
+function recommendationsFor(guideId){return (guideData.recommendations||[]).filter(item=>item.placeId===guideId);}
+function detailTextMarkup(value){
+  const parts=String(value||"").split(/\n+/).map(item=>item.replace(/^\s*[•*-]\s*/,"").trim()).filter(Boolean);
+  if(!parts.length)return "";
+  return parts.length===1?`<p>${escapeHtml(parts[0])}</p>`:`<ul>${parts.map(item=>`<li>${escapeHtml(item)}</li>`).join("")}</ul>`;
+}
 
 function navigate(view){
   document.querySelectorAll(".view").forEach(section=>section.classList.toggle("active",section.dataset.view===view));
@@ -102,8 +113,17 @@ function routeLegMarkup(leg){
   return `<article class="route-leg"><div class="route-leg-icon">${icons[leg.type]||"➜"}</div><div class="route-leg-copy"><div class="route-leg-head"><strong>${escapeHtml(leg.origin)} → ${escapeHtml(leg.destination)}</strong><span class="chip ${leg.status==="Validado"?"confirmed":"pending"}">${escapeHtml(leg.status)}</span></div><p>${escapeHtml(leg.instruction)}</p>${leg.line?`<small><b>${escapeHtml(leg.line)}</b>${leg.stops?` · ${escapeHtml(leg.stops)}`:""}${leg.duration?` · ${escapeHtml(leg.duration)}`:""}</small>`:""}${leg.notes?`<small class="route-warning">${escapeHtml(leg.notes)}</small>`:""}<div class="mini-actions">${map?`<a href="${map}" target="_blank" rel="noreferrer">Abrir trayecto</a>`:""}${source?`<a href="${source}" target="_blank" rel="noreferrer">Fuente</a>`:""}</div></div></article>`;
 }
 function placeMarkup(place){
-  const source=safeUrl(place.source);
-  return `<details class="place-guide"><summary><span>📖</span><div><strong>${escapeHtml(place.title||place.zone)}</strong><small>${escapeHtml([place.slot,place.time,place.duration].filter(Boolean).join(" · "))}</small></div><b>›</b></summary><div><p>${escapeHtml(place.description)}</p>${place.food?`<p><strong>🍜 Para comer:</strong> ${escapeHtml(place.food)}</p>`:""}${place.tips?`<p><strong>💡 Consejo:</strong> ${escapeHtml(place.tips)}</p>`:""}${place.reservation?`<p><strong>🎟️ Reserva:</strong> ${escapeHtml(place.reservation)}</p>`:""}${source?`<a href="${source}" target="_blank" rel="noreferrer">Información oficial</a>`:""}</div></details>`;
+  const guide=richGuideFor(place),summary=guide?.summary||place.description;
+  return `<button class="place-guide-card" type="button" data-place-id="${escapeHtml(place.id)}"><span class="place-guide-icon">📖</span><span class="place-guide-copy"><small>${escapeHtml(guide?.neighborhood||place.zone||place.slot)}</small><strong>${escapeHtml(place.title||place.zone)}</strong><span>${escapeHtml(summary)}</span><em>${escapeHtml([place.time,place.duration].filter(Boolean).join(" · "))}</em></span><b aria-hidden="true">›</b></button>`;
+}
+function journeyMarkup(places,legs){
+  const enriched=places.map(place=>({place,guide:richGuideFor(place)}));
+  const canInterleave=places.length>0&&enriched.every(item=>item.guide?.arrivalRouteId&&legs.some(leg=>leg.id===item.guide.arrivalRouteId));
+  if(!canInterleave){
+    return `${places.length?`<section class="day-section"><h3>Guía de las visitas</h3><div class="place-guide-list">${places.map(placeMarkup).join("")}</div></section>`:""}${legs.length?`<section class="day-section"><h3>Cómo moveros</h3>${legs.map(routeLegMarkup).join("")}</section>`:`<div class="guide-placeholder">Conecta Google para ver los trayectos paso a paso.</div>`}`;
+  }
+  const placesByRoute=new Map(enriched.map(item=>[item.guide.arrivalRouteId,item.place]));
+  return `<section class="day-section journey-section"><h3>Plan paso a paso</h3><div class="journey-flow">${legs.map(leg=>`${routeLegMarkup(leg)}${placesByRoute.has(leg.id)?placeMarkup(placesByRoute.get(leg.id)):""}`).join("")}</div></section>`;
 }
 function renderRoute(){
   const cities=["Todos",...new Set(days.map(day=>day.city))];
@@ -113,7 +133,7 @@ function renderRoute(){
     const d=new Date(`${day.date}T12:00:00`),month=new Intl.DateTimeFormat("es-ES",{month:"short"}).format(d),weekday=new Intl.DateTimeFormat("es-ES",{weekday:"long"}).format(d);
     const legs=guideData.routes.filter(item=>item.date===day.date).sort((a,b)=>a.order-b.order);
     const places=guideData.places.filter(item=>item.date===day.date);
-    return `<details class="day-card" ${isToday(day.date)||index===0?"open":""}><summary><div class="date-tile"><strong>${d.getDate()}</strong><small>${month}</small></div><div><h2>${escapeHtml(day.title)}</h2><p>${escapeHtml(weekday)} · ${escapeHtml(day.city)} · duerme en ${escapeHtml(day.sleep)}</p></div><span>›</span></summary><div class="day-detail">${day.slots.map(slot=>`<div class="slot"><time>${escapeHtml(slot.label)}<br>${escapeHtml(slot.time)}</time><div><strong>${escapeHtml(slot.title)}</strong><p>${escapeHtml(slot.desc)}</p></div></div>`).join("")}${day.transport?`<div class="transport-note"><strong>Desplazamiento:</strong> ${escapeHtml(day.transport)}</div>`:""}${legs.length?`<section class="day-section"><h3>Cómo moveros</h3>${legs.map(routeLegMarkup).join("")}</section>`:`<div class="guide-placeholder">Conecta Google para ver los trayectos paso a paso.</div>`}${places.length?`<section class="day-section"><h3>Guía de las visitas</h3>${places.map(placeMarkup).join("")}</section>`:""}<div class="day-actions"><a href="${mapsSearch(day.map)}" target="_blank" rel="noreferrer">📍 Ver la zona</a></div></div></details>`;
+    return `<details class="day-card" ${isToday(day.date)||index===0?"open":""}><summary><div class="date-tile"><strong>${d.getDate()}</strong><small>${month}</small></div><div><h2>${escapeHtml(day.title)}</h2><p>${escapeHtml(weekday)} · ${escapeHtml(day.city)} · duerme en ${escapeHtml(day.sleep)}</p></div><span>›</span></summary><div class="day-detail">${day.slots.map(slot=>`<div class="slot"><time>${escapeHtml(slot.label)}<br>${escapeHtml(slot.time)}</time><div><strong>${escapeHtml(slot.title)}</strong><p>${escapeHtml(slot.desc)}</p></div></div>`).join("")}${day.transport?`<div class="transport-note"><strong>Desplazamiento:</strong> ${escapeHtml(day.transport)}</div>`:""}${journeyMarkup(places,legs)}<div class="day-actions"><a href="${mapsSearch(day.map)}" target="_blank" rel="noreferrer">📍 Ver la zona</a></div></div></details>`;
   }).join("");
   renderNow();
 }
@@ -127,8 +147,34 @@ function renderNow(){
   const places=guideData.places.filter(item=>item.date===day.date),legs=guideData.routes.filter(item=>item.date===day.date).sort((a,b)=>a.order-b.order);
   const nowHour=Number(new Intl.DateTimeFormat("en-GB",{timeZone:"Asia/Tokyo",hour:"2-digit",hour12:false}).format(new Date()));
   const current=places.find(item=>{const hour=Number(String(item.time).match(/\d{1,2}/)?.[0]);return Number.isFinite(hour)&&hour>=nowHour;})||places[0];
-  panel.innerHTML=`<section class="now-card panel"><p class="eyebrow">${phase==="during"?"En Japón ahora":"Vista previa"}</p><h2>${escapeHtml(day.title)}</h2><p>${phase==="before"?`El viaje todavía no ha empezado. Este será el primer día.`:phase==="after"?"El viaje ya ha terminado. Este fue el último día.":`Hoy es ${escapeHtml(fmtDate(day.date,{weekday:"long",day:"numeric",month:"long"}))}.`}</p>${current?`<div class="now-focus"><small>Siguiente visita</small><strong>${escapeHtml(current.title)}</strong><p>${escapeHtml(current.description)}</p></div>`:""}${legs.length?`<div class="day-section"><h3>Trayectos de hoy</h3>${legs.map(routeLegMarkup).join("")}</div>`:`<div class="guide-placeholder">Conecta Google para cargar los trayectos del día.</div>`}</section>`;
+  panel.innerHTML=`<section class="now-card panel"><p class="eyebrow">${phase==="during"?"En Japón ahora":"Vista previa"}</p><h2>${escapeHtml(day.title)}</h2><p>${phase==="before"?`El viaje todavía no ha empezado. Este será el primer día.`:phase==="after"?"El viaje ya ha terminado. Este fue el último día.":`Hoy es ${escapeHtml(fmtDate(day.date,{weekday:"long",day:"numeric",month:"long"}))}.`}</p>${current?`<button class="now-focus" type="button" data-place-id="${escapeHtml(current.id)}"><small>Siguiente visita</small><strong>${escapeHtml(current.title)}</strong><p>${escapeHtml(current.description)}</p><span>Ver guía completa ›</span></button>`:""}${legs.length?`<div class="day-section"><h3>Trayectos de hoy</h3>${legs.map(routeLegMarkup).join("")}</div>`:`<div class="guide-placeholder">Conecta Google para cargar los trayectos del día.</div>`}</section>`;
 }
+
+function placeGuideDialogMarkup(place){
+  const guide=richGuideFor(place)||{},recommendations=recommendationsFor(guide.id);
+  const source=safeUrl(guide.source||place.source),map=safeUrl(guide.map)||mapsSearch(`${place.title} ${guide.city||place.zone||"Japón"}`);
+  const overview=guide.summary||place.description;
+  return `<div class="place-dialog-hero"><p class="eyebrow">${escapeHtml(guide.neighborhood||place.zone||"Guía de visita")}</p><h2 id="placeDialogTitle">${escapeHtml(place.title||place.zone)}</h2><div class="place-dialog-meta"><span>${escapeHtml(place.time||"")}</span><span>${escapeHtml(guide.duration||place.duration||"")}</span></div><p>${escapeHtml(overview)}</p></div>
+    ${guide.history?`<section class="place-dialog-section"><h3>Historia en un minuto</h3>${detailTextMarkup(guide.history)}</section>`:""}
+    ${guide.highlights?`<details class="place-dialog-section" open><summary>Qué merece la pena mirar <span>＋</span></summary>${detailTextMarkup(guide.highlights)}</details>`:""}
+    ${guide.route?`<details class="place-dialog-section" open><summary>Cómo recorrerlo <span>＋</span></summary>${detailTextMarkup(guide.route)}</details>`:""}
+    ${(guide.tips||place.tips||place.reservation)?`<details class="place-dialog-section"><summary>Consejos prácticos <span>＋</span></summary>${detailTextMarkup([guide.tips||place.tips,place.reservation?`Reserva: ${place.reservation}`:""].filter(Boolean).join("\n"))}</details>`:""}
+    ${(guide.rainPlan||place.tips)?`<details class="place-dialog-section"><summary>Plan B <span>＋</span></summary>${detailTextMarkup(guide.rainPlan||place.tips)}</details>`:""}
+    ${recommendations.length?`<section class="place-dialog-section"><h3>Comer y descubrir cerca</h3><div class="recommendation-list">${recommendations.map(item=>{const itemMap=safeUrl(item.map)||mapsSearch(`${item.name} ${item.area}`),itemSource=safeUrl(item.source);return `<article class="recommendation-card"><span>${escapeHtml(item.type)}</span><div><strong>${escapeHtml(item.name)}</strong><p>${escapeHtml(item.reason)}</p><small>${escapeHtml([item.area,item.price].filter(Boolean).join(" · "))}</small><div class="mini-actions"><a href="${itemMap}" target="_blank" rel="noreferrer">Mapa</a>${itemSource?`<a href="${itemSource}" target="_blank" rel="noreferrer">Web</a>`:""}</div></div></article>`;}).join("")}</div><p class="verification-note">Recomendaciones revisadas el ${escapeHtml(guide.verified||"—")}. Conviene confirmar horarios antes de ir.</p></section>`:""}
+    <div class="place-dialog-actions"><a class="primary-button" href="${map}" target="_blank" rel="noreferrer">Abrir en Google Maps</a>${source?`<a class="secondary-button" href="${source}" target="_blank" rel="noreferrer">Fuente oficial</a>`:""}</div>`;
+}
+function findPlaceGuideTarget(id){return guideData.places.find(place=>place.id===id||richGuideFor(place)?.id===id);}
+function openPlaceGuide(id,{push=true}={}){
+  const place=findPlaceGuideTarget(id);if(!place)return false;
+  const dialog=document.getElementById("placeDialog"),guide=richGuideFor(place),hashId=guide?.id||place.id;
+  selectedPlaceId=place.id;document.getElementById("placeDialogContent").innerHTML=placeGuideDialogMarkup(place);
+  if(!dialog.open)dialog.showModal();
+  if(push&&location.hash!==`#place=${encodeURIComponent(hashId)}`)history.pushState({placeGuide:hashId},"",`#place=${encodeURIComponent(hashId)}`);
+  document.getElementById("closePlaceDialog").focus({preventScroll:true});return true;
+}
+function closePlaceDialogOnly(){const dialog=document.getElementById("placeDialog");if(dialog.open)dialog.close();selectedPlaceId="";}
+function closePlaceGuide(){if(history.state?.placeGuide)history.back();else{closePlaceDialogOnly();if(location.hash.startsWith("#place="))history.replaceState(null,"",location.pathname+location.search);}}
+function openPlaceFromHash(){const match=location.hash.match(/^#place=(.+)$/);if(match)openPlaceGuide(decodeURIComponent(match[1]),{push:false});}
 
 function renderBookings(){
   const filters=[{id:"all",label:"Todas"},{id:"hotel",label:"Hoteles"},{id:"flight",label:"Vuelos"},{id:"transport",label:"Trenes y buses"},{id:"pending",label:"Pendientes"}];
@@ -310,6 +356,7 @@ async function submitNote(event){
 function bindEvents(){
   document.addEventListener("click",event=>{
     const nav=event.target.closest("[data-nav]");if(nav){navigate(nav.dataset.nav);return;}
+    const place=event.target.closest("[data-place-id]");if(place){openPlaceGuide(place.dataset.placeId);return;}
     const city=event.target.closest("[data-city]");if(city){routeFilter=city.dataset.city;renderRoute();return;}
     const mode=event.target.closest("[data-route-mode]");if(mode){routeMode=mode.dataset.routeMode;document.querySelectorAll("[data-route-mode]").forEach(button=>button.classList.toggle("active",button===mode));document.getElementById("routeDaysPanel").classList.toggle("hidden",routeMode!=="days");document.getElementById("routeNowPanel").classList.toggle("hidden",routeMode!=="now");renderNow();return;}
     const tab=event.target.closest("[data-guide-tab]");if(tab){guideTab=tab.dataset.guideTab;renderGuide();return;}
@@ -337,6 +384,9 @@ function bindEvents(){
   document.getElementById("closeNoteDialog").addEventListener("click",closeNote);
   document.getElementById("cancelNoteDialog").addEventListener("click",closeNote);
   document.getElementById("noteDialog").addEventListener("click",event=>{if(event.target===event.currentTarget)closeNote();});
+  document.getElementById("closePlaceDialog").addEventListener("click",closePlaceGuide);
+  document.getElementById("placeDialog").addEventListener("cancel",event=>{event.preventDefault();closePlaceGuide();});
+  window.addEventListener("popstate",()=>{if(location.hash.startsWith("#place="))openPlaceFromHash();else closePlaceDialogOnly();});
   document.getElementById("exportCsv").addEventListener("click",exportCsv);
   document.getElementById("exportBackup").addEventListener("click",exportBackup);
   document.getElementById("importBackup").addEventListener("change",event=>event.target.files[0]&&importBackup(event.target.files[0]));
@@ -360,7 +410,7 @@ function bindEvents(){
 
 function init(){
   populateExpenseSelects(); document.getElementById("exchangeRate").value=localStorage.getItem(RATE_KEY)||"";
-  bindEvents(); setupSheetSync(); renderHome(); renderRoute(); renderBookings(); renderExpenses(); renderGuide();
+  bindEvents(); setupSheetSync(); renderHome(); renderRoute(); renderBookings(); renderExpenses(); renderGuide(); openPlaceFromHash();
   refreshExchangeRate();
   if("serviceWorker" in navigator){
     const isLocal=["localhost","127.0.0.1","::1"].includes(location.hostname);

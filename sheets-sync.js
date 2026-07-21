@@ -62,18 +62,20 @@
   async function loadGuideData(){
     if(!connected())return null;
     status("syncing","Cargando rutas y guía…");
-    const ranges=["Rutas!A2:O250","'Detalle del viaje'!A2:N150","'Guía práctica'!A2:J250","Checklist!A2:G250","Notas!A2:F500"];
+    const ranges=["Rutas!A2:O250","'Detalle del viaje'!A2:N150",`${config.placeGuideSheetName||"Lugares"}!A2:P250`,`${config.recommendationSheetName||"Recomendaciones"}!A2:J500`,"'Guía práctica'!A2:J250","Checklist!A2:G250","Notas!A2:F500"];
     const query=ranges.map(range=>`ranges=${encodeURIComponent(range)}`).join("&");
     const data=await googleFetch(`/values:batchGet?${query}&valueRenderOption=UNFORMATTED_VALUE&dateTimeRenderOption=SERIAL_NUMBER`);
-    const [routeRows=[],detailRows=[],practicalRows=[],checklistRows=[],noteRows=[]]=(data.valueRanges||[]).map(item=>item.values||[]);
+    const [routeRows=[],detailRows=[],placeGuideRows=[],recommendationRows=[],practicalRows=[],checklistRows=[],noteRows=[]]=(data.valueRanges||[]).map(item=>item.values||[]);
     const routes=routeRows.filter(row=>row[0]).map(row=>({id:String(row[0]),date:serialToIso(row[1]),order:Number(row[2])||0,slot:String(row[3]||""),origin:String(row[4]||""),destination:String(row[5]||""),type:String(row[6]||""),instruction:String(row[7]||""),line:String(row[8]||""),stops:String(row[9]||""),duration:String(row[10]||""),map:String(row[11]||""),status:String(row[12]||"Orientativo"),notes:String(row[13]||""),source:String(row[14]||"")}));
     const places=detailRows.filter(row=>serialToIso(row[0])).map((row,index)=>({id:`place-${index+2}`,date:serialToIso(row[0]),day:String(row[1]||""),slot:String(row[2]||""),time:String(row[3]||""),zone:String(row[4]||""),title:String(row[5]||""),description:String(row[6]||""),food:String(row[7]||""),transport:String(row[8]||""),duration:String(row[9]||""),priority:String(row[10]||""),reservation:String(row[11]||""),tips:String(row[12]||""),source:String(row[13]||"")}));
+    const placeGuides=placeGuideRows.filter(row=>row[0]).map(row=>({id:String(row[0]),date:serialToIso(row[1]),title:String(row[2]||""),neighborhood:String(row[3]||""),city:String(row[4]||""),summary:String(row[5]||""),history:String(row[6]||""),highlights:String(row[7]||""),route:String(row[8]||""),tips:String(row[9]||""),duration:String(row[10]||""),rainPlan:String(row[11]||""),map:String(row[12]||""),source:String(row[13]||""),verified:String(row[14]||""),arrivalRouteId:String(row[15]||"")}));
+    const recommendations=recommendationRows.filter(row=>row[0]).map(row=>({id:String(row[0]),placeId:String(row[1]||""),type:String(row[2]||""),name:String(row[3]||""),reason:String(row[4]||""),area:String(row[5]||""),price:String(row[6]||""),map:String(row[7]||""),source:String(row[8]||""),verified:String(row[9]||"")}));
     const practical=practicalRows.filter(row=>row[0]).map(row=>({id:String(row[0]),type:String(row[1]||""),context:String(row[2]||""),title:String(row[3]||""),content:String(row[4]||""),detail:String(row[5]||""),japanese:String(row[6]||""),pronunciation:String(row[7]||""),link:String(row[8]||""),source:String(row[9]||"")}));
     checklistRowById=new Map();
     const checklist=checklistRows.filter(row=>row[0]).map((row,index)=>{const item={id:String(row[0]),phase:String(row[1]||""),category:String(row[2]||""),task:String(row[3]||""),owner:String(row[4]||"Común"),done:truthy(row[5]),notes:String(row[6]||"")};checklistRowById.set(item.id,index+2);return item;});
     noteRowById=new Map();
     const notes=noteRows.filter(row=>row[0]).map((row,index)=>{const item={id:String(row[0]),date:serialToIso(row[1]),place:String(row[2]||""),text:String(row[3]||""),author:String(row[4]||""),updated:String(row[5]||"")};noteRowById.set(item.id,index+2);return item;});
-    const guideData={routes,places,practical,checklist,notes,loadedAt:new Date().toISOString()};
+    const guideData={routes,places,placeGuides,recommendations,practical,checklist,notes,loadedAt:new Date().toISOString()};
     onGuideData(guideData);
     status("connected",`Guía sincronizada · ${routes.length} trayectos`);
     return guideData;
