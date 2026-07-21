@@ -10,6 +10,8 @@ window.APP_CONFIG = {
   expenseSheetName: "Gastos",
   expenseSheetId: 20260720,
   expenseTableId: "1809618102",
+  placeGuideSheetName: "Lugares",
+  recommendationSheetName: "Recomendaciones",
   notesSheetId: 160980186,
   notesTableId: "1830877837"
 };
