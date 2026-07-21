@@ -37,6 +37,7 @@ let todayPlanMode = "normal";
 let todayWeather = null;
 let weatherRequestKey = "";
 let todayPreviewDate = localStorage.getItem(TODAY_PREVIEW_KEY)||"";
+let converterSource = "EUR";
 
 function emptyGuideData(){return {routes:[],places:[],placeGuides:[],recommendations:[],practical:[],checklist:[],notes:[],bookings:[],luggage:[]};}
 
@@ -302,12 +303,21 @@ function renderExpenses(){
   document.getElementById("totalEur").textContent=fmtMoney(totalEur,"EUR");
   document.getElementById("totalJpy").textContent=fmtMoney(totalJpy,"JPY");
   document.getElementById("convertedTotal").textContent=rate?`1 € = ${new Intl.NumberFormat("es-ES",{maximumFractionDigits:2}).format(rate)} ¥`:"Introduce un cambio";
+  document.getElementById("converterRateMeta").textContent=rate?`1 € = ${new Intl.NumberFormat("es-ES",{maximumFractionDigits:2}).format(rate)} ¥`:"Falta el cambio";
+  updateConverter(converterSource);
 
   const byCategory={}; filtered.forEach(e=>{const amount=convert(e,expenseDisplayCurrency);if(amount!==null)byCategory[e.category]=(byCategory[e.category]||0)+amount;});
   const max=Math.max(...Object.values(byCategory),1);
   document.getElementById("categoryBreakdown").innerHTML=Object.entries(byCategory).sort((a,b)=>b[1]-a[1]).map(([category,total])=>`<div class="bar-row"><span>${categories[category]||"•"} ${escapeHtml(category)}</span><div class="bar-track"><i style="width:${Math.max(3,total/max*100)}%"></i></div><strong>${fmtMoney(total,expenseDisplayCurrency)}</strong></div>`).join("")||`<div class="empty">Aún no hay gastos.</div>`;
 
   document.getElementById("expenseList").innerHTML=filtered.length?filtered.map(e=>{const shown=convert(e,expenseDisplayCurrency);const original=e.currency!==expenseDisplayCurrency?` · Original: ${fmtMoney(Number(e.amount),e.currency)}`:"";return `<article class="expense-row"><div class="expense-icon">${categories[e.category]||"•"}</div><div><h3>${escapeHtml(e.description)}</h3><p>${fmtDate(e.date,{day:"numeric",month:"short",year:"numeric"})} · ${escapeHtml(e.category)} · ${escapeHtml(e.payer||"Común")} · ${escapeHtml(e.method||"Otro")}</p></div><div class="expense-value"><strong>${shown===null?fmtMoney(Number(e.amount),e.currency):fmtMoney(shown,expenseDisplayCurrency)}</strong><small>${e.paid?"Pagado":"Pendiente"}${original}</small></div><div class="expense-actions"><button data-edit-expense="${e.id}">Editar</button>${e.fixed?"":`<button class="delete" data-delete-expense="${e.id}">Eliminar</button>`}</div></article>`;}).join(""):`<div class="panel empty">No hay gastos con estos filtros.</div>`;
+}
+
+function updateConverter(source="EUR"){
+  converterSource=source;const rate=Number(document.getElementById("exchangeRate").value)||0,eur=document.getElementById("converterEur"),jpy=document.getElementById("converterJpy");
+  if(!rate){if(source==="EUR")jpy.value="";else eur.value="";return;}
+  if(source==="EUR"){const amount=Number(eur.value);jpy.value=Number.isFinite(amount)?String(Math.round(amount*rate)):"";}
+  else{const amount=Number(jpy.value);eur.value=Number.isFinite(amount)?String(Math.round(amount/rate*100)/100):"";}
 }
 
 function populateExpenseSelects(){
@@ -458,6 +468,8 @@ function bindEvents(){
   document.getElementById("expenseDialog").addEventListener("click",event=>{if(event.target===event.currentTarget)closeExpense();});
   document.getElementById("routeList").addEventListener("click",event=>{const summary=event.target.closest("summary");if(!summary||!summary.parentElement.matches(".day-card"))return;const current=summary.parentElement;document.querySelectorAll("#routeList .day-card[open]").forEach(card=>{if(card!==current)card.removeAttribute("open");});});
   document.getElementById("exchangeRate").addEventListener("input",event=>{localStorage.setItem(RATE_KEY,event.target.value);localStorage.removeItem(RATE_DATE_KEY);document.getElementById("exchangeRateMeta").textContent="Cambio introducido manualmente";renderExpenses();});
+  document.getElementById("converterEur").addEventListener("input",()=>updateConverter("EUR"));
+  document.getElementById("converterJpy").addEventListener("input",()=>updateConverter("JPY"));
   document.getElementById("refreshRate").addEventListener("click",()=>refreshExchangeRate({announce:true}));
   document.getElementById("connectGoogle").addEventListener("click",connectAndSync);
   document.getElementById("connectRouteGoogle").addEventListener("click",connectAndSync);
