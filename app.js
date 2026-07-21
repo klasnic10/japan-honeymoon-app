@@ -161,7 +161,8 @@ function renderHome(){
   const tasks=(guideData.checklist||[]).filter(item=>!item.done&&(tripDay?(item.dueDate===todayIso||normalized(item.phase).includes("cada dia")):true)).sort((a,b)=>(a.dueDate||"9999").localeCompare(b.dueDate||"9999")).slice(0,5);
   document.getElementById("todayTasks").innerHTML=tasks.length?tasks.map(item=>`<label class="check-item compact"><input type="checkbox" data-checklist-id="${escapeHtml(item.id)}"><span><strong>${escapeHtml(item.task)}</strong><small>${escapeHtml([item.dueDate?fmtDate(item.dueDate):"",item.priority,item.owner].filter(Boolean).join(" · "))}</small></span></label>`).join(""):`<div class="panel empty">No hay tareas inmediatas.</div>`;
   const totals = expenses.reduce((a,e)=>(a[e.currency]+=Number(e.amount)||0,a),{EUR:0,JPY:0});
-  document.getElementById("expenseQuickSummary").textContent=`${fmtMoney(totals.EUR,"EUR")} + ${fmtMoney(totals.JPY,"JPY")}`;
+  const rate=Number(document.getElementById("exchangeRate").value)||Number(localStorage.getItem(RATE_KEY))||0;
+  document.getElementById("expenseQuickSummary").textContent=rate?`${fmtMoney(totals.EUR+totals.JPY/rate,"EUR")} en total`:`${fmtMoney(totals.EUR,"EUR")} · falta cambio`;
 }
 
 function routeLegMarkup(leg){
@@ -397,12 +398,12 @@ async function refreshExchangeRate({announce=false}={}){
     localStorage.setItem(RATE_KEY,String(data.rate));
     localStorage.setItem(RATE_DATE_KEY,data.date||"");
     meta.textContent=`BCE · ${data.date?fmtDate(data.date,{day:"numeric",month:"long",year:"numeric"}):"último día hábil"}`;
-    renderExpenses();
+    renderExpenses();renderHome();
     if(announce) toast("Cambio actualizado");
   }catch{
     const cachedDate=localStorage.getItem(RATE_DATE_KEY);
     meta.textContent=localStorage.getItem(RATE_KEY)?`Sin conexión · último cambio${cachedDate?` del ${fmtDate(cachedDate)}`:" guardado"}`:"Sin conexión · introduce el cambio manualmente";
-    renderExpenses();
+    renderExpenses();renderHome();
     if(announce) toast("No se ha podido actualizar el cambio");
   }
 }
