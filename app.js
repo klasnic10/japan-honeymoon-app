@@ -195,11 +195,12 @@ function renderRoute(){
   const cities=["Todos",...new Set(days.map(day=>day.city))];
   document.getElementById("cityFilters").innerHTML=cities.map(city=>`<button class="${routeFilter===city?"active":""}" data-city="${escapeHtml(city)}">${escapeHtml(city)}</button>`).join("");
   const selected=routeFilter==="Todos"?days:days.filter(day=>day.city===routeFilter);
+  const hasActiveDay=selected.some(day=>isToday(day.date));
   document.getElementById("routeList").innerHTML=selected.map((day,index)=>{
     const d=new Date(`${day.date}T12:00:00`),month=new Intl.DateTimeFormat("es-ES",{month:"short"}).format(d),weekday=new Intl.DateTimeFormat("es-ES",{weekday:"long"}).format(d);
     const legs=guideData.routes.filter(item=>item.date===day.date).sort((a,b)=>a.order-b.order);
     const places=guideData.places.filter(item=>item.date===day.date);
-    return `<details class="day-card" ${isToday(day.date)||index===0?"open":""}><summary><div class="date-tile"><strong>${d.getDate()}</strong><small>${month}</small></div><div><h2>${escapeHtml(day.title)}</h2><p>${escapeHtml(weekday)} · ${escapeHtml(day.city)} · duerme en ${escapeHtml(day.sleep)}</p></div><span>›</span></summary><div class="day-detail">${day.slots.map(slot=>`<div class="slot"><time>${escapeHtml(slot.label)}<br>${escapeHtml(slot.time)}</time><div><strong>${escapeHtml(slot.title)}</strong><p>${escapeHtml(slot.desc)}</p></div></div>`).join("")}${day.transport?`<div class="transport-note"><strong>Desplazamiento:</strong> ${escapeHtml(day.transport)}</div>`:""}${journeyMarkup(places,legs)}<div class="day-actions"><a href="${mapsSearch(day.map)}" target="_blank" rel="noreferrer">📍 Ver la zona</a></div></div></details>`;
+    return `<details class="day-card" ${isToday(day.date)||(!hasActiveDay&&index===0)?"open":""}><summary><div class="date-tile"><strong>${d.getDate()}</strong><small>${month}</small></div><div><h2>${escapeHtml(day.title)}</h2><p>${escapeHtml(weekday)} · ${escapeHtml(day.city)} · duerme en ${escapeHtml(day.sleep)}</p></div><span>›</span></summary><div class="day-detail">${day.slots.map(slot=>`<div class="slot"><time>${escapeHtml(slot.label)}<br>${escapeHtml(slot.time)}</time><div><strong>${escapeHtml(slot.title)}</strong><p>${escapeHtml(slot.desc)}</p></div></div>`).join("")}${day.transport?`<div class="transport-note"><strong>Desplazamiento:</strong> ${escapeHtml(day.transport)}</div>`:""}${journeyMarkup(places,legs)}<div class="day-actions"><a href="${mapsSearch(day.map)}" target="_blank" rel="noreferrer">📍 Ver la zona</a></div></div></details>`;
   }).join("");
   renderNow();
 }
