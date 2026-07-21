@@ -119,7 +119,9 @@ function placeMarkup(place){
 function routeContextFor(place){
   const guide=richGuideFor(place),legs=(guideData.routes||[]).filter(item=>item.date===place.date).sort((a,b)=>a.order-b.order);
   const arrivalIndex=guide?.arrivalRouteId?legs.findIndex(leg=>leg.id===guide.arrivalRouteId):-1;
-  return {arrival:arrivalIndex>=0?legs[arrivalIndex]:null,next:arrivalIndex>=0?legs[arrivalIndex+1]||null:null};
+  const companions=(guideData.places||[]).filter(candidate=>candidate.date===place.date&&richGuideFor(candidate)?.arrivalRouteId===guide?.arrivalRouteId);
+  const companionIndex=companions.findIndex(candidate=>candidate.id===place.id),hasGuideAfter=companionIndex>=0&&companionIndex<companions.length-1;
+  return {arrival:arrivalIndex>=0?legs[arrivalIndex]:null,next:arrivalIndex>=0&&!hasGuideAfter?legs[arrivalIndex+1]||null:null};
 }
 function journeyMarkup(places,legs){
   const enriched=places.map(place=>({place,guide:richGuideFor(place)}));
