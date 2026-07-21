@@ -26,7 +26,7 @@
         <div class="hero">
           <div>
             <p class="eyebrow">Luna de miel · 2–21 noviembre</p>
-            <h1 id="homeTitle">El viaje, sin buscar entre veinte correos.</h1>
+            <h1 id="homeTitle">Lo que necesitáis hoy, de un vistazo.</h1>
             <p id="countdown" class="hero-copy"></p>
           </div>
           <div class="route-line" aria-label="Ruta principal">
@@ -34,19 +34,42 @@
           </div>
         </div>
 
+        <label class="today-preview panel" for="todayPreviewDate">
+          <span><strong>Simular el viaje</strong><small>Elige qué día quieres ver como “hoy”</small></span>
+          <select id="todayPreviewDate" aria-label="Seleccionar día simulado"></select>
+        </label>
+
         <section id="todayCard" class="panel today-card"></section>
 
+        <section id="todayPlanSection" class="today-plan-section hidden">
+          <div class="section-heading">
+            <div><p class="eyebrow">Ritmo adaptable</p><h2 id="todayPlanTitle">Plan de hoy</h2></div>
+            <div class="segmented-control" role="group" aria-label="Versión del plan">
+              <button class="active" type="button" data-today-plan="normal">Normal</button>
+              <button type="button" data-today-plan="light">Ligero</button>
+              <button type="button" data-today-plan="rain">Lluvia</button>
+            </div>
+          </div>
+          <div id="todayPlan" class="today-plan"></div>
+        </section>
+
         <div class="section-heading">
-          <div><p class="eyebrow">Antes de salir</p><h2>Pendientes importantes</h2></div>
+          <div><p class="eyebrow">Fechas clave</p><h2>Próximos avisos</h2></div>
           <button class="text-button" type="button" data-nav="bookings">Ver reservas</button>
         </div>
         <div id="pendingList" class="stack"></div>
+
+        <div class="section-heading">
+          <div><p class="eyebrow">En orden</p><h2>Tareas</h2></div>
+          <button class="text-button" type="button" data-open-target="checklist">Ver checklist</button>
+        </div>
+        <div id="todayTasks" class="stack"></div>
 
         <div class="quick-grid">
           <button class="quick-card" type="button" data-nav="route"><span>🗓️</span><strong>Ruta</strong><small>20 días organizados</small></button>
           <button class="quick-card" type="button" data-nav="bookings"><span>🎫</span><strong>Reservas</strong><small>Vuelos y hoteles</small></button>
           <button class="quick-card" type="button" data-nav="expenses"><span>¥</span><strong>Gastos</strong><small id="expenseQuickSummary">Control por moneda</small></button>
-          <button class="quick-card" type="button" data-nav="more"><span>🧭</span><strong>Más</strong><small>Documentos y utilidades</small></button>
+          <button class="quick-card" type="button" data-open-target="emergency"><span>🆘</span><strong>Ayuda</strong><small>Emergencias y frases</small></button>
         </div>
       </section>
 
@@ -88,6 +111,15 @@
           <button id="openExpenseForm" class="primary-button" type="button">＋ Añadir</button>
         </div>
 
+        <section class="panel converter-panel" aria-labelledby="converterTitle">
+          <div class="converter-heading"><div><p class="eyebrow">Conversor rápido</p><h2 id="converterTitle">Euros ⇄ yenes</h2></div><small id="converterRateMeta">Consultando cambio…</small></div>
+          <div class="converter-fields">
+            <label><span>Euros</span><div><b>€</b><input id="converterEur" type="number" min="0" step="0.01" inputmode="decimal" value="100" aria-label="Cantidad en euros"></div></label>
+            <span class="converter-equals">=</span>
+            <label><span>Yenes</span><div><b>¥</b><input id="converterJpy" type="number" min="0" step="1" inputmode="numeric" aria-label="Cantidad en yenes"></div></label>
+          </div>
+        </section>
+
         <section class="sync-panel" aria-live="polite">
           <div class="sync-copy"><span id="syncIndicator" class="sync-dot"></span><div><strong id="syncTitle">Gastos en este dispositivo</strong><small id="syncStatus">Conecta Google para usar la hoja compartida.</small></div></div>
           <button id="connectGoogle" class="secondary-button" type="button">Conectar Google</button>
@@ -97,14 +129,6 @@
         <div class="summary-grid">
           <article class="metric"><small>Euros</small><strong id="totalEur">0 €</strong></article>
           <article class="metric"><small>Yenes</small><strong id="totalJpy">0 ¥</strong></article>
-          <article class="metric wide">
-            <small>Cambio de referencia</small><strong id="convertedTotal">Consultando cambio…</strong>
-            <div class="rate-row">
-              <label class="inline-field">1 € = <input id="exchangeRate" inputmode="decimal" type="number" min="1" step="0.01" placeholder="p. ej. 170"> ¥</label>
-              <button id="refreshRate" class="text-button" type="button">Actualizar</button>
-            </div>
-            <span id="exchangeRateMeta">Fuente: BCE</span>
-          </article>
         </div>
 
         <section class="panel budget-panel">
@@ -127,6 +151,18 @@
           <button id="exportCsv" class="secondary-button" type="button">Exportar CSV</button>
         </div>
         <div id="expenseList" class="expense-list"></div>
+
+        <details class="panel rate-disclosure">
+          <summary><span><small>Tipo de cambio utilizado</small><strong id="convertedTotal">Consultando cambio…</strong></span><b>＋</b></summary>
+          <div class="rate-disclosure-body">
+            <p>Referencia informativa del BCE; puede diferir del cambio aplicado por vuestra tarjeta.</p>
+            <div class="rate-row">
+              <label class="inline-field">1 € = <input id="exchangeRate" inputmode="decimal" type="number" min="1" step="0.01" placeholder="p. ej. 170"> ¥</label>
+              <button id="refreshRate" class="text-button" type="button">Actualizar</button>
+            </div>
+            <span id="exchangeRateMeta">Fuente: BCE</span>
+          </div>
+        </details>
       </section>
 
       <section id="view-more" class="view" data-view="more" aria-labelledby="moreTitle">
@@ -136,6 +172,7 @@
           <button type="button" data-guide-tab="Comida">Comer</button>
           <button type="button" data-guide-tab="Consejo">Consejos</button>
           <button type="button" data-guide-tab="Emergencia">Emergencias</button>
+          <button type="button" data-guide-tab="Equipaje">Equipaje</button>
           <button type="button" data-guide-tab="Checklist">Checklist</button>
           <button type="button" data-guide-tab="Notas">Notas</button>
         </div>
@@ -152,11 +189,11 @@
     </main>
 
     <nav class="bottom-nav" aria-label="Navegación principal">
-      <button class="active" type="button" data-nav="home"><span>⌂</span><small>Inicio</small></button>
-      <button type="button" data-nav="route"><span>⌁</span><small>Ruta</small></button>
+      <button class="active" type="button" data-nav="home"><span>⌂</span><small>Hoy</small></button>
+      <button type="button" data-nav="route"><span>⌁</span><small>Viaje</small></button>
       <button type="button" data-nav="bookings"><span>▣</span><small>Reservas</small></button>
       <button type="button" data-nav="expenses"><span>¥</span><small>Gastos</small></button>
-      <button type="button" data-nav="more"><span>あ</span><small>Guía</small></button>
+      <button type="button" data-nav="more"><span>あ</span><small>Más</small></button>
     </nav>
   </div>
 
