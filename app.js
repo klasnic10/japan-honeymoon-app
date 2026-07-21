@@ -14,7 +14,7 @@ const gmail = id => `https://mail.google.com/mail/#all/${id}`;
 const mapsSearch = query => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 const mapsNavigate = (destination, mode = "transit") => `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}&travelmode=${mode}`;
 
-const {days, bookings, seedExpenses} = window.TRIP_DATA;
+const {days, bookings: seedBookings, seedExpenses} = window.TRIP_DATA;
 
 const categories = {
   "Vuelos":"✈️", "Alojamiento":"🏨", "Tren y bus":"🚄", "Taxi":"🚕", "Restaurantes":"🍜",
@@ -32,15 +32,18 @@ let routeMode = "days";
 let guideTab = "Frase";
 let deferredInstallPrompt = null;
 let selectedPlaceId = "";
+let todayPlanMode = "normal";
+let todayWeather = null;
+let weatherRequestKey = "";
 
-function emptyGuideData(){return {routes:[],places:[],placeGuides:[],recommendations:[],practical:[],checklist:[],notes:[]};}
+function emptyGuideData(){return {routes:[],places:[],placeGuides:[],recommendations:[],practical:[],checklist:[],notes:[],bookings:[],luggage:[]};}
 
 function loadExpenses(){
   try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Array.isArray(saved) ? saved : structuredClone(seedExpenses); }
   catch { return structuredClone(seedExpenses); }
 }
 function loadGuideData(){try{const saved=JSON.parse(localStorage.getItem(GUIDE_KEY));return saved&&Array.isArray(saved.routes)?{...emptyGuideData(),...saved}:emptyGuideData();}catch{return emptyGuideData();}}
-function saveGuideData(data){guideData={...emptyGuideData(),...data};localStorage.setItem(GUIDE_KEY,JSON.stringify(guideData));renderRoute();renderGuide();openPlaceFromHash();}
+function saveGuideData(data){guideData={...emptyGuideData(),...data};localStorage.setItem(GUIDE_KEY,JSON.stringify(guideData));renderHome();renderRoute();renderBookings();renderGuide();openPlaceFromHash();}
 function saveExpenses(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses)); renderExpenses(); renderHome(); }
 function loadPendingSync(){try{const value=JSON.parse(localStorage.getItem(PENDING_SYNC_KEY));return Array.isArray(value)?value:[];}catch{return [];}}
 function queueSheetSync(operation){
@@ -67,7 +70,7 @@ function fmtDate(iso, options={day:"numeric",month:"short"}){ return new Intl.Da
 function fmtMoney(amount,currency){ return new Intl.NumberFormat("es-ES",{style:"currency",currency,maximumFractionDigits:currency==="JPY"?0:2}).format(amount); }
 function escapeHtml(value=""){ return String(value).replace(/[&<>'"]/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[ch])); }
 function safeUrl(value){try{const url=new URL(String(value));return ["http:","https:"].includes(url.protocol)?url.href:"";}catch{return "";}}
-function statusLabel(status){ return status === "confirmed" ? "Confirmado" : "Pendiente"; }
+function statusLabel(status){const value=normalized(status);if(value.includes("confirm"))return "Confirmada";if(value.includes("pagad"))return "Pagada";if(value.includes("disfrut"))return "Disfrutada";return status||"Pendiente";}
 function normalized(value=""){return String(value).normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g," ").trim();}
 function richGuideFor(place){return (guideData.placeGuides||[]).find(item=>item.date===place.date&&normalized(item.title)===normalized(place.title));}
 function recommendationsFor(guideId){return (guideData.recommendations||[]).filter(item=>item.placeId===guideId);}
@@ -83,26 +86,75 @@ function navigate(view){
   window.scrollTo({top:0,behavior:"smooth"}); document.getElementById("mainContent").focus({preventScroll:true});
 }
 
+function activeBookings(){
+  if((guideData.bookings||[]).length)return guideData.bookings;
+  return seedBookings.map(item=>({id:item.id,kind:item.kind,title:item.title,detail:item.subtitle,startDate:"",endDate:"",origin:item.from,destination:item.to,status:item.status,payment:item.detail,time:item.dates,link:item.emailId?gmail(item.emailId):item.url||"",map:item.map||"",alternative:"",notes:item.detail}));
+}
+function bookingIsPending(booking){const state=normalized(booking.status);return !state.includes("confirm")&&!state.includes("pagad")&&!state.includes("disfrut");}
+function bookingGroup(kind){const value=normalized(kind);if(value.includes("vuelo")||value==="flight")return "flight";if(value.includes("hotel")||value.includes("aloj")||value==="hotel")return "hotel";if(value.includes("entrada")||value==="entry")return "entry";if(value.includes("rest"))return "restaurant";return "transport";}
+function bookingIcon(kind){return {flight:"✈️",hotel:"🏨",transport:"🚄",entry:"🎟️",restaurant:"🍜"}[bookingGroup(kind)]||"▣";}
+function dateDistance(fromIso,toIso){return Math.round((new Date(`${toIso}T12:00:00Z`)-new Date(`${fromIso}T12:00:00Z`))/86400000);}
+function sortedAlerts(todayIso){
+  const alerts=[];
+  (guideData.checklist||[]).filter(item=>!item.done&&item.dueDate).forEach(item=>alerts.push({date:item.dueDate,title:item.task,meta:[item.priority,item.owner].filter(Boolean).join(" · "),target:"checklist"}));
+  activeBookings().filter(bookingIsPending).forEach(item=>{
+    if(item.saleOpen)alerts.push({date:item.saleOpen,title:`Abre la reserva: ${item.title}`,meta:item.time||item.detail,target:"bookings"});
+    if(item.cancellation)alerts.push({date:item.cancellation,title:`Fin de cancelación: ${item.title}`,meta:"Revisar antes de esta fecha",target:"bookings"});
+  });
+  return alerts.filter(item=>item.date>=todayIso).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5);
+}
+function weatherLabel(code){if(code===0)return ["☀️","Despejado"];if(code<=3)return ["🌤️","Parcialmente nuboso"];if(code<=48)return ["🌫️","Niebla"];if(code<=67)return ["🌧️","Lluvia"];if(code<=77)return ["🌨️","Nieve"];if(code<=82)return ["🌦️","Chubascos"];return ["⛈️","Tormentas"];}
+const weatherCities={"Tokio":[35.6762,139.6503],"Kanazawa":[36.5613,136.6562],"Takayama":[36.1461,137.2522],"Okuhida":[36.191,137.553],"Kioto":[35.0116,135.7681]};
+async function loadTodayWeather(day,todayIso){
+  const coords=weatherCities[day?.city],distance=day?dateDistance(todayIso,day.date):999;
+  if(!coords||distance<0||distance>15)return;
+  const key=`${day.date}-${day.city}`;if(weatherRequestKey===key)return;weatherRequestKey=key;
+  try{
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${coords[0]}&longitude=${coords[1]}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max&timezone=Asia%2FTokyo&forecast_days=16`;
+    const response=await fetch(url);if(!response.ok)throw new Error();const data=await response.json(),index=data.daily?.time?.indexOf(day.date);
+    if(index>=0)todayWeather={key,code:data.daily.weather_code[index],max:data.daily.temperature_2m_max[index],min:data.daily.temperature_2m_min[index],rain:data.daily.precipitation_probability_max[index]};
+  }catch{todayWeather={key,error:true};}
+  renderHome();
+}
+function weatherMarkup(day,todayIso){
+  if(!day||!weatherCities[day.city])return "";
+  const distance=dateDistance(todayIso,day.date),key=`${day.date}-${day.city}`;
+  if(distance>15)return `<div class="today-weather muted"><span>☁️</span><div><strong>Previsión todavía no disponible</strong><small>Aparecerá 16 días antes.</small></div></div>`;
+  if(todayWeather?.key===key&&!todayWeather.error){const [icon,label]=weatherLabel(todayWeather.code);return `<div class="today-weather"><span>${icon}</span><div><strong>${label} · ${todayWeather.min}–${todayWeather.max} °C</strong><small>${todayWeather.rain}% de probabilidad de lluvia</small></div></div>`;}
+  if(todayWeather?.key===key&&todayWeather.error)return `<div class="today-weather muted"><span>☁️</span><div><strong>Previsión no disponible</strong><small>Se conserva el resto del día para consultarlo sin conexión.</small></div></div>`;
+  return `<div class="today-weather muted"><span>☁️</span><div><strong>Consultando previsión…</strong><small>Se actualizará con datos del día.</small></div></div>`;
+}
+function todayPlanMarkup(day){
+  if(!day)return "";
+  const places=(guideData.places||[]).filter(item=>item.date===day.date),legs=(guideData.routes||[]).filter(item=>item.date===day.date).sort((a,b)=>a.order-b.order);
+  if(todayPlanMode==="rain"){
+    const rain=places.map(place=>({place,guide:richGuideFor(place)})).filter(item=>item.guide?.rainPlan);
+    return rain.length?rain.map(item=>`<button class="today-step" type="button" data-place-id="${escapeHtml(item.place.id)}"><span>☔</span><div><strong>${escapeHtml(item.place.title)}</strong><small>${escapeHtml(item.guide.rainPlan)}</small></div><b>›</b></button>`).join(""):`<div class="today-empty">No hay un plan de lluvia específico para este día. Conservad las visitas interiores y reducid los paseos largos.</div>`;
+  }
+  const selected=todayPlanMode==="light"?(places.filter(place=>/imprescindible|muy recomendable/i.test(place.priority)).slice(0,3).length?places.filter(place=>/imprescindible|muy recomendable/i.test(place.priority)).slice(0,3):places.slice(0,2)):places;
+  if(selected.length)return selected.map(place=>placeMarkup(place)).join("");
+  const slots=todayPlanMode==="light"?day.slots.slice(0,2):day.slots;
+  return slots.map(slot=>`<article class="today-step"><span>•</span><div><strong>${escapeHtml(slot.title)}</strong><small>${escapeHtml([slot.time,slot.desc].filter(Boolean).join(" · "))}</small></div></article>`).join("")+(legs[0]?`<a class="today-route-link" href="${safeUrl(legs[0].map)}" target="_blank" rel="noreferrer">Abrir el primer trayecto</a>`:"");
+}
 function renderHome(){
-  const now = new Date(); const countdown = document.getElementById("countdown");
+  const now = new Date(),todayIso=japanToday(); const countdown = document.getElementById("countdown");
   if(now < TRIP_START){ const daysLeft=Math.ceil((TRIP_START-now)/86400000); countdown.textContent=`Faltan ${daysLeft} días para despegar hacia Tokio.`; }
   else if(now <= TRIP_END) countdown.textContent="Ya estáis en Japón. Aquí tenéis lo siguiente, sin rebuscar.";
   else countdown.textContent="El viaje terminó, pero la ruta y los gastos siguen aquí.";
 
-  const todayIso = new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit"}).format(now);
   const tripDay = days.find(day=>day.date===todayIso);
+  const previewDay=tripDay||(todayIso<days[0].date?days[0]:null),displayDay=tripDay||previewDay;
   const card=document.getElementById("todayCard");
-  if(tripDay){ card.innerHTML=`<p class="eyebrow">Hoy · ${escapeHtml(fmtDate(tripDay.date,{weekday:"long",day:"numeric",month:"long"}))}</p><h2>${escapeHtml(tripDay.title)}</h2><p>${escapeHtml(tripDay.slots[0]?.title||"")} · ${escapeHtml(tripDay.slots[0]?.time||"")}</p><div class="today-meta"><span class="chip">📍 ${escapeHtml(tripDay.city)}</span><span class="chip">🛏️ ${escapeHtml(tripDay.sleep)}</span></div><div class="action-row"><button class="primary-button" data-nav="route">Ver el día</button><a class="secondary-button" href="${mapsSearch(tripDay.map)}" target="_blank" rel="noreferrer">Abrir mapa</a></div>`; }
-  else if(now < TRIP_START){ card.innerHTML=`<p class="eyebrow">Siguiente paso</p><h2>Reservar los hoteles de Tokio</h2><p>Faltan la estancia del 3 al 9 y la noche del 19 al 20. La ubicación también decidirá qué estación conviene para el último Shinkansen.</p><div class="today-meta"><span class="chip pending">Pendiente</span><span class="chip">7 noches en total</span></div><div class="action-row"><button class="primary-button" data-nav="bookings">Ver reservas</button></div>`; }
+  if(tripDay){const todayBooking=activeBookings().find(item=>item.startDate===tripDay.date);card.innerHTML=`<p class="eyebrow">Hoy · ${escapeHtml(fmtDate(tripDay.date,{weekday:"long",day:"numeric",month:"long"}))}</p><h2>${escapeHtml(tripDay.title)}</h2><p>${escapeHtml(tripDay.slots[0]?.title||"")} · ${escapeHtml(tripDay.slots[0]?.time||"")}</p>${weatherMarkup(tripDay,todayIso)}<div class="today-meta"><span class="chip">📍 ${escapeHtml(tripDay.city)}</span><span class="chip">🛏️ ${escapeHtml(tripDay.sleep)}</span><span class="chip">${navigator.onLine?"● Online":"○ Copia offline"}</span></div><div class="action-row"><button class="primary-button" data-nav="route">Ver ruta completa</button>${todayBooking?`<button class="secondary-button" data-nav="bookings">Ver reserva</button>`:""}<a class="secondary-button" href="${mapsSearch(tripDay.map)}" target="_blank" rel="noreferrer">Mapa</a></div>`;}
+  else if(now < TRIP_START){const alerts=sortedAlerts(todayIso),next=alerts[0];card.innerHTML=`<p class="eyebrow">Próximo paso</p><h2>${escapeHtml(next?.title||"Preparar el viaje")}</h2><p>${next?`${fmtDate(next.date,{day:"numeric",month:"long"})}${next.meta?` · ${escapeHtml(next.meta)}`:""}`:"Conecta Google para cargar reservas y tareas compartidas."}</p><div class="today-meta"><span class="chip pending">${alerts.length} avisos próximos</span><span class="chip">${(guideData.checklist||[]).filter(item=>item.done).length}/${(guideData.checklist||[]).length} tareas</span></div><div class="action-row"><button class="primary-button" data-open-target="${next?.target||"checklist"}">Abrir pendiente</button><button class="secondary-button" data-nav="bookings">Reservas</button></div>`;}
   else card.innerHTML=`<p class="eyebrow">Recuerdo del viaje</p><h2>Japón, del 2 al 21 de noviembre</h2><p>Podéis consultar la ruta, cerrar el presupuesto y exportar todos los gastos.</p><div class="action-row"><button class="primary-button" data-nav="expenses">Ver gastos</button></div>`;
 
-  const pending = [
-    ["Reservar hoteles de Tokio","3–9 y 19–20 de noviembre"],
-    ["Reservar transportes de largo recorrido","La mayoría abre aproximadamente un mes antes"],
-    ["Reservar Shibuya Sky","En cuanto se abra el día 5 de noviembre"],
-    ["Confirmar buses de Kamikōchi","Horarios de final de temporada"]
-  ];
-  document.getElementById("pendingList").innerHTML=pending.map(([title,sub])=>`<div class="pending-item"><span class="status-dot"></span><div><strong>${title}</strong><small>${sub}</small></div><b>›</b></div>`).join("");
+  const alerts=sortedAlerts(todayIso);
+  document.getElementById("pendingList").innerHTML=alerts.length?alerts.map(item=>`<button class="pending-item" type="button" data-open-target="${item.target}"><span class="status-dot"></span><div><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(fmtDate(item.date,{day:"numeric",month:"long"}))}${item.meta?` · ${escapeHtml(item.meta)}`:""}</small></div><b>›</b></button>`).join(""):`<div class="panel empty">${guideData.loadedAt?"No hay avisos próximos.":"Conecta Google para cargar los avisos compartidos."}</div>`;
+  const planSection=document.getElementById("todayPlanSection");planSection.classList.toggle("hidden",!displayDay);
+  if(displayDay){document.querySelectorAll("[data-today-plan]").forEach(button=>button.classList.toggle("active",button.dataset.todayPlan===todayPlanMode));document.getElementById("todayPlanTitle").textContent=tripDay?"Plan de hoy":`Vista previa · ${fmtDate(displayDay.date,{day:"numeric",month:"long"})}`;document.getElementById("todayPlan").innerHTML=todayPlanMarkup(displayDay);loadTodayWeather(displayDay,todayIso);}
+  const tasks=(guideData.checklist||[]).filter(item=>!item.done&&(tripDay?(item.dueDate===todayIso||normalized(item.phase).includes("cada dia")):true)).sort((a,b)=>(a.dueDate||"9999").localeCompare(b.dueDate||"9999")).slice(0,5);
+  document.getElementById("todayTasks").innerHTML=tasks.length?tasks.map(item=>`<label class="check-item compact"><input type="checkbox" data-checklist-id="${escapeHtml(item.id)}"><span><strong>${escapeHtml(item.task)}</strong><small>${escapeHtml([item.dueDate?fmtDate(item.dueDate):"",item.priority,item.owner].filter(Boolean).join(" · "))}</small></span></label>`).join(""):`<div class="panel empty">No hay tareas inmediatas.</div>`;
   const totals = expenses.reduce((a,e)=>(a[e.currency]+=Number(e.amount)||0,a),{EUR:0,JPY:0});
   document.getElementById("expenseQuickSummary").textContent=`${fmtMoney(totals.EUR,"EUR")} + ${fmtMoney(totals.JPY,"JPY")}`;
 }
@@ -188,10 +240,13 @@ function closePlaceGuide(){if(history.state?.placeGuide)history.back();else{clos
 function openPlaceFromHash(){const match=location.hash.match(/^#place=(.+)$/);if(match)openPlaceGuide(decodeURIComponent(match[1]),{push:false});}
 
 function renderBookings(){
-  const filters=[{id:"all",label:"Todas"},{id:"hotel",label:"Hoteles"},{id:"flight",label:"Vuelos"},{id:"transport",label:"Trenes y buses"},{id:"pending",label:"Pendientes"}];
+  const filters=[{id:"all",label:"Todas"},{id:"hotel",label:"Hoteles"},{id:"flight",label:"Vuelos"},{id:"transport",label:"Trenes y buses"},{id:"entry",label:"Entradas"},{id:"pending",label:"Pendientes"}];
   document.getElementById("bookingFilters").innerHTML=filters.map(f=>`<button class="${bookingFilter===f.id?"active":""}" data-booking-filter="${f.id}">${f.label}</button>`).join("");
-  const selected=bookings.filter(b=>bookingFilter==="all"||b.kind===bookingFilter||(bookingFilter==="pending"&&b.status==="pending"));
-  document.getElementById("bookingList").innerHTML=selected.map(b=>`<article class="booking-card"><div class="booking-top"><div><span class="booking-type">${b.icon}</span><h2>${escapeHtml(b.title)}</h2><p class="sub">${escapeHtml(b.subtitle)}</p></div><span class="chip ${b.status}">${statusLabel(b.status)}</span></div><div class="booking-info"><div><small>${escapeHtml(b.from)}</small><strong>${escapeHtml(b.dates)}</strong></div><div><small>${escapeHtml(b.to)}</small><strong>${escapeHtml(b.detail)}</strong></div></div><div class="booking-links">${b.emailId?`<a href="${gmail(b.emailId)}" target="_blank" rel="noreferrer">Ver confirmación</a>`:""}${b.url?`<a href="${b.url}" target="_blank" rel="noreferrer">Web oficial</a>`:""}${b.map?`<a class="secondary" href="${mapsSearch(b.map)}" target="_blank" rel="noreferrer">Google Maps</a>`:""}</div></article>`).join("");
+  const selected=activeBookings().filter(b=>bookingFilter==="all"||bookingGroup(b.kind)===bookingFilter||(bookingFilter==="pending"&&bookingIsPending(b)));
+  document.getElementById("bookingList").innerHTML=selected.length?selected.map(b=>{
+    const statusClass=bookingIsPending(b)?"pending":"confirmed",link=safeUrl(b.link),map=safeUrl(b.map)|| (b.map?mapsSearch(b.map):""),dates=b.startDate?[fmtDate(b.startDate,{day:"numeric",month:"short"}),b.endDate&&b.endDate!==b.startDate?fmtDate(b.endDate,{day:"numeric",month:"short"}):""].filter(Boolean).join(" → "):b.time;
+    return `<article class="booking-card"><div class="booking-top"><div><span class="booking-type">${bookingIcon(b.kind)}</span><h2>${escapeHtml(b.title)}</h2><p class="sub">${escapeHtml(b.detail||b.notes)}</p></div><span class="chip ${statusClass}">${escapeHtml(statusLabel(b.status))}</span></div><div class="booking-info"><div><small>Fecha / horario</small><strong>${escapeHtml([dates,b.time].filter((item,index,list)=>item&&list.indexOf(item)===index).join(" · ")||"Por definir")}</strong></div><div><small>Trayecto</small><strong>${escapeHtml([b.origin,b.destination].filter(Boolean).join(" → ")||b.payment||"—")}</strong></div>${b.amount?`<div><small>Importe</small><strong>${fmtMoney(b.amount,b.currency||"JPY")} · ${escapeHtml(b.payment||"")}</strong></div>`:""}${b.saleOpen?`<div><small>Apertura de venta</small><strong>${fmtDate(b.saleOpen,{day:"numeric",month:"long"})}</strong></div>`:""}${b.cancellation?`<div><small>Cancelar gratis hasta</small><strong>${fmtDate(b.cancellation,{day:"numeric",month:"long"})}</strong></div>`:""}</div>${b.alternative?`<div class="booking-alternative"><strong>Plan alternativo</strong><p>${escapeHtml(b.alternative)}</p></div>`:""}<div class="booking-links">${link?`<a href="${link}" target="_blank" rel="noreferrer">${bookingIsPending(b)?"Abrir reserva":"Ver confirmación"}</a>`:""}${map?`<a class="secondary" href="${map}" target="_blank" rel="noreferrer">Google Maps</a>`:""}</div></article>`;
+  }).join(""):`<div class="panel empty">No hay reservas con este filtro.</div>`;
 }
 
 function practicalMarkup(item){
@@ -203,7 +258,12 @@ function renderGuide(){
   document.querySelectorAll("[data-guide-tab]").forEach(button=>button.classList.toggle("active",button.dataset.guideTab===guideTab));
   if(guideTab==="Checklist"){
     const items=guideData.checklist||[];
-    content.innerHTML=items.length?`<div class="guide-summary panel"><strong>${items.filter(item=>item.done).length}/${items.length}</strong><span>tareas completadas</span></div><div class="checklist-list">${items.map(item=>`<label class="check-item ${item.done?"done":""}"><input type="checkbox" data-checklist-id="${escapeHtml(item.id)}" ${item.done?"checked":""}><span><strong>${escapeHtml(item.task)}</strong><small>${escapeHtml([item.phase,item.category,item.owner,item.notes].filter(Boolean).join(" · "))}</small></span></label>`).join("")}</div>`:`<div class="panel empty">Conecta Google para cargar el checklist compartido.</div>`;
+    content.innerHTML=items.length?`<div class="guide-summary panel"><strong>${items.filter(item=>item.done).length}/${items.length}</strong><span>tareas completadas</span></div><div class="checklist-list">${items.map(item=>{const link=safeUrl(item.link);return `<label class="check-item ${item.done?"done":""}"><input type="checkbox" data-checklist-id="${escapeHtml(item.id)}" ${item.done?"checked":""}><span><strong>${escapeHtml(item.task)}</strong><small>${escapeHtml([item.dueDate?fmtDate(item.dueDate,{day:"numeric",month:"long"}):"",item.priority,item.phase,item.category,item.owner,item.notes].filter(Boolean).join(" · "))}</small>${item.dependency?`<em>Depende de: ${escapeHtml(item.dependency)}</em>`:""}${link?`<a href="${link}" target="_blank" rel="noreferrer">Abrir enlace</a>`:""}</span></label>`;}).join("")}</div>`:`<div class="panel empty">Conecta Google para cargar el checklist compartido.</div>`;
+    return;
+  }
+  if(guideTab==="Equipaje"){
+    const items=(guideData.luggage||[]).sort((a,b)=>(a.actionDate||"").localeCompare(b.actionDate||""));
+    content.innerHTML=items.length?`<div class="luggage-list">${items.map(item=>`<article class="guide-card luggage-card"><span class="guide-context">${escapeHtml(item.status||"Planificado")}</span><h2>${escapeHtml(item.item)}</h2><p><strong>${escapeHtml(item.origin)} → ${escapeHtml(item.destination)}</strong></p><div class="luggage-meta"><span>📅 ${item.actionDate?fmtDate(item.actionDate,{day:"numeric",month:"long"}):"Por confirmar"}</span>${item.deliveryDate?`<span>📦 Entrega ${fmtDate(item.deliveryDate,{day:"numeric",month:"long"})}</span>`:""}${item.company?`<span>🏷️ ${escapeHtml(item.company)}</span>`:""}</div>${item.carry?`<p class="guide-detail"><strong>En la mochila:</strong> ${escapeHtml(item.carry)}</p>`:""}${item.confirmWith?`<p class="guide-detail"><strong>Confirmar con:</strong> ${escapeHtml(item.confirmWith)}</p>`:""}${item.notes?`<p class="guide-detail">${escapeHtml(item.notes)}</p>`:""}</article>`).join("")}</div><p class="verification-note">Los envíos marcados “Por confirmar” son propuestas: comprobadlos con el hotel antes de entregar las maletas.</p>`:`<div class="panel empty">Conecta Google para cargar el plan de equipaje.</div>`;
     return;
   }
   if(guideTab==="Notas"){
@@ -367,13 +427,15 @@ async function submitNote(event){
 function bindEvents(){
   document.addEventListener("click",event=>{
     const nav=event.target.closest("[data-nav]");if(nav){navigate(nav.dataset.nav);return;}
+    const target=event.target.closest("[data-open-target]");if(target){const value=target.dataset.openTarget;if(value==="bookings")navigate("bookings");else{guideTab=value==="emergency"?"Emergencia":"Checklist";navigate("more");renderGuide();}return;}
+    const plan=event.target.closest("[data-today-plan]");if(plan){todayPlanMode=plan.dataset.todayPlan;renderHome();return;}
     const place=event.target.closest("[data-place-id]");if(place){openPlaceGuide(place.dataset.placeId);return;}
     const city=event.target.closest("[data-city]");if(city){routeFilter=city.dataset.city;renderRoute();return;}
     const mode=event.target.closest("[data-route-mode]");if(mode){routeMode=mode.dataset.routeMode;document.querySelectorAll("[data-route-mode]").forEach(button=>button.classList.toggle("active",button===mode));document.getElementById("routeDaysPanel").classList.toggle("hidden",routeMode!=="days");document.getElementById("routeNowPanel").classList.toggle("hidden",routeMode!=="now");renderNow();return;}
     const tab=event.target.closest("[data-guide-tab]");if(tab){guideTab=tab.dataset.guideTab;renderGuide();return;}
     const openNoteButton=event.target.closest("#openNoteForm");if(openNoteButton){openNote();return;}
     const deleteNoteButton=event.target.closest("[data-delete-note]");if(deleteNoteButton){if(confirm("¿Eliminar esta nota compartida?"))window.sheetExpenseStore.removeNote(deleteNoteButton.dataset.deleteNote).then(()=>toast("Nota eliminada")).catch(error=>toast(error.message));return;}
-    const checklist=event.target.closest("[data-checklist-id]");if(checklist){const done=checklist.checked;checklist.disabled=true;window.sheetExpenseStore?.setChecklist(checklist.dataset.checklistId,done).then(()=>toast(done?"Tarea completada":"Tarea reabierta")).catch(error=>{checklist.checked=!done;checklist.disabled=false;toast(error.message||"Conecta Google para actualizarla");});return;}
+    const checklist=event.target.closest("[data-checklist-id]");if(checklist){const done=checklist.checked;if(!window.sheetExpenseStore?.isConnected()){checklist.checked=!done;toast("Conecta Google para actualizar el checklist");return;}checklist.disabled=true;window.sheetExpenseStore.setChecklist(checklist.dataset.checklistId,done).then(()=>toast(done?"Tarea completada":"Tarea reabierta")).catch(error=>{checklist.checked=!done;checklist.disabled=false;toast(error.message||"Conecta Google para actualizarla");});return;}
     const booking=event.target.closest("[data-booking-filter]");if(booking){bookingFilter=booking.dataset.bookingFilter;renderBookings();return;}
     const expenseStatus=event.target.closest("[data-expense-status]");if(expenseStatus){expenseStatusFilter=expenseStatus.dataset.expenseStatus;renderExpenses();return;}
     const expenseCategory=event.target.closest("[data-expense-category]");if(expenseCategory){expenseCategoryFilter=expenseCategory.dataset.expenseCategory;renderExpenses();return;}
@@ -416,6 +478,7 @@ function bindEvents(){
     }
   });
   window.addEventListener("beforeinstallprompt",event=>{event.preventDefault();deferredInstallPrompt=event;document.getElementById("installButton").classList.remove("hidden");});
+  window.addEventListener("online",renderHome);window.addEventListener("offline",renderHome);
   document.getElementById("installButton").addEventListener("click",async()=>{if(!deferredInstallPrompt)return;deferredInstallPrompt.prompt();await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;document.getElementById("installButton").classList.add("hidden");});
 }
 
