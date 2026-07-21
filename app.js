@@ -116,14 +116,21 @@ function placeMarkup(place){
   const guide=richGuideFor(place),summary=guide?.summary||place.description;
   return `<button class="place-guide-card" type="button" data-place-id="${escapeHtml(place.id)}"><span class="place-guide-icon">📖</span><span class="place-guide-copy"><small>${escapeHtml(guide?.neighborhood||place.zone||place.slot)}</small><strong>${escapeHtml(place.title||place.zone)}</strong><span>${escapeHtml(summary)}</span><em>${escapeHtml([place.time,place.duration].filter(Boolean).join(" · "))}</em></span><b aria-hidden="true">›</b></button>`;
 }
+function routeContextFor(place){
+  const guide=richGuideFor(place),legs=(guideData.routes||[]).filter(item=>item.date===place.date).sort((a,b)=>a.order-b.order);
+  const arrivalIndex=guide?.arrivalRouteId?legs.findIndex(leg=>leg.id===guide.arrivalRouteId):-1;
+  return {arrival:arrivalIndex>=0?legs[arrivalIndex]:null,next:arrivalIndex>=0?legs[arrivalIndex+1]||null:null};
+}
 function journeyMarkup(places,legs){
   const enriched=places.map(place=>({place,guide:richGuideFor(place)}));
-  const canInterleave=places.length>0&&enriched.every(item=>item.guide?.arrivalRouteId&&legs.some(leg=>leg.id===item.guide.arrivalRouteId));
+  const mapped=enriched.filter(item=>item.guide?.arrivalRouteId&&legs.some(leg=>leg.id===item.guide.arrivalRouteId));
+  const canInterleave=mapped.length>0;
   if(!canInterleave){
     return `${places.length?`<section class="day-section"><h3>Guía de las visitas</h3><div class="place-guide-list">${places.map(placeMarkup).join("")}</div></section>`:""}${legs.length?`<section class="day-section"><h3>Cómo moveros</h3>${legs.map(routeLegMarkup).join("")}</section>`:`<div class="guide-placeholder">Conecta Google para ver los trayectos paso a paso.</div>`}`;
   }
-  const placesByRoute=new Map(enriched.map(item=>[item.guide.arrivalRouteId,item.place]));
-  return `<section class="day-section journey-section"><h3>Plan paso a paso</h3><div class="journey-flow">${legs.map(leg=>`${routeLegMarkup(leg)}${placesByRoute.has(leg.id)?placeMarkup(placesByRoute.get(leg.id)):""}`).join("")}</div></section>`;
+  const placesByRoute=new Map();
+  mapped.forEach(item=>placesByRoute.set(item.guide.arrivalRouteId,[...(placesByRoute.get(item.guide.arrivalRouteId)||[]),item.place]));
+  return `<section class="day-section journey-section"><h3>Plan paso a paso</h3><p class="journey-hint">Cada trayecto termina en la visita que viene justo después.</p><div class="journey-flow">${legs.map(leg=>`${routeLegMarkup(leg)}${(placesByRoute.get(leg.id)||[]).map(placeMarkup).join("")}`).join("")}</div></section>`;
 }
 function renderRoute(){
   const cities=["Todos",...new Set(days.map(day=>day.city))];
@@ -152,6 +159,7 @@ function renderNow(){
 
 function placeGuideDialogMarkup(place){
   const guide=richGuideFor(place)||{},recommendations=recommendationsFor(guide.id);
+  const {next}=routeContextFor(place),nextMap=next?safeUrl(next.map):"";
   const source=safeUrl(guide.source||place.source),map=safeUrl(guide.map)||mapsSearch(`${place.title} ${guide.city||place.zone||"Japón"}`);
   const overview=guide.summary||place.description;
   return `<div class="place-dialog-hero"><p class="eyebrow">${escapeHtml(guide.neighborhood||place.zone||"Guía de visita")}</p><h2 id="placeDialogTitle">${escapeHtml(place.title||place.zone)}</h2><div class="place-dialog-meta"><span>${escapeHtml(place.time||"")}</span><span>${escapeHtml(guide.duration||place.duration||"")}</span></div><p>${escapeHtml(overview)}</p></div>
@@ -160,6 +168,7 @@ function placeGuideDialogMarkup(place){
     ${guide.route?`<details class="place-dialog-section" open><summary>Cómo recorrerlo <span>＋</span></summary>${detailTextMarkup(guide.route)}</details>`:""}
     ${(guide.tips||place.tips||place.reservation)?`<details class="place-dialog-section"><summary>Consejos prácticos <span>＋</span></summary>${detailTextMarkup([guide.tips||place.tips,place.reservation?`Reserva: ${place.reservation}`:""].filter(Boolean).join("\n"))}</details>`:""}
     ${(guide.rainPlan||place.tips)?`<details class="place-dialog-section"><summary>Plan B <span>＋</span></summary>${detailTextMarkup(guide.rainPlan||place.tips)}</details>`:""}
+    ${next?`<section class="place-dialog-section next-leg"><p class="eyebrow">Al salir · siguiente trayecto</p><h3>${escapeHtml(next.origin)} → ${escapeHtml(next.destination)}</h3><p>${escapeHtml(next.instruction)}</p>${next.line?`<small><b>${escapeHtml(next.line)}</b>${next.duration?` · ${escapeHtml(next.duration)}`:""}</small>`:""}${nextMap?`<a href="${nextMap}" target="_blank" rel="noreferrer">Abrir esta ruta en Google Maps</a>`:""}</section>`:""}
     ${recommendations.length?`<section class="place-dialog-section"><h3>Comer y descubrir cerca</h3><div class="recommendation-list">${recommendations.map(item=>{const itemMap=safeUrl(item.map)||mapsSearch(`${item.name} ${item.area}`),itemSource=safeUrl(item.source);return `<article class="recommendation-card"><span>${escapeHtml(item.type)}</span><div><strong>${escapeHtml(item.name)}</strong><p>${escapeHtml(item.reason)}</p><small>${escapeHtml([item.area,item.price].filter(Boolean).join(" · "))}</small><div class="mini-actions"><a href="${itemMap}" target="_blank" rel="noreferrer">Mapa</a>${itemSource?`<a href="${itemSource}" target="_blank" rel="noreferrer">Web</a>`:""}</div></div></article>`;}).join("")}</div><p class="verification-note">Recomendaciones revisadas el ${escapeHtml(guide.verified||"—")}. Conviene confirmar horarios antes de ir.</p></section>`:""}
     <div class="place-dialog-actions"><a class="primary-button" href="${map}" target="_blank" rel="noreferrer">Abrir en Google Maps</a>${source?`<a class="secondary-button" href="${source}" target="_blank" rel="noreferrer">Fuente oficial</a>`:""}</div>`;
 }
