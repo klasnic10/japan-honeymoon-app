@@ -8,6 +8,7 @@ const RATE_DATE_KEY = "japon2026.exchangeRateDate.v1";
 const DISPLAY_CURRENCY_KEY = "japon2026.displayCurrency.v1";
 const PENDING_SYNC_KEY = "japon2026.pendingSheetSync.v1";
 const GUIDE_KEY = "japon2026.guideData.v1";
+const TODAY_PREVIEW_KEY = "japon2026.todayPreview.v1";
 const RATE_ENDPOINT = "https://api.frankfurter.dev/v2/rate/EUR/JPY?providers=ECB";
 
 const gmail = id => `https://mail.google.com/mail/#all/${id}`;
@@ -35,6 +36,7 @@ let selectedPlaceId = "";
 let todayPlanMode = "normal";
 let todayWeather = null;
 let weatherRequestKey = "";
+let todayPreviewDate = localStorage.getItem(TODAY_PREVIEW_KEY)||"";
 
 function emptyGuideData(){return {routes:[],places:[],placeGuides:[],recommendations:[],practical:[],checklist:[],notes:[],bookings:[],luggage:[]};}
 
@@ -85,6 +87,8 @@ function navigate(view){
   document.querySelectorAll(".bottom-nav [data-nav]").forEach(button=>button.classList.toggle("active",button.dataset.nav===view));
   window.scrollTo({top:0,behavior:"smooth"}); document.getElementById("mainContent").focus({preventScroll:true});
 }
+
+function appToday(){return todayPreviewDate||japanToday();}
 
 function activeBookings(){
   if((guideData.bookings||[]).length)return guideData.bookings;
@@ -137,22 +141,23 @@ function todayPlanMarkup(day){
   return slots.map(slot=>`<article class="today-step"><span>•</span><div><strong>${escapeHtml(slot.title)}</strong><small>${escapeHtml([slot.time,slot.desc].filter(Boolean).join(" · "))}</small></div></article>`).join("")+(legs[0]?`<a class="today-route-link" href="${safeUrl(legs[0].map)}" target="_blank" rel="noreferrer">Abrir el primer trayecto</a>`:"");
 }
 function renderHome(){
-  const now = new Date(),todayIso=japanToday(); const countdown = document.getElementById("countdown");
-  if(now < TRIP_START){ const daysLeft=Math.ceil((TRIP_START-now)/86400000); countdown.textContent=`Faltan ${daysLeft} días para despegar hacia Tokio.`; }
+  const now = new Date(),realTodayIso=japanToday(),todayIso=appToday(); const countdown = document.getElementById("countdown");
+  if(todayPreviewDate)countdown.textContent=`Vista simulada del ${fmtDate(todayIso,{weekday:"long",day:"numeric",month:"long"})}.`;
+  else if(now < TRIP_START){ const daysLeft=Math.ceil((TRIP_START-now)/86400000); countdown.textContent=`Faltan ${daysLeft} días para despegar hacia Tokio.`; }
   else if(now <= TRIP_END) countdown.textContent="Ya estáis en Japón. Aquí tenéis lo siguiente, sin rebuscar.";
   else countdown.textContent="El viaje terminó, pero la ruta y los gastos siguen aquí.";
 
   const tripDay = days.find(day=>day.date===todayIso);
   const previewDay=tripDay||(todayIso<days[0].date?days[0]:null),displayDay=tripDay||previewDay;
   const card=document.getElementById("todayCard");
-  if(tripDay){const todayBooking=activeBookings().find(item=>item.startDate===tripDay.date);card.innerHTML=`<p class="eyebrow">Hoy · ${escapeHtml(fmtDate(tripDay.date,{weekday:"long",day:"numeric",month:"long"}))}</p><h2>${escapeHtml(tripDay.title)}</h2><p>${escapeHtml(tripDay.slots[0]?.title||"")} · ${escapeHtml(tripDay.slots[0]?.time||"")}</p>${weatherMarkup(tripDay,todayIso)}<div class="today-meta"><span class="chip">📍 ${escapeHtml(tripDay.city)}</span><span class="chip">🛏️ ${escapeHtml(tripDay.sleep)}</span><span class="chip">${navigator.onLine?"● Online":"○ Copia offline"}</span></div><div class="action-row"><button class="primary-button" data-nav="route">Ver ruta completa</button>${todayBooking?`<button class="secondary-button" data-nav="bookings">Ver reserva</button>`:""}<a class="secondary-button" href="${mapsSearch(tripDay.map)}" target="_blank" rel="noreferrer">Mapa</a></div>`;}
+  if(tripDay){const todayBooking=activeBookings().find(item=>item.startDate===tripDay.date);card.innerHTML=`<p class="eyebrow">${todayPreviewDate?"Día simulado":"Hoy"} · ${escapeHtml(fmtDate(tripDay.date,{weekday:"long",day:"numeric",month:"long"}))}</p><h2>${escapeHtml(tripDay.title)}</h2><p>${escapeHtml(tripDay.slots[0]?.title||"")} · ${escapeHtml(tripDay.slots[0]?.time||"")}</p>${weatherMarkup(tripDay,realTodayIso)}<div class="today-meta"><span class="chip">📍 ${escapeHtml(tripDay.city)}</span><span class="chip">🛏️ ${escapeHtml(tripDay.sleep)}</span><span class="chip">${navigator.onLine?"● Online":"○ Copia offline"}</span></div><div class="action-row"><button class="primary-button" data-nav="route">Ver ruta completa</button>${todayBooking?`<button class="secondary-button" data-nav="bookings">Ver reserva</button>`:""}<a class="secondary-button" href="${mapsSearch(tripDay.map)}" target="_blank" rel="noreferrer">Mapa</a></div>`;}
   else if(now < TRIP_START){const alerts=sortedAlerts(todayIso),next=alerts[0];card.innerHTML=`<p class="eyebrow">Próximo paso</p><h2>${escapeHtml(next?.title||"Preparar el viaje")}</h2><p>${next?`${fmtDate(next.date,{day:"numeric",month:"long"})}${next.meta?` · ${escapeHtml(next.meta)}`:""}`:"Conecta Google para cargar reservas y tareas compartidas."}</p><div class="today-meta"><span class="chip pending">${alerts.length} avisos próximos</span><span class="chip">${(guideData.checklist||[]).filter(item=>item.done).length}/${(guideData.checklist||[]).length} tareas</span></div><div class="action-row"><button class="primary-button" data-open-target="${next?.target||"checklist"}">Abrir pendiente</button><button class="secondary-button" data-nav="bookings">Reservas</button></div>`;}
   else card.innerHTML=`<p class="eyebrow">Recuerdo del viaje</p><h2>Japón, del 2 al 21 de noviembre</h2><p>Podéis consultar la ruta, cerrar el presupuesto y exportar todos los gastos.</p><div class="action-row"><button class="primary-button" data-nav="expenses">Ver gastos</button></div>`;
 
   const alerts=sortedAlerts(todayIso);
   document.getElementById("pendingList").innerHTML=alerts.length?alerts.map(item=>`<button class="pending-item" type="button" data-open-target="${item.target}"><span class="status-dot"></span><div><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(fmtDate(item.date,{day:"numeric",month:"long"}))}${item.meta?` · ${escapeHtml(item.meta)}`:""}</small></div><b>›</b></button>`).join(""):`<div class="panel empty">${guideData.loadedAt?"No hay avisos próximos.":"Conecta Google para cargar los avisos compartidos."}</div>`;
   const planSection=document.getElementById("todayPlanSection");planSection.classList.toggle("hidden",!displayDay);
-  if(displayDay){document.querySelectorAll("[data-today-plan]").forEach(button=>button.classList.toggle("active",button.dataset.todayPlan===todayPlanMode));document.getElementById("todayPlanTitle").textContent=tripDay?"Plan de hoy":`Vista previa · ${fmtDate(displayDay.date,{day:"numeric",month:"long"})}`;document.getElementById("todayPlan").innerHTML=todayPlanMarkup(displayDay);loadTodayWeather(displayDay,todayIso);}
+  if(displayDay){document.querySelectorAll("[data-today-plan]").forEach(button=>button.classList.toggle("active",button.dataset.todayPlan===todayPlanMode));document.getElementById("todayPlanTitle").textContent=tripDay?"Plan de hoy":`Vista previa · ${fmtDate(displayDay.date,{day:"numeric",month:"long"})}`;document.getElementById("todayPlan").innerHTML=todayPlanMarkup(displayDay);loadTodayWeather(displayDay,realTodayIso);}
   const tasks=(guideData.checklist||[]).filter(item=>!item.done&&(tripDay?(item.dueDate===todayIso||normalized(item.phase).includes("cada dia")):true)).sort((a,b)=>(a.dueDate||"9999").localeCompare(b.dueDate||"9999")).slice(0,5);
   document.getElementById("todayTasks").innerHTML=tasks.length?tasks.map(item=>`<label class="check-item compact"><input type="checkbox" data-checklist-id="${escapeHtml(item.id)}"><span><strong>${escapeHtml(item.task)}</strong><small>${escapeHtml([item.dueDate?fmtDate(item.dueDate):"",item.priority,item.owner].filter(Boolean).join(" · "))}</small></span></label>`).join(""):`<div class="panel empty">No hay tareas inmediatas.</div>`;
   const totals = expenses.reduce((a,e)=>(a[e.currency]+=Number(e.amount)||0,a),{EUR:0,JPY:0});
@@ -199,10 +204,10 @@ function renderRoute(){
   renderNow();
 }
 function japanToday(){return new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Tokyo",year:"numeric",month:"2-digit",day:"2-digit"}).format(new Date());}
-function isToday(iso){ return japanToday()===iso; }
+function isToday(iso){ return appToday()===iso; }
 function renderNow(){
   const panel=document.getElementById("routeNowPanel");if(!panel)return;
-  const today=japanToday();let day=days.find(item=>item.date===today);
+  const today=appToday();let day=days.find(item=>item.date===today);
   const phase=today<days[0].date?"before":today>days.at(-1).date?"after":"during";
   if(!day)day=phase==="before"?days[0]:days.at(-1);
   const places=guideData.places.filter(item=>item.date===day.date),legs=guideData.routes.filter(item=>item.date===day.date).sort((a,b)=>a.order-b.order);
@@ -443,6 +448,7 @@ function bindEvents(){
     const edit=event.target.closest("[data-edit-expense]");if(edit){openExpense(edit.dataset.editExpense);return;}
     const del=event.target.closest("[data-delete-expense]");if(del){deleteExpense(del.dataset.deleteExpense);}
   });
+  document.getElementById("todayPreviewDate").addEventListener("change",event=>{todayPreviewDate=event.target.value;todayWeather=null;weatherRequestKey="";if(todayPreviewDate)localStorage.setItem(TODAY_PREVIEW_KEY,todayPreviewDate);else localStorage.removeItem(TODAY_PREVIEW_KEY);renderHome();renderRoute();});
   document.getElementById("openExpenseForm").addEventListener("click",()=>openExpense());
   document.getElementById("expenseForm").addEventListener("submit",submitExpense);
   document.getElementById("closeExpenseDialog").addEventListener("click",closeExpense);
@@ -484,6 +490,7 @@ function bindEvents(){
 
 function init(){
   populateExpenseSelects(); document.getElementById("exchangeRate").value=localStorage.getItem(RATE_KEY)||"";
+  document.getElementById("todayPreviewDate").innerHTML=`<option value="">Fecha real</option>${days.map((day,index)=>`<option value="${day.date}">Día ${index+1} · ${fmtDate(day.date,{weekday:"short",day:"numeric",month:"short"})} · ${escapeHtml(day.city)}</option>`).join("")}`;document.getElementById("todayPreviewDate").value=todayPreviewDate;
   bindEvents(); setupSheetSync(); renderHome(); renderRoute(); renderBookings(); renderExpenses(); renderGuide(); openPlaceFromHash();
   refreshExchangeRate();
   if("serviceWorker" in navigator){
