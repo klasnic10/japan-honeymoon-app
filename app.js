@@ -39,10 +39,7 @@ let weatherRequestKey = "";
 let todayPreviewDate = localStorage.getItem(TODAY_PREVIEW_KEY)||"";
 let converterSource = "EUR";
 let restaurantCityFilter = "Todos";
-let restaurantDateFilter = "all";
-let restaurantTypeFilter = "all";
-let restaurantPriorityFilter = "all";
-let restaurantReservationFilter = "all";
+let restaurantSearchFilter = "";
 
 function emptyGuideData(){return {routes:[],places:[],placeGuides:[],recommendations:[],practical:[],checklist:[],notes:[],bookings:[],luggage:[],restaurants:[]};}
 
@@ -180,7 +177,7 @@ function placeMarkup(place){
   const guide=richGuideFor(place),summary=guide?.summary||place.description;
   return `<button class="place-guide-card" type="button" data-place-id="${escapeHtml(place.id)}"><span class="place-guide-icon">📖</span><span class="place-guide-copy"><small>${escapeHtml(guide?.neighborhood||place.zone||place.slot)}</small><strong>${escapeHtml(place.title||place.zone)}</strong><span>${escapeHtml(summary)}</span><em>${escapeHtml([place.time,place.duration].filter(Boolean).join(" · "))}</em></span><b aria-hidden="true">›</b></button>`;
 }
-function restaurantNeedsReservation(item){const value=normalized(item.reservation);return Boolean(value)&&value!=="no"&&!value.includes("sin reserva");}
+function restaurantNeedsReservation(item){const value=normalized(item.reservation);return ["si","necesaria","obligatoria","recomendada"].some(term=>value===term||value.includes(term));}
 function restaurantRatingMarkup(item){return item.rating?`<span class="restaurant-rating">★ ${new Intl.NumberFormat("es-ES",{minimumFractionDigits:1,maximumFractionDigits:1}).format(item.rating)}${item.reviews?` <small>(${escapeHtml(item.reviews)})</small>`:""}</span>`:`<span class="restaurant-rating muted">Sin rating</span>`;}
 function routeRestaurantMarkup(items){
   if(!items.length)return "";
@@ -264,22 +261,19 @@ function openPlaceFromHash(){const match=location.hash.match(/^#place=(.+)$/);if
 
 function restaurantCardMarkup(item){
   const map=safeUrl(item.map)||mapsSearch(`${item.name} ${item.area||item.city}`),reservation=restaurantNeedsReservation(item);
-  return `<article class="restaurant-card"><button class="restaurant-card-main" type="button" data-restaurant-id="${escapeHtml(item.id)}"><div class="restaurant-card-top"><span class="restaurant-kind">${escapeHtml(item.type||"Dónde comer")}</span>${restaurantRatingMarkup(item)}</div><h2>${escapeHtml(item.name)}</h2><p class="restaurant-area">${escapeHtml([item.area,item.city,item.date?fmtDate(item.date,{day:"numeric",month:"short"}):""].filter(Boolean).join(" · "))}</p><p class="restaurant-food">${escapeHtml(item.food)}</p><div class="restaurant-tags"><span>${escapeHtml(item.price||"Precio sin indicar")}</span><span class="${reservation?"needs-booking":""}">${reservation?`Reserva: ${escapeHtml(item.reservation)}`:"Sin reserva"}</span>${item.priority?`<span>${escapeHtml(item.priority)}</span>`:""}</div></button><div class="restaurant-card-actions"><button type="button" data-restaurant-id="${escapeHtml(item.id)}">Ver ficha</button><a href="${map}" target="_blank" rel="noreferrer">Google Maps</a></div></article>`;
+  const dateLabel=item.date?fmtDate(item.date,{day:"numeric",month:"short"}):"Flexible";
+  return `<article class="restaurant-card"><button class="restaurant-card-main" type="button" data-restaurant-id="${escapeHtml(item.id)}"><div class="restaurant-card-top"><span class="restaurant-date"><small>${escapeHtml(item.day||"Cuándo")}</small><strong>${escapeHtml(dateLabel)}</strong></span>${restaurantRatingMarkup(item)}</div><p class="restaurant-kind">${escapeHtml(item.type||"Dónde comer")}</p><h2>${escapeHtml(item.name)}</h2><p class="restaurant-area">${escapeHtml([item.area,item.city].filter(Boolean).join(" · "))}</p><div class="restaurant-food"><small>Qué pedir</small><p>${escapeHtml(item.food)}</p></div><div class="restaurant-tags"><span>${escapeHtml(item.price||"Precio sin indicar")}</span><span class="${reservation?"needs-booking":""}">${reservation?"Conviene reservar":"Sin reserva"}</span>${item.priority?`<span>${escapeHtml(item.priority)}</span>`:""}</div></button><div class="restaurant-card-actions"><button type="button" data-restaurant-id="${escapeHtml(item.id)}">Ver la recomendación</button><a href="${map}" target="_blank" rel="noreferrer">Abrir Maps</a></div></article>`;
 }
 function renderRestaurants(){
   const content=document.getElementById("restaurantList");if(!content)return;
-  const restaurants=guideData.restaurants||[],cities=["Todos",...new Set(restaurants.map(item=>item.city).filter(Boolean))];
+  const restaurants=guideData.restaurants||[],restaurantDataLoaded=guideData.restaurantsLoaded===true,cities=["Todos",...new Set(restaurants.map(item=>item.city).filter(Boolean))];
+  if(!cities.includes(restaurantCityFilter))restaurantCityFilter="Todos";
   document.getElementById("restaurantCityFilters").innerHTML=cities.map(city=>`<button class="${restaurantCityFilter===city?"active":""}" type="button" data-restaurant-city="${escapeHtml(city)}">${escapeHtml(city)}</button>`).join("");
-  const setOptions=(id,values,current,allLabel)=>{const select=document.getElementById(id);select.innerHTML=`<option value="all">${allLabel}</option>${values.map(value=>`<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("")}`;select.value=current;};
-  const dates=[...new Set(restaurants.map(item=>item.date).filter(Boolean))].sort();
-  setOptions("restaurantDayFilter",dates.map(date=>date),restaurantDateFilter,"Todos los días");
-  [...document.getElementById("restaurantDayFilter").options].forEach(option=>{if(option.value!=="all")option.textContent=`${fmtDate(option.value,{weekday:"short",day:"numeric",month:"short"})}`;});
-  setOptions("restaurantTypeFilter",[...new Set(restaurants.map(item=>item.type).filter(Boolean))].sort(),restaurantTypeFilter,"Todos los tipos");
-  setOptions("restaurantPriorityFilter",[...new Set(restaurants.map(item=>item.priority).filter(Boolean))],restaurantPriorityFilter,"Todas las prioridades");
-  document.querySelectorAll("[data-restaurant-reservation]").forEach(button=>button.classList.toggle("active",button.dataset.restaurantReservation===restaurantReservationFilter));
-  const selected=restaurants.filter(item=>(restaurantCityFilter==="Todos"||item.city===restaurantCityFilter)&&(restaurantDateFilter==="all"||item.date===restaurantDateFilter)&&(restaurantTypeFilter==="all"||item.type===restaurantTypeFilter)&&(restaurantPriorityFilter==="all"||item.priority===restaurantPriorityFilter)&&(restaurantReservationFilter==="all"||(restaurantReservationFilter==="yes"&&restaurantNeedsReservation(item))||(restaurantReservationFilter==="no"&&!restaurantNeedsReservation(item)))).sort((a,b)=>(a.date||"9999").localeCompare(b.date||"9999")||a.name.localeCompare(b.name,"es"));
-  document.getElementById("restaurantCount").textContent=`${selected.length} ${selected.length===1?"sitio":"sitios"}`;
-  content.innerHTML=selected.length?selected.map(restaurantCardMarkup).join(""):`<div class="panel empty">${restaurants.length?"No hay sitios con estos filtros.":"Conecta Google para cargar los restaurantes compartidos."}</div>`;
+  const query=normalized(restaurantSearchFilter),matchesSearch=item=>!query||normalized([item.name,item.food,item.area,item.city,item.type,item.priority,item.notes].join(" ")).includes(query);
+  const selected=restaurants.filter(item=>(restaurantCityFilter==="Todos"||item.city===restaurantCityFilter)&&matchesSearch(item)).sort((a,b)=>(a.date||"9999").localeCompare(b.date||"9999")||a.name.localeCompare(b.name,"es"));
+  document.getElementById("restaurantCount").textContent=restaurantDataLoaded?`${selected.length} ${selected.length===1?"sitio":"sitios"}`:"Sin actualizar";
+  content.innerHTML=selected.length?selected.map(restaurantCardMarkup).join(""):`<div class="panel empty">${restaurants.length?"No encontramos nada con esa búsqueda.":restaurantDataLoaded?"Todavía no hay restaurantes en la hoja compartida.":"Pulsa “Conectar” para cargar los sitios que ya están en Google Sheets."}</div>`;
+  document.getElementById("clearRestaurantSearch").classList.toggle("hidden",!restaurantSearchFilter);
 }
 function restaurantDialogMarkup(item){
   const map=safeUrl(item.map)||mapsSearch(`${item.name} ${item.area||item.city}`),source=safeUrl(item.source),reservation=restaurantNeedsReservation(item);
@@ -407,8 +401,8 @@ async function deleteExpense(id){
 }
 
 function updateSyncUi({state,message,configured,connected}){
-  const panel=document.querySelector("#view-expenses .sync-panel"),button=document.getElementById("connectGoogle"),routePanel=document.querySelector(".route-sync-panel"),routeButton=document.getElementById("connectRouteGoogle"),browserRequired=window.sheetExpenseStore?.needsBrowser?.()||state==="browser";
-  panel.dataset.state=state;routePanel.dataset.state=state;
+  const panel=document.querySelector("#view-expenses .sync-panel"),button=document.getElementById("connectGoogle"),routePanel=document.querySelector(".route-sync-panel"),routeButton=document.getElementById("connectRouteGoogle"),restaurantPanel=document.querySelector(".restaurant-sync-card"),restaurantButton=document.getElementById("connectRestaurantGoogle"),browserRequired=window.sheetExpenseStore?.needsBrowser?.()||state==="browser";
+  panel.dataset.state=state;routePanel.dataset.state=state;restaurantPanel.dataset.state=state;
   document.getElementById("syncTitle").textContent=connected?"Google Sheets conectado":configured?"Gastos en este dispositivo":"Falta configurar Google";
   document.getElementById("syncStatus").textContent=message;
   button.textContent=connected?"Sincronizar":"Conectar Google";
@@ -416,7 +410,11 @@ function updateSyncUi({state,message,configured,connected}){
   document.getElementById("routeSyncStatus").textContent=connected?(guideData.loadedAt?`Rutas actualizadas · ${fmtDate(guideData.loadedAt.slice(0,10),{day:"numeric",month:"short"})}`:"Google Sheets conectado"):message;
   routeButton.textContent=connected?"Actualizar":"Conectar";
   routeButton.disabled=["connecting","syncing"].includes(state);
-  button.classList.toggle("hidden",browserRequired&&!connected);routeButton.classList.toggle("hidden",browserRequired&&!connected);
+  document.getElementById("restaurantSyncTitle").textContent=connected?"Selección sincronizada":"Restaurantes compartidos";
+  document.getElementById("restaurantSyncStatus").textContent=connected?(guideData.loadedAt?`${(guideData.restaurants||[]).length} sitios cargados desde Google Sheets`:"Google Sheets conectado"):message;
+  restaurantButton.textContent=connected?"Actualizar":"Conectar";
+  restaurantButton.disabled=["connecting","syncing"].includes(state);
+  button.classList.toggle("hidden",browserRequired&&!connected);routeButton.classList.toggle("hidden",browserRequired&&!connected);restaurantButton.classList.toggle("hidden",browserRequired&&!connected);
   document.getElementById("openExpensesInBrowser").classList.toggle("hidden",!browserRequired||connected);
   document.getElementById("openRouteInBrowser").classList.toggle("hidden",!browserRequired||connected);
 }
@@ -490,7 +488,6 @@ function bindEvents(){
     const place=event.target.closest("[data-place-id]");if(place){openPlaceGuide(place.dataset.placeId);return;}
     const restaurant=event.target.closest("[data-restaurant-id]");if(restaurant){openRestaurant(restaurant.dataset.restaurantId);return;}
     const restaurantCity=event.target.closest("[data-restaurant-city]");if(restaurantCity){restaurantCityFilter=restaurantCity.dataset.restaurantCity;renderRestaurants();return;}
-    const restaurantReservation=event.target.closest("[data-restaurant-reservation]");if(restaurantReservation){restaurantReservationFilter=restaurantReservation.dataset.restaurantReservation;renderRestaurants();return;}
     const city=event.target.closest("[data-city]");if(city){routeFilter=city.dataset.city;renderRoute();return;}
     const mode=event.target.closest("[data-route-mode]");if(mode){routeMode=mode.dataset.routeMode;document.querySelectorAll("[data-route-mode]").forEach(button=>button.classList.toggle("active",button===mode));document.getElementById("routeDaysPanel").classList.toggle("hidden",routeMode!=="days");document.getElementById("routeNowPanel").classList.toggle("hidden",routeMode!=="now");renderNow();return;}
     const tab=event.target.closest("[data-guide-tab]");if(tab){guideTab=tab.dataset.guideTab;renderGuide();return;}
@@ -505,9 +502,8 @@ function bindEvents(){
     const del=event.target.closest("[data-delete-expense]");if(del){deleteExpense(del.dataset.deleteExpense);}
   });
   document.getElementById("todayPreviewDate").addEventListener("change",event=>{todayPreviewDate=event.target.value;todayWeather=null;weatherRequestKey="";if(todayPreviewDate)localStorage.setItem(TODAY_PREVIEW_KEY,todayPreviewDate);else localStorage.removeItem(TODAY_PREVIEW_KEY);renderHome();renderRoute();});
-  document.getElementById("restaurantDayFilter").addEventListener("change",event=>{restaurantDateFilter=event.target.value;renderRestaurants();});
-  document.getElementById("restaurantTypeFilter").addEventListener("change",event=>{restaurantTypeFilter=event.target.value;renderRestaurants();});
-  document.getElementById("restaurantPriorityFilter").addEventListener("change",event=>{restaurantPriorityFilter=event.target.value;renderRestaurants();});
+  document.getElementById("restaurantSearch").addEventListener("input",event=>{restaurantSearchFilter=event.target.value;renderRestaurants();});
+  document.getElementById("clearRestaurantSearch").addEventListener("click",()=>{restaurantSearchFilter="";document.getElementById("restaurantSearch").value="";renderRestaurants();document.getElementById("restaurantSearch").focus();});
   document.getElementById("openExpenseForm").addEventListener("click",()=>openExpense());
   document.getElementById("expenseForm").addEventListener("submit",submitExpense);
   document.getElementById("closeExpenseDialog").addEventListener("click",closeExpense);
@@ -520,6 +516,7 @@ function bindEvents(){
   document.getElementById("refreshRate").addEventListener("click",()=>refreshExchangeRate({announce:true}));
   document.getElementById("connectGoogle").addEventListener("click",connectAndSync);
   document.getElementById("connectRouteGoogle").addEventListener("click",connectAndSync);
+  document.getElementById("connectRestaurantGoogle").addEventListener("click",connectAndSync);
   document.getElementById("noteForm").addEventListener("submit",submitNote);
   document.getElementById("closeNoteDialog").addEventListener("click",closeNote);
   document.getElementById("cancelNoteDialog").addEventListener("click",closeNote);

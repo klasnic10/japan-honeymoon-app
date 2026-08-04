@@ -101,14 +101,14 @@
           <div><p class="eyebrow">Restaurantes, mercados y puestos</p><h1 id="restaurantsTitle">Dónde comer</h1><p>Opciones recomendadas para cada zona. Elegid según el hambre, la espera y lo que os apetezca ese día.</p></div>
           <button class="secondary-button" type="button" data-nav="route">Volver al viaje</button>
         </div>
-        <div id="restaurantCityFilters" class="filter-row" role="group" aria-label="Filtrar restaurantes por ciudad"></div>
-        <section class="panel restaurant-filter-panel">
-          <label>Día<select id="restaurantDayFilter"></select></label>
-          <label>Tipo<select id="restaurantTypeFilter"></select></label>
-          <label>Prioridad<select id="restaurantPriorityFilter"></select></label>
+        <section class="panel restaurant-sync-card" data-state="disconnected">
+          <span class="status-dot" aria-hidden="true"></span>
+          <div><strong id="restaurantSyncTitle">Restaurantes compartidos</strong><small id="restaurantSyncStatus">Conecta Google para cargar la selección actualizada.</small></div>
+          <button id="connectRestaurantGoogle" class="secondary-button" type="button">Conectar</button>
         </section>
-        <div class="restaurant-reservation-row"><span>Reserva</span><div class="segmented-control" role="group" aria-label="Filtrar por reserva"><button class="active" type="button" data-restaurant-reservation="all">Todas</button><button type="button" data-restaurant-reservation="no">Sin reserva</button><button type="button" data-restaurant-reservation="yes">Necesaria</button></div></div>
-        <div class="section-heading compact restaurant-results-heading"><div><p class="eyebrow">Selección compartida</p><h2>Opciones</h2></div><span id="restaurantCount">0 sitios</span></div>
+        <label class="restaurant-search"><span aria-hidden="true">⌕</span><input id="restaurantSearch" type="search" placeholder="Busca ramen, sushi, Shinjuku…" autocomplete="off"><button id="clearRestaurantSearch" class="hidden" type="button" aria-label="Borrar búsqueda">×</button></label>
+        <div id="restaurantCityFilters" class="restaurant-city-row" role="group" aria-label="Filtrar restaurantes por ciudad"></div>
+        <div class="section-heading compact restaurant-results-heading"><div><p class="eyebrow">Selección compartida</p><h2>Opciones</h2></div><span id="restaurantCount">Sin actualizar</span></div>
         <div id="restaurantList" class="restaurant-list"></div>
       </section>
 
