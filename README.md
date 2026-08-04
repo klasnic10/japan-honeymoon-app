@@ -13,6 +13,7 @@ Aplicación móvil compartida para la luna de miel.
 - Modo `Ahora` para consultar el día del viaje de un vistazo.
 - Guía de frases, comida por zonas y emergencias.
 - Reservas, equipaje, checklist y notas compartidas en Google Sheets.
+- Restaurantes, mercados y puestos recomendados leídos desde Sheets, integrados en la ruta y disponibles en una pantalla con filtros.
 - Vuelos de Qatar Airways y alojamientos ya confirmados.
 - Enlaces privados a las confirmaciones de Gmail.
 - Enlaces directos a Google Maps y a webs oficiales de transporte.
@@ -34,4 +35,4 @@ Después, abrir `http://localhost:8080`.
 
 ## Datos y privacidad
 
-Gastos, rutas, guía, reservas, equipaje, checklist y notas se leen de la hoja compartida tras conectar Google. Las fichas extensas viven en `Lugares` y los restaurantes y tiendas en `Recomendaciones`; no están incrustados en el código. El navegador conserva una copia local para consulta sin conexión. Los PIN de Booking y los billetes electrónicos no están incrustados en la aplicación; se abren en la cuenta de Gmail autorizada.
+Gastos, rutas, guía, reservas, equipaje, restaurantes, checklist y notas se leen de la hoja compartida tras conectar Google. Las fichas extensas viven en `Lugares`, las sugerencias cercanas en `Recomendaciones` y la selección gastronómica por día en `Restaurantes`; no están incrustadas en el código. El navegador conserva una copia local para consulta sin conexión. Los PIN de Booking y los billetes electrónicos no están incrustados en la aplicación; se abren en la cuenta de Gmail autorizada.
