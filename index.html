@@ -84,6 +84,7 @@
           <button id="connectRouteGoogle" class="secondary-button" type="button">Conectar</button>
           <a id="openRouteInBrowser" class="secondary-button browser-link hidden" href="https://klasnic10.github.io/japan-honeymoon-app/" target="_blank" rel="noreferrer">Abrir en navegador</a>
         </section>
+        <div class="route-shortcuts"><button class="secondary-button" type="button" data-nav="restaurants">🍜 Ver sitios para comer</button></div>
         <div id="routeMode" class="segmented-control page-tabs" role="group" aria-label="Modo de ruta">
           <button class="active" type="button" data-route-mode="days">Por días</button>
           <button type="button" data-route-mode="now">Ahora</button>
@@ -93,6 +94,22 @@
           <div id="routeList" class="timeline"></div>
         </div>
         <div id="routeNowPanel" class="hidden"></div>
+      </section>
+
+      <section id="view-restaurants" class="view" data-view="restaurants" aria-labelledby="restaurantsTitle">
+        <div class="page-heading with-action">
+          <div><p class="eyebrow">Restaurantes, mercados y puestos</p><h1 id="restaurantsTitle">Dónde comer</h1><p>Opciones recomendadas para cada zona. Elegid según el hambre, la espera y lo que os apetezca ese día.</p></div>
+          <button class="secondary-button" type="button" data-nav="route">Volver al viaje</button>
+        </div>
+        <div id="restaurantCityFilters" class="filter-row" role="group" aria-label="Filtrar restaurantes por ciudad"></div>
+        <section class="panel restaurant-filter-panel">
+          <label>Día<select id="restaurantDayFilter"></select></label>
+          <label>Tipo<select id="restaurantTypeFilter"></select></label>
+          <label>Prioridad<select id="restaurantPriorityFilter"></select></label>
+        </section>
+        <div class="restaurant-reservation-row"><span>Reserva</span><div class="segmented-control" role="group" aria-label="Filtrar por reserva"><button class="active" type="button" data-restaurant-reservation="all">Todas</button><button type="button" data-restaurant-reservation="no">Sin reserva</button><button type="button" data-restaurant-reservation="yes">Necesaria</button></div></div>
+        <div class="section-heading compact restaurant-results-heading"><div><p class="eyebrow">Selección compartida</p><h2>Opciones</h2></div><span id="restaurantCount">0 sitios</span></div>
+        <div id="restaurantList" class="restaurant-list"></div>
       </section>
 
       <section id="view-bookings" class="view" data-view="bookings" aria-labelledby="bookingsTitle">
@@ -178,6 +195,7 @@
         </div>
         <div id="guideContent" class="guide-grid"></div>
         <div class="settings-list">
+          <button class="setting-row" type="button" data-nav="restaurants"><span>🍜</span><div><strong>Dónde comer</strong><small>Restaurantes y mercados por día</small></div><b>›</b></button>
           <a class="setting-row" href="https://docs.google.com/spreadsheets/d/18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8/edit" target="_blank" rel="noreferrer"><span>📊</span><div><strong>Abrir hoja del viaje</strong><small>Fuente original y detalle</small></div><b>›</b></a>
           <a class="setting-row" href="https://www.google.com/maps/search/?api=1&query=Japan" target="_blank" rel="noreferrer"><span>🗺️</span><div><strong>Abrir Google Maps</strong><small>Buscar cualquier punto</small></div><b>›</b></a>
           <button id="exportBackup" class="setting-row" type="button"><span>💾</span><div><strong>Exportar copia</strong><small>Ruta, ajustes y gastos en JSON</small></div><b>›</b></button>
@@ -237,6 +255,17 @@
         <span aria-hidden="true"></span>
       </header>
       <article id="placeDialogContent" class="place-dialog-content"></article>
+    </div>
+  </dialog>
+
+  <dialog id="restaurantDialog" class="place-dialog" aria-labelledby="restaurantDialogTitle">
+    <div class="place-dialog-shell">
+      <header class="place-dialog-header">
+        <button id="closeRestaurantDialog" class="place-dialog-back" type="button" aria-label="Cerrar ficha">‹</button>
+        <strong>Dónde comer</strong>
+        <span aria-hidden="true"></span>
+      </header>
+      <article id="restaurantDialogContent" class="place-dialog-content"></article>
     </div>
   </dialog>
 
