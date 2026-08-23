@@ -2,11 +2,9 @@
 
 (() => {
   const config = window.APP_CONFIG || {};
-  const TOKEN_SCOPE = "https://www.googleapis.com/auth/drive.file";
-  const SELECTED_FILE_KEY = "japon2026.selectedSpreadsheet.v1";
+  const TOKEN_SCOPE = "https://www.googleapis.com/auth/spreadsheets";
   let accessToken = "";
   let tokenClient = null;
-  let selectedSpreadsheetId = localStorage.getItem(SELECTED_FILE_KEY) || "";
   let expenseRowById = new Map();
   let checklistRowById = new Map();
   let noteRowById = new Map();
@@ -14,8 +12,8 @@
   let onExpenses = () => {};
   let onGuideData = () => {};
 
-  const configured = () => Boolean(config.googleClientId && config.googleApiKey && config.googleAppId && config.spreadsheetId);
-  const connected = () => Boolean(accessToken && selectedSpreadsheetId === config.spreadsheetId);
+  const configured = () => Boolean(config.googleClientId && config.spreadsheetId);
+  const connected = () => Boolean(accessToken);
   const standalone = () => window.matchMedia?.("(display-mode: standalone)").matches || navigator.standalone === true;
   const embeddedBrowser = () => /(?:FBAN|FBAV|Instagram|Line\/|; wv\)|GSA\/)/i.test(navigator.userAgent||"");
   const needsBrowser = () => standalone() || embeddedBrowser();
@@ -132,11 +130,6 @@
     await googleFetch(":batchUpdate",{method:"POST",body:JSON.stringify({requests:[{deleteDimension:{range:{sheetId:Number(config.notesSheetId),dimension:"ROWS",startIndex:row-1,endIndex:row}}}]})});
     return loadGuideData();
   }
-  function loadPicker(){return new Promise((resolve,reject)=>{if(!window.gapi)return reject(new Error("Google Picker no está disponible"));window.gapi.load("picker",{callback:resolve,onerror:()=>reject(new Error("No se ha podido cargar Google Picker"))});});}
-  async function chooseSpreadsheet(){
-    await loadPicker();
-    return new Promise((resolve,reject)=>{const view=new google.picker.DocsView(google.picker.ViewId.SPREADSHEETS).setIncludeFolders(false).setMode(google.picker.DocsViewMode.LIST);new google.picker.PickerBuilder().setAppId(config.googleAppId).setDeveloperKey(config.googleApiKey).setOAuthToken(accessToken).setOrigin(location.origin).addView(view).setCallback(data=>{if(data.action===google.picker.Action.PICKED)return resolve(data.docs[0].id);if(data.action===google.picker.Action.CANCEL)return reject(new Error("Selección cancelada"));}).build().setVisible(true);});
-  }
   async function connect(){
     if(!configured()){status("setup","Falta configurar Google OAuth para este despliegue.");return false;}
     if(!window.google?.accounts?.oauth2){status("error","No se ha cargado Google Identity Services.");return false;}
@@ -162,22 +155,9 @@
       tokenClient=google.accounts.oauth2.initTokenClient({client_id:config.googleClientId,scope:TOKEN_SCOPE,callback,error_callback:errorCallback});
       tokenClient.requestAccessToken({prompt:"select_account"});
     });
-    status("connecting","Cuenta autorizada · comprobando la hoja compartida…");
-    selectedSpreadsheetId=config.spreadsheetId;
-    try{
-      await loadAll();
-      localStorage.setItem(SELECTED_FILE_KEY,config.spreadsheetId);
-      return true;
-    }catch(error){
-      // With drive.file, Google may hide a shared file behind either 403 or 404
-      // until this user explicitly selects it in Picker for this application.
-      if(!/Google Sheets (?:403|404)/.test(error.message||""))throw error;
-      selectedSpreadsheetId="";
-      status("connecting","Google necesita que selecciones la hoja una vez.");
-    }
-    const pickedId=await chooseSpreadsheet();
-    if(pickedId!==config.spreadsheetId){accessToken="";status("error","Selecciona la hoja “Viaje Japón 2026”.");return false;}
-    selectedSpreadsheetId=pickedId;localStorage.setItem(SELECTED_FILE_KEY,pickedId);await loadAll();return true;
+    status("connecting","Cuenta autorizada · cargando la hoja compartida…");
+    await loadAll();
+    return true;
   }
   function init(callbacks={}){onStatus=callbacks.onStatus||onStatus;onExpenses=callbacks.onExpenses||onExpenses;onGuideData=callbacks.onGuideData||onGuideData;status(configured()?"disconnected":"setup",configured()?"Conecta Google para sincronizar gastos, rutas y guía.":"Google OAuth todavía no está configurado.");}
   window.sheetExpenseStore={init,connect,loadAll,loadExpenses,loadGuideData,upsert,remove,setChecklist,addNote,removeNote,isConnected:connected,isConfigured:configured,needsBrowser};
