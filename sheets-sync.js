@@ -169,7 +169,9 @@
       localStorage.setItem(SELECTED_FILE_KEY,config.spreadsheetId);
       return true;
     }catch(error){
-      if(!/Google Sheets 403/.test(error.message||""))throw error;
+      // With drive.file, Google may hide a shared file behind either 403 or 404
+      // until this user explicitly selects it in Picker for this application.
+      if(!/Google Sheets (?:403|404)/.test(error.message||""))throw error;
       selectedSpreadsheetId="";
       status("connecting","Google necesita que selecciones la hoja una vez.");
     }
