@@ -100,6 +100,7 @@ function activeBookings(){
 function bookingIsPending(booking){const state=normalized(booking.status);return !state.includes("confirm")&&!state.includes("pagad")&&!state.includes("disfrut");}
 function bookingGroup(kind){const value=normalized(kind);if(value.includes("vuelo")||value==="flight")return "flight";if(value.includes("hotel")||value.includes("aloj")||value==="hotel")return "hotel";if(value.includes("entrada")||value==="entry")return "entry";if(value.includes("rest"))return "restaurant";return "transport";}
 function bookingIcon(kind){return {flight:"✈️",hotel:"🏨",transport:"🚄",entry:"🎟️",restaurant:"🍜"}[bookingGroup(kind)]||"▣";}
+function checklistDateOrder(a,b){return (a.dueDate||"9999-12-31").localeCompare(b.dueDate||"9999-12-31")||String(a.task||"").localeCompare(String(b.task||""),"es");}
 function dateDistance(fromIso,toIso){return Math.round((new Date(`${toIso}T12:00:00Z`)-new Date(`${fromIso}T12:00:00Z`))/86400000);}
 function sortedAlerts(todayIso){
   const alerts=[];
@@ -161,7 +162,7 @@ function renderHome(){
   document.getElementById("pendingList").innerHTML=alerts.length?alerts.map(item=>`<button class="pending-item" type="button" data-open-target="${item.target}"><span class="status-dot"></span><div><strong>${escapeHtml(item.title)}</strong><small>${escapeHtml(fmtDate(item.date,{day:"numeric",month:"long"}))}${item.meta?` · ${escapeHtml(item.meta)}`:""}</small></div><b>›</b></button>`).join(""):`<div class="panel empty">${guideData.loadedAt?"No hay avisos próximos.":"Conecta Google para cargar los avisos compartidos."}</div>`;
   const planSection=document.getElementById("todayPlanSection");planSection.classList.toggle("hidden",!displayDay);
   if(displayDay){document.querySelectorAll("[data-today-plan]").forEach(button=>button.classList.toggle("active",button.dataset.todayPlan===todayPlanMode));document.getElementById("todayPlanTitle").textContent=tripDay?"Plan de hoy":`Vista previa · ${fmtDate(displayDay.date,{day:"numeric",month:"long"})}`;document.getElementById("todayPlan").innerHTML=todayPlanMarkup(displayDay);loadTodayWeather(displayDay,realTodayIso);}
-  const tasks=(guideData.checklist||[]).filter(item=>!item.done&&(tripDay?(item.dueDate===todayIso||normalized(item.phase).includes("cada dia")):true)).sort((a,b)=>(a.dueDate||"9999").localeCompare(b.dueDate||"9999")).slice(0,5);
+  const tasks=(guideData.checklist||[]).filter(item=>!item.done&&(tripDay?(item.dueDate===todayIso||normalized(item.phase).includes("cada dia")):true)).sort(checklistDateOrder).slice(0,5);
   document.getElementById("todayTasks").innerHTML=tasks.length?tasks.map(item=>`<label class="check-item compact"><input type="checkbox" data-checklist-id="${escapeHtml(item.id)}"><span><strong>${escapeHtml(item.task)}</strong><small>${escapeHtml([item.dueDate?fmtDate(item.dueDate):"",item.priority,item.owner].filter(Boolean).join(" · "))}</small></span></label>`).join(""):`<div class="panel empty">No hay tareas inmediatas.</div>`;
   const totals = expenses.reduce((a,e)=>(a[e.currency]+=Number(e.amount)||0,a),{EUR:0,JPY:0});
   const rate=Number(document.getElementById("exchangeRate").value)||Number(localStorage.getItem(RATE_KEY))||0;
@@ -300,7 +301,7 @@ function renderGuide(){
   const content=document.getElementById("guideContent");if(!content)return;
   document.querySelectorAll("[data-guide-tab]").forEach(button=>button.classList.toggle("active",button.dataset.guideTab===guideTab));
   if(guideTab==="Checklist"){
-    const items=guideData.checklist||[];
+    const items=[...(guideData.checklist||[])].sort(checklistDateOrder);
     content.innerHTML=items.length?`<div class="guide-summary panel"><strong>${items.filter(item=>item.done).length}/${items.length}</strong><span>tareas completadas</span></div><div class="checklist-list">${items.map(item=>{const link=safeUrl(item.link);return `<label class="check-item ${item.done?"done":""}"><input type="checkbox" data-checklist-id="${escapeHtml(item.id)}" ${item.done?"checked":""}><span><strong>${escapeHtml(item.task)}</strong><small>${escapeHtml([item.dueDate?fmtDate(item.dueDate,{day:"numeric",month:"long"}):"",item.priority,item.phase,item.category,item.owner,item.notes].filter(Boolean).join(" · "))}</small>${item.dependency?`<em>Depende de: ${escapeHtml(item.dependency)}</em>`:""}${link?`<a href="${link}" target="_blank" rel="noreferrer">Abrir enlace</a>`:""}</span></label>`;}).join("")}</div>`:`<div class="panel empty">Conecta Google para cargar el checklist compartido.</div>`;
     return;
   }
