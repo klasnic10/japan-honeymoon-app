@@ -131,7 +131,7 @@ window.TRIP_DATA = {
     {id:"seed-kanazawa",fixed:true,date:"2026-11-09",description:"Daiwa Roynet Kanazawa · 2 noches",amount:49438,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Cargo automático pendiente"},
     {id:"seed-takayama",fixed:true,date:"2026-11-11",description:"Hotel Wood Takayama · 2 noches",amount:54000,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Cargo automático pendiente"},
     {id:"seed-mozumo",fixed:true,date:"2026-07-13",description:"Mozumo Ryokan · 1 noche",amount:84000,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:true,notes:"Pagado al reservar"},
-    {id:"seed-rentalcar",fixed:true,date:"2026-09-28",description:"Toyota Rent a Car · Corolla Sport Hybrid C3",amount:74459,currency:"JPY",category:"Transporte",payer:"Común",method:"Tarjeta",paid:true,notes:"Kanazawa 11/11 08:00 → Takayama 14/11 hasta 17:00 · one-way · ETC + JAF · franquicia/NOC cubiertos · neumáticos de invierno por confirmar"},
+    {id:"seed-rentalcar",fixed:true,date:"2026-09-28",description:"Toyota Rent a Car · Corolla Sport Hybrid C3",amount:74459,currency:"JPY",category:"Transporte",payer:"Común",method:"Tarjeta",paid:false,notes:"Reserva confirmada · pago online (cargo puede aplicarse antes de la salida) · Kanazawa 11/11 08:00 → Takayama 14/11 hasta 17:00 · one-way · ETC + JAF · franquicia/NOC cubiertos · neumáticos de invierno por confirmar"},
     {id:"seed-kyoto",fixed:true,date:"2026-11-14",description:"Hotel Resol Trinity Kyoto · 5 noches",amount:172525,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Cargo automático pendiente"}
   ]
 };
