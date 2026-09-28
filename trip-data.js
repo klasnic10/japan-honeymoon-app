@@ -6,16 +6,16 @@
 window.TRIP_DATA = {
   source: {
     spreadsheetId: "18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8",
-    updatedAt: "2026-09-28T14:28:40Z"
+    updatedAt: "2026-09-28T14:40:00Z"
   },
   days: [
     {date:"2026-11-02",city:"Vuelo",sleep:"Avión",title:"Barcelona → Doha",map:"Barcelona Airport Terminal 1",slots:[
       {label:"Noche",time:"22:15",title:"QR142 · Salida de Barcelona",desc:"Terminal 1. Llegar con 3–3,5 h de margen. Vuelo de 6 h a Doha."}
     ],transport:"BCN 22:15 → DOH 06:15 (+1). Equipaje facturado: 25 kg por adulto."},
     {date:"2026-11-03",city:"Tokio",sleep:"Tokio · hotel pendiente",title:"Doha → Tokio",map:"Haneda Airport Terminal 3",slots:[
-      {label:"Mañana",time:"07:45",title:"QR812 · Salida de Doha",desc:"Conexión de 1 h 30 min. Vuelo de 10 h 10 min."},
-      {label:"Noche",time:"23:55",title:"Llegada a Haneda",desc:"Terminal 3. Inmigración, equipaje y traslado al hotel de Tokio, aún pendiente de reservar."}
-    ],transport:"DOH 07:45 → HND 23:55. Revisar el acceso nocturno al hotel cuando se reserve."},
+      {label:"Mañana",time:"07:25",title:"QR812 · Salida de Doha",desc:"Horario actualizado por Qatar Airways. Conexión en Doha y vuelo a Haneda."},
+      {label:"Noche",time:"22:55",title:"Llegada a Haneda",desc:"Terminal 3. Inmigración, equipaje y taxi al Airbnb aLATO Hatsudai c02."}
+    ],transport:"DOH 07:25 → HND 22:55. Horario actualizado por Qatar Airways el 11/08/2026."},
     {date:"2026-11-04",city:"Tokio",sleep:"Tokio",title:"Tokio tradicional y popular",map:"Senso-ji Tokyo",slots:[
       {label:"Mañana",time:"08:30",title:"Asakusa y Sensō-ji",desc:"Kaminarimon, Nakamise-dori, templo y paseo junto al río Sumida."},
       {label:"Mediodía",time:"12:00",title:"Ueno y Ameyoko",desc:"Mercado-calle, comida picando y paseo por el parque, adaptable al jet lag."},
@@ -95,19 +95,19 @@ window.TRIP_DATA = {
       {label:"Atardecer-noche",time:"17:00–22:00",title:"Dōtonbori y Namba",desc:"Neones, Hozenji Yokocho, takoyaki y okonomiyaki."},
       {label:"Noche",time:"22:00",title:"Regreso a Kioto",desc:"Volver en Hankyu o JR sin apurar el último tren."}
     ],transport:"Osaka es una excursión desde Kioto; no requiere reserva y se paga con IC card."},
-    {date:"2026-11-19",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Último día completo en Kioto",map:"Apartment Hotel 11 Gion Kyoto",slots:[
-      {label:"Mañana",time:"Sin alarma",title:"Kioto flexible",desc:"Nijō, Palacio Imperial, compras o repetir alguna zona que os haya gustado especialmente."},
-      {label:"Tarde",time:"13:00",title:"Compras y paseo tranquilo",desc:"Aprovechar el último día completo sin meter desplazamientos largos."},
-      {label:"Noche",time:"18:30",title:"Última cena en Kioto",desc:"Cena tranquila por Gion, Pontocho o Kawaramachi y volver al apartamento a preparar maletas."}
-    ],transport:"Última noche en Apartment Hotel 11 Gion. Preparar equipaje para salir hacia Tokio la mañana del 20."},
-    {date:"2026-11-20",city:"Tokio",sleep:"Avión",title:"Kioto → Tokio → Haneda",map:"Haneda Airport Terminal 3",slots:[
-      {label:"Mañana",time:"08:30–09:00",title:"Salida de Kioto",desc:"Check-out del apartamento antes de las 10:00 y Tokaido Shinkansen hacia Tokio. Reservar un tren de mañana para ir sin prisas."},
-      {label:"Mediodía",time:"11:30–12:00",title:"Llegada a Tokio",desc:"Dejar las maletas en consigna en Tokyo Station o Shinagawa y comer por la zona."},
-      {label:"Tarde",time:"13:00–18:30",title:"Últimas horas en Tokio",desc:"Compras finales o repetir un barrio favorito, sin alejarse demasiado de la ruta hacia Haneda."},
-      {label:"Noche",time:"20:30–21:00",title:"Traslado a Haneda",desc:"Recoger equipaje y dirigirse a Haneda con margen para el vuelo QR813 de las 00:25."}
-    ],transport:"Kioto → Tokio en Tokaido Shinkansen por la mañana. Después, Keikyu/Monorail o traslado directo a Haneda."},
+    {date:"2026-11-19",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Nijō, Palacio Imperial y última tarde en Gion",map:"Nijo Castle Kyoto",slots:[
+      {label:"Mañana",time:"08:45",title:"Castillo de Nijō",desc:"Visitar Ninomaru y jardines con calma. Es una visita distinta a los templos y completa muy bien la parte histórica de Kioto."},
+      {label:"Mediodía",time:"11:30",title:"Palacio Imperial de Kioto",desc:"Paseo por Kyoto Gyoen y visita autoguiada al Palacio Imperial. Entrada gratuita y sin reserva previa."},
+      {label:"Tarde-noche",time:"14:30",title:"Teramachi, Shinkyogoku y última cena en Gion",desc:"Bajar hacia el centro por las galerías comerciales, hacer compras pendientes y terminar con una última cena por Gion/Pontocho sin prisas."}
+    ],transport:"Todo queda en el centro de Kioto y permite volver pronto al apartamento. Última noche en Apartment Hotel 11 Gion; dejar las maletas listas para el día 20."},
+    {date:"2026-11-20",city:"Tokio",sleep:"Avión",title:"Kioto → Tokio y últimas horas antes de Haneda",map:"Shinagawa Station Tokyo",slots:[
+      {label:"Mañana",time:"08:00",title:"Check-out y Shinkansen a Tokio",desc:"Salir del apartamento con las maletas, taxi a Kyoto Station y tomar un Nozomi de mañana. Objetivo: llegar a Shinagawa alrededor de las 11:00–11:30."},
+      {label:"Mediodía-tarde",time:"11:30–17:00",title:"Últimas horas: Ginza y Marunouchi",desc:"Dejar el equipaje en consigna en Shinagawa y hacer un último bloque fácil de compras, comida y paseo por Ginza/Marunouchi/Tokyo Station."},
+      {label:"Tarde-noche",time:"17:00–19:30",title:"Cena temprana y recoger equipaje",desc:"Cena sin sobremesa larga y regreso a Shinagawa para recoger las maletas."},
+      {label:"Noche",time:"19:45–20:30",title:"Shinagawa → Haneda",desc:"Keikyu directo a Haneda Terminal 3. Llegar alrededor de las 20:30 deja margen holgado para el QR813 de las 00:25."}
+    ],transport:"Kioto → Shinagawa en Tokaido Shinkansen. Guardar equipaje en Shinagawa y volver allí antes de ir a Haneda en Keikyu."},
     {date:"2026-11-21",city:"Vuelo",sleep:"Barcelona",title:"Tokio → Doha → Barcelona",map:"Haneda Airport Terminal 3",slots:[
-      {label:"Madrugada",time:"00:25",title:"QR813 · Haneda → Doha",desc:"Salida de Haneda a las 00:25. Llegada a Doha a las 06:50."},
+      {label:"Madrugada",time:"00:25",title:"QR813 · Haneda → Doha",desc:"Horario actualizado por Qatar Airways: salida 00:25 y llegada a Doha 06:50."},
       {label:"Mañana",time:"08:25",title:"QR145 · Doha → Barcelona",desc:"Conexión de 1 h 45 min. Llegada a Barcelona T1 a las 13:25."}
     ],transport:"Equipaje facturado: 25 kg por adulto."}
   ],
