@@ -6,7 +6,7 @@
 window.TRIP_DATA = {
   source: {
     spreadsheetId: "18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8",
-    updatedAt: "2026-09-28T14:40:00Z"
+    updatedAt: "2026-09-28T15:05:00Z"
   },
   days: [
     {date:"2026-11-02",city:"Vuelo",sleep:"Avión",title:"Barcelona → Doha",map:"Barcelona Airport Terminal 1",slots:[
@@ -83,23 +83,24 @@ window.TRIP_DATA = {
       {label:"Mañana-tarde",time:"10:30–16:30",title:"Nara",desc:"Parque, Tōdai-ji, Nigatsu-dō y Naramachi si queda energía."},
       {label:"Tarde-noche",time:"16:30",title:"Regreso a Kioto",desc:"Cena tranquila cerca del hotel. No añadir más visitas."}
     ],transport:"JR Nara Line; sin reserva, usando IC card."},
-    {date:"2026-11-17",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Arashiyama y Pabellón Dorado",map:"Arashiyama Bamboo Forest",slots:[
-      {label:"Muy temprano",time:"07:00",title:"Arashiyama",desc:"Bosque de bambú, Tenryū-ji opcional, río y puente Togetsukyō."},
-      {label:"Mediodía",time:"11:30",title:"Comida en Arashiyama",desc:"Comer pronto antes del traslado."},
-      {label:"Tarde",time:"13:00",title:"Traslado a Kinkaku-ji",desc:"Taxi práctico o Randen + bus; no volver al centro para cambiar."},
-      {label:"Tarde",time:"15:00",title:"Kinkaku-ji",desc:"Recorrer el circuito del jardín y disfrutar del Pabellón Dorado."}
-    ]},
-    {date:"2026-11-18",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Nishiki y tarde-noche en Osaka",map:"Dotonbori Osaka",slots:[
+    {date:"2026-11-17",city:"Osaka",sleep:"Apartment Hotel 11 Gion",title:"Osaka de día completo",map:"Dotonbori Osaka",slots:[
+      {label:"Mañana",time:"08:15",title:"Gion → Kuromon Market",desc:"Salir desde Gion y entrar en Osaka por Keihan/metro. Empezar en Kuromon con mercado, desayuno tardío y primeras calles de Namba/Nipponbashi."},
+      {label:"Mediodía",time:"11:30",title:"Shinsekai y comida",desc:"Bajar a Shinsekai para ver la Osaka más retro y comer kushikatsu, okonomiyaki o lo que apetezca sin reservar demasiado."},
+      {label:"Tarde",time:"14:30",title:"Amerikamura y Shinsaibashi",desc:"Subir hacia Amerikamura, Triangle Park y las calles laterales de Shinsaibashi. Umeda queda opcional si queréis arquitectura/centros comerciales."},
+      {label:"Atardecer-noche",time:"17:30–22:00",title:"Dōtonbori y Namba",desc:"Canal, Hozenji Yokocho, neones, takoyaki y cena. Volver a Gion después de cenar sin apurar el último tren."}
+    ],transport:"Excursión de día completo desde Gion. No requiere tren reservado: usar IC card y elegir Keihan/Hankyu según el trayecto del día."},
+    {date:"2026-11-18",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Nishiki, Nijō y Palacio Imperial",map:"Nijo Castle Kyoto",slots:[
       {label:"Mañana",time:"09:30",title:"Nishiki Market",desc:"Brunch de mercado, té, encurtidos, dulces y tiendas tradicionales."},
-      {label:"Tarde",time:"14:00",title:"Osaka: Umeda o Shinsaibashi",desc:"Elegir Umeda o ir directamente a Amerikamura y Shinsaibashi."},
-      {label:"Atardecer-noche",time:"17:00–22:00",title:"Dōtonbori y Namba",desc:"Neones, Hozenji Yokocho, takoyaki y okonomiyaki."},
-      {label:"Noche",time:"22:00",title:"Regreso a Kioto",desc:"Volver en Hankyu o JR sin apurar el último tren."}
-    ],transport:"Osaka es una excursión desde Kioto; no requiere reserva y se paga con IC card."},
-    {date:"2026-11-19",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Nijō, Palacio Imperial y última tarde en Gion",map:"Nijo Castle Kyoto",slots:[
-      {label:"Mañana",time:"08:45",title:"Castillo de Nijō",desc:"Visitar Ninomaru y jardines con calma. Es una visita distinta a los templos y completa muy bien la parte histórica de Kioto."},
-      {label:"Mediodía",time:"11:30",title:"Palacio Imperial de Kioto",desc:"Paseo por Kyoto Gyoen y visita autoguiada al Palacio Imperial. Entrada gratuita y sin reserva previa."},
-      {label:"Tarde-noche",time:"14:30",title:"Teramachi, Shinkyogoku y última cena en Gion",desc:"Bajar hacia el centro por las galerías comerciales, hacer compras pendientes y terminar con una última cena por Gion/Pontocho sin prisas."}
-    ],transport:"Todo queda en el centro de Kioto y permite volver pronto al apartamento. Última noche en Apartment Hotel 11 Gion; dejar las maletas listas para el día 20."},
+      {label:"Mediodía",time:"12:00",title:"Castillo de Nijō",desc:"Palacio Ninomaru y jardines. Una visita histórica distinta a los templos."},
+      {label:"Tarde",time:"14:45",title:"Palacio Imperial y Kyoto Gyoen",desc:"Visita autoguiada y paseo por el parque imperial."},
+      {label:"Tarde-noche",time:"17:00",title:"Teramachi / Shinkyogoku / Gion",desc:"Compras, café y tarde ligera cerca del apartamento."}
+    ],transport:"Día compacto en el centro de Kioto, sin grandes desplazamientos."},
+    {date:"2026-11-19",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Arashiyama, Kinkaku-ji y última noche en Kioto",map:"Arashiyama Bamboo Forest",slots:[
+      {label:"Muy temprano",time:"07:00",title:"Arashiyama",desc:"Bosque de bambú, Tenryū-ji opcional, río y puente Togetsukyō antes de las multitudes."},
+      {label:"Mediodía",time:"11:30",title:"Comida y traslado a Kinkaku-ji",desc:"Comer pronto en Arashiyama o cerca de Kinkaku-ji y trasladarse en taxi para ahorrar tiempo."},
+      {label:"Tarde",time:"14:30",title:"Kinkaku-ji",desc:"Recorrer el circuito del Pabellón Dorado y sus jardines."},
+      {label:"Noche",time:"17:00",title:"Última tarde y cena en Gion/Pontocho",desc:"Volver al apartamento, compras finales si queda algo y última cena en Kioto. Preparar maletas para el Shinkansen del día 20."}
+    ],transport:"Arashiyama y Kinkaku-ji ocupan el último día completo; taxi entre ambos es la opción más cómoda. Última noche en Apartment Hotel 11 Gion."},
     {date:"2026-11-20",city:"Tokio",sleep:"Avión",title:"Kioto → Tokio y últimas horas antes de Haneda",map:"Shinagawa Station Tokyo",slots:[
       {label:"Mañana",time:"08:00",title:"Check-out y Shinkansen a Tokio",desc:"Salir del apartamento con las maletas, taxi a Kyoto Station y tomar un Nozomi de mañana. Objetivo: llegar a Shinagawa alrededor de las 11:00–11:30."},
       {label:"Mediodía-tarde",time:"11:30–17:00",title:"Últimas horas: Ginza y Marunouchi",desc:"Dejar el equipaje en consigna en Shinagawa y hacer un último bloque fácil de compras, comida y paseo por Ginza/Marunouchi/Tokyo Station."},
@@ -122,7 +123,7 @@ window.TRIP_DATA = {
     {id:"rentalcar",kind:"transport",icon:"🚗",status:"confirmed",title:"Toyota Rent a Car · Corolla Sport Hybrid",subtitle:"C3 · AT · 2WD · ETC + JAF · franquicia y NOC cubiertos",from:"Kanazawa",to:"Takayama",dates:"11–14 nov",detail:"Recogida 11/11 08:00 · devolución hasta 14/11 17:00 · ¥74.459 · neumáticos de invierno por confirmar",emailId:"1a0e71d0f15b0180",map:"Toyota Rent a Car Kanazawa Station East Exit"},
     {id:"kamikochi",kind:"transport",icon:"🚌",status:"pending",title:"Hirayu / Akandana → Kamikōchi",subtitle:"Aparcar el coche y continuar en bus local obligatorio",from:"Hirayu",to:"Kamikōchi",dates:"13 nov",detail:"Confirmar horarios de cierre de temporada; compra local",url:"https://www.nouhibus.co.jp/route_bus/kamikochi-line-en/"},
     {id:"kyototrain",kind:"transport",icon:"🚄",status:"pending",title:"Takayama → Nagoya → Kioto",subtitle:"Limited Express Hida + Tokaido Shinkansen",from:"Takayama",to:"Kioto",dates:"14 nov",detail:"Reservar al abrir la venta",url:"https://smart-ex.jp/en/"},
-    {id:"osakaday",kind:"transport",icon:"🚆",status:"pending",title:"Kioto → Osaka → Kioto",subtitle:"Hankyu o JR · excursión desde Kioto",from:"Kioto",to:"Osaka",dates:"18 nov",detail:"Sin reserva; pagar con IC card",url:"https://www.hankyu.co.jp/global/en/"},
+    {id:"osakaday",kind:"transport",icon:"🚆",status:"pending",title:"Kioto → Osaka → Kioto",subtitle:"Keihan/Hankyu · excursión de día completo",from:"Kioto",to:"Osaka",dates:"17 nov",detail:"Sin reserva; pagar con IC card",url:"https://www.hankyu.co.jp/global/en/"},
     {id:"tokyoreturn",kind:"transport",icon:"🚄",status:"pending",title:"Kioto → Tokio",subtitle:"Tokaido Shinkansen · salida por la mañana",from:"Kioto",to:"Tokio",dates:"20 nov",detail:"Reservar en SmartEX al abrir la venta",url:"https://smart-ex.jp/en/"}
   ],
   seedExpenses: [
