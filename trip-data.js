@@ -6,7 +6,7 @@
 window.TRIP_DATA = {
   source: {
     spreadsheetId: "18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8",
-    updatedAt: "2026-07-20T07:21:57.945Z"
+    updatedAt: "2026-09-28T08:23:55Z"
   },
   days: [
     {date:"2026-11-02",city:"Vuelo",sleep:"Avión",title:"Barcelona → Doha",map:"Barcelona Airport Terminal 1",slots:[
@@ -51,26 +51,27 @@ window.TRIP_DATA = {
       {label:"Tarde",time:"13:30",title:"Nagamachi y Casa Nomura",desc:"Barrio samurái, canales y muros de tierra."},
       {label:"Última tarde",time:"16:30",title:"Museo o centro",desc:"Museo del Siglo XXI, artesanía o paseo tranquilo por el centro."}
     ]},
-    {date:"2026-11-11",city:"Takayama",sleep:"Hotel Wood Takayama",title:"Shirakawa-go y Takayama",map:"Shirakawa-go Bus Terminal",slots:[
-      {label:"Mañana",time:"07:30",title:"Bus Kanazawa → Shirakawa-go",desc:"Bus reservado desde Kanazawa Station. Presentarse 20–30 min antes."},
-      {label:"Mañana-mediodía",time:"09:00–13:00",title:"Shirakawa-go",desc:"Consigna, mirador Shiroyama, pueblo, casas gassho-zukuri y comida temprana."},
-      {label:"Mediodía",time:"13:30",title:"Bus a Takayama",desc:"Trayecto de unos 50 min. Check-in y primera vuelta por Sanmachi."}
-    ],transport:"Reservar los dos tramos aproximadamente un mes antes y dejar 3–4 h para visitar el pueblo."},
+    {date:"2026-11-11",city:"Takayama",sleep:"Hotel Wood Takayama",title:"Kanazawa → Shirakawa-go → Takayama en coche",map:"Shirakawa-go",slots:[
+      {label:"Mañana",time:"08:00",title:"Recogida del coche en Kanazawa",desc:"Toyota Rent a Car · salida este de Kanazawa Station. Corolla Sport Hybrid C3, AT y 2WD. Revisar el coche y familiarizarse unos minutos con la conducción por la izquierda."},
+      {label:"Mañana-mediodía",time:"09:30–12:30",title:"Shirakawa-go",desc:"Llegada en coche, aparcar y visitar el mirador Shiroyama, el pueblo y las casas gassho-zukuri. Comer antes de salir."},
+      {label:"Mediodía-tarde",time:"13:00",title:"Shirakawa-go → Takayama",desc:"Continuar en coche hasta Takayama. Check-in y primera vuelta por Sanmachi con la tarde libre."}
+    ],transport:"Toyota Rent a Car reservado del 11/11 08:00 al 14/11 17:00. ETC incluida. Neumáticos de invierno pendientes de confirmar."},
     {date:"2026-11-12",city:"Takayama",sleep:"Hotel Wood Takayama",title:"Takayama sin prisas",map:"Miyagawa Morning Market",slots:[
       {label:"Mañana",time:"08:00",title:"Mercados matinales",desc:"Miyagawa y, si apetece, Jinya-mae. Desayuno y productos locales."},
       {label:"Media mañana",time:"10:00",title:"Takayama Jinya",desc:"Antiguo edificio administrativo, almacenes y salas de tatami."},
       {label:"Tarde",time:"14:00",title:"Hida no Sato o paseo libre",desc:"Excursión opcional o tarde tranquila en el centro."}
     ]},
-    {date:"2026-11-13",city:"Okuhida",sleep:"Mozumo Ryokan",title:"Kamikōchi y ryokan",map:"Mozumo Okuhida",slots:[
-      {label:"Muy temprano",time:"06:45",title:"Takayama → Hirayu",desc:"Bus local a Hirayu, dejar equipaje en Mozumo solo si está confirmado y continuar hacia Kamikōchi."},
-      {label:"Mañana",time:"09:30–13:00",title:"Paseo corto por Kamikōchi",desc:"Taishō-ike, Tashiro Pond y Kappa Bridge. No alargar hasta Myōjin si compromete el regreso."},
-      {label:"Tarde",time:"15:00",title:"Check-in en Mozumo",desc:"Onsen privado, descanso y cena kaiseki."}
-    ],transport:"Horarios estacionales por confirmar. Objetivo: regresar a Hirayu entre 14:00 y 14:30."},
-    {date:"2026-11-14",city:"Kioto",sleep:"Hotel Resol Trinity Kyoto",title:"Okuhida → Kioto",map:"Hotel Resol Trinity Kyoto",slots:[
-      {label:"Mañana",time:"08:00",title:"Mozumo → Hirayu → Takayama",desc:"Desayuno, último onsen, check-out y bus hacia Takayama."},
-      {label:"Media mañana-tarde",time:"10:30–15:30",title:"Takayama → Nagoya → Kioto",desc:"Limited Express Hida y conexión con Tokaido Shinkansen. Dejar 25–35 min en Nagoya."},
-      {label:"Tarde-noche",time:"16:00",title:"Gion y cena",desc:"Check-in y paseo suave por Gion, Shirakawa y Hanamikoji."}
-    ],transport:"El trayecto completo ronda 4–5 h. Reservar Hida y Shinkansen al abrir la venta."},
+    {date:"2026-11-13",city:"Okuhida",sleep:"Mozumo Ryokan",title:"Kamikōchi y ryokan con coche",map:"Mozumo Okuhida",slots:[
+      {label:"Muy temprano",time:"07:00",title:"Takayama → Hirayu / Akandana",desc:"Salir en coche hacia Okuhida. Aparcar en Hirayu o Akandana; los coches particulares no entran en Kamikōchi."},
+      {label:"Mañana",time:"09:00–13:00",title:"Paseo corto por Kamikōchi",desc:"Subir en bus desde Hirayu/Akandana. Taishō-ike, Tashiro Pond y Kappa Bridge. No alargar hasta Myōjin si compromete el regreso."},
+      {label:"Tarde",time:"15:00",title:"Check-in en Mozumo",desc:"Recoger el coche, trayecto corto hasta Mozumo, onsen privado, descanso y cena kaiseki."}
+    ],transport:"Coche Takayama → Hirayu/Akandana; bus local obligatorio para entrar en Kamikōchi. Neumáticos de invierno pendientes de confirmar con Toyota."},
+    {date:"2026-11-14",city:"Kioto",sleep:"Hotel Resol Trinity Kyoto",title:"Okuhida → Takayama → Kioto",map:"Hotel Resol Trinity Kyoto",slots:[
+      {label:"Mañana",time:"08:00",title:"Mozumo → Takayama en coche",desc:"Desayuno, último onsen, check-out y regreso tranquilo a Takayama."},
+      {label:"Media mañana",time:"10:30",title:"Devolver el coche en Takayama Station",desc:"Toyota permite devolverlo hasta las 17:00, pero conviene entregarlo por la mañana para aprovechar Kioto. Repostar antes de la devolución salvo que uséis el sistema de combustible de Toyota."},
+      {label:"Mediodía-tarde",time:"11:30–16:00",title:"Takayama → Nagoya → Kioto",desc:"Limited Express Hida y conexión con Tokaido Shinkansen. Dejar 25–35 min en Nagoya."},
+      {label:"Tarde-noche",time:"16:30",title:"Gion y cena",desc:"Check-in y paseo suave por Gion, Shirakawa y Hanamikoji."}
+    ],transport:"Coche reservado hasta las 17:00, aunque el plan es devolverlo antes. Después, Limited Express Hida + Tokaido Shinkansen."},
     {date:"2026-11-15",city:"Kioto",sleep:"Hotel Resol Trinity Kyoto",title:"Higashiyama y Camino del Filósofo",map:"Kiyomizu-dera",slots:[
       {label:"Muy temprano",time:"07:00",title:"Kiyomizu-dera, Sannenzaka y Ninenzaka",desc:"Empezar pronto y bajar hacia Gion. El paseo es el protagonista."},
       {label:"Media mañana",time:"10:30",title:"Gion y Yasaka",desc:"Kōdai-ji exterior, Maruyama Park, Yasaka Shrine y Gion."},
@@ -119,8 +120,8 @@ window.TRIP_DATA = {
     {id:"kyoto",kind:"hotel",icon:"🏨",status:"confirmed",title:"Hotel Resol Trinity Kyoto",subtitle:"5 noches · Habitación Doble Grande",from:"Entrada 15:00",to:"Salida 11:00",dates:"14–19 nov",detail:"Cargo automático pendiente · ¥172.525",emailId:"19f7ba12dc5b1898",map:"Hotel Resol Trinity Kyoto"},
     {id:"tokyo2",kind:"hotel",icon:"🏨",status:"pending",title:"Hotel en Tokio · última noche",subtitle:"Ubicación según estación y acceso a Haneda",from:"Entrada",to:"Salida",dates:"19–20 nov",detail:"Pendiente de reservar",map:"Tokyo"},
     {id:"tokyokanazawa",kind:"transport",icon:"🚄",status:"pending",title:"Tokyo → Kanazawa",subtitle:"Hokuriku Shinkansen · Kagayaki/Hakutaka",from:"Tokyo",to:"Kanazawa",dates:"9 nov",detail:"Comprar al abrir la venta",url:"https://www.eki-net.com/en/jreast-train-reservation/Top/Index"},
-    {id:"shirakawa",kind:"transport",icon:"🚌",status:"pending",title:"Kanazawa → Shirakawa-go → Takayama",subtitle:"Buses Nohi/Hokutetsu · dejar 3–4 h en Shirakawa-go",from:"Kanazawa",to:"Takayama",dates:"11 nov",detail:"Reserva necesaria",url:"https://japanbusonline.com/en/CourseSearch/11900040002"},
-    {id:"kamikochi",kind:"transport",icon:"🚌",status:"pending",title:"Takayama → Hirayu → Kamikōchi",subtitle:"Buses locales de temporada",from:"Takayama",to:"Kamikōchi",dates:"13 nov",detail:"Confirmar horarios; compra local",url:"https://www.nouhibus.co.jp/route_bus/kamikochi-line-en/"},
+    {id:"rentalcar",kind:"transport",icon:"🚗",status:"confirmed",title:"Toyota Rent a Car · Corolla Sport Hybrid",subtitle:"C3 · AT · 2WD · ETC + JAF · franquicia y NOC cubiertos",from:"Kanazawa",to:"Takayama",dates:"11–14 nov",detail:"Recogida 11/11 08:00 · devolución hasta 14/11 17:00 · ¥74.459 · neumáticos de invierno por confirmar",emailId:"1a0e71d0f15b0180",map:"Toyota Rent a Car Kanazawa Station East Exit"},
+    {id:"kamikochi",kind:"transport",icon:"🚌",status:"pending",title:"Hirayu / Akandana → Kamikōchi",subtitle:"Aparcar el coche y continuar en bus local obligatorio",from:"Hirayu",to:"Kamikōchi",dates:"13 nov",detail:"Confirmar horarios de cierre de temporada; compra local",url:"https://www.nouhibus.co.jp/route_bus/kamikochi-line-en/"},
     {id:"kyototrain",kind:"transport",icon:"🚄",status:"pending",title:"Takayama → Nagoya → Kioto",subtitle:"Limited Express Hida + Tokaido Shinkansen",from:"Takayama",to:"Kioto",dates:"14 nov",detail:"Reservar al abrir la venta",url:"https://smart-ex.jp/en/"},
     {id:"osakaday",kind:"transport",icon:"🚆",status:"pending",title:"Kioto → Osaka → Kioto",subtitle:"Hankyu o JR · excursión desde Kioto",from:"Kioto",to:"Osaka",dates:"18 nov",detail:"Sin reserva; pagar con IC card",url:"https://www.hankyu.co.jp/global/en/"},
     {id:"tokyoreturn",kind:"transport",icon:"🚄",status:"pending",title:"Kioto → Tokio",subtitle:"Tokaido Shinkansen",from:"Kioto",to:"Tokio",dates:"19 nov",detail:"Reservar en SmartEX",url:"https://smart-ex.jp/en/"}
@@ -130,6 +131,7 @@ window.TRIP_DATA = {
     {id:"seed-kanazawa",fixed:true,date:"2026-11-09",description:"Daiwa Roynet Kanazawa · 2 noches",amount:49438,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Cargo automático pendiente"},
     {id:"seed-takayama",fixed:true,date:"2026-11-11",description:"Hotel Wood Takayama · 2 noches",amount:54000,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Cargo automático pendiente"},
     {id:"seed-mozumo",fixed:true,date:"2026-07-13",description:"Mozumo Ryokan · 1 noche",amount:84000,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:true,notes:"Pagado al reservar"},
+    {id:"seed-rentalcar",fixed:true,date:"2026-09-28",description:"Toyota Rent a Car · Corolla Sport Hybrid C3",amount:74459,currency:"JPY",category:"Transporte",payer:"Común",method:"Tarjeta",paid:true,notes:"Kanazawa 11/11 08:00 → Takayama 14/11 hasta 17:00 · one-way · ETC + JAF · franquicia/NOC cubiertos · neumáticos de invierno por confirmar"},
     {id:"seed-kyoto",fixed:true,date:"2026-11-14",description:"Hotel Resol Trinity Kyoto · 5 noches",amount:172525,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Cargo automático pendiente"}
   ]
 };
