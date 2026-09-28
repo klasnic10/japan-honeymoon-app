@@ -6,7 +6,7 @@
 window.TRIP_DATA = {
   source: {
     spreadsheetId: "18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8",
-    updatedAt: "2026-09-28T08:23:55Z"
+    updatedAt: "2026-09-28T14:28:40Z"
   },
   days: [
     {date:"2026-11-02",city:"Vuelo",sleep:"Avión",title:"Barcelona → Doha",map:"Barcelona Airport Terminal 1",slots:[
@@ -66,48 +66,48 @@ window.TRIP_DATA = {
       {label:"Mañana",time:"09:00–13:00",title:"Paseo corto por Kamikōchi",desc:"Subir en bus desde Hirayu/Akandana. Taishō-ike, Tashiro Pond y Kappa Bridge. No alargar hasta Myōjin si compromete el regreso."},
       {label:"Tarde",time:"15:00",title:"Check-in en Mozumo",desc:"Recoger el coche, trayecto corto hasta Mozumo, onsen privado, descanso y cena kaiseki."}
     ],transport:"Coche Takayama → Hirayu/Akandana; bus local obligatorio para entrar en Kamikōchi. Neumáticos de invierno pendientes de confirmar con Toyota."},
-    {date:"2026-11-14",city:"Kioto",sleep:"Hotel Resol Trinity Kyoto",title:"Okuhida → Takayama → Kioto",map:"Hotel Resol Trinity Kyoto",slots:[
+    {date:"2026-11-14",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Okuhida → Takayama → Kioto",map:"Apartment Hotel 11 Gion Kyoto",slots:[
       {label:"Mañana",time:"08:00",title:"Mozumo → Takayama en coche",desc:"Desayuno, último onsen, check-out y regreso tranquilo a Takayama."},
       {label:"Media mañana",time:"10:30",title:"Devolver el coche en Takayama Station",desc:"Toyota permite devolverlo hasta las 17:00, pero conviene entregarlo por la mañana para aprovechar Kioto. Repostar antes de la devolución salvo que uséis el sistema de combustible de Toyota."},
       {label:"Mediodía-tarde",time:"11:30–16:00",title:"Takayama → Nagoya → Kioto",desc:"Limited Express Hida y conexión con Tokaido Shinkansen. Dejar 25–35 min en Nagoya."},
       {label:"Tarde-noche",time:"16:30",title:"Gion y cena",desc:"Check-in y paseo suave por Gion, Shirakawa y Hanamikoji."}
     ],transport:"Coche reservado hasta las 17:00, aunque el plan es devolverlo antes. Después, Limited Express Hida + Tokaido Shinkansen."},
-    {date:"2026-11-15",city:"Kioto",sleep:"Hotel Resol Trinity Kyoto",title:"Higashiyama y Camino del Filósofo",map:"Kiyomizu-dera",slots:[
+    {date:"2026-11-15",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Higashiyama y Camino del Filósofo",map:"Kiyomizu-dera",slots:[
       {label:"Muy temprano",time:"07:00",title:"Kiyomizu-dera, Sannenzaka y Ninenzaka",desc:"Empezar pronto y bajar hacia Gion. El paseo es el protagonista."},
       {label:"Media mañana",time:"10:30",title:"Gion y Yasaka",desc:"Kōdai-ji exterior, Maruyama Park, Yasaka Shrine y Gion."},
       {label:"Tarde",time:"13:30",title:"Camino del Filósofo",desc:"Ginkaku-ji, Eikan-dō y Nanzen-ji, priorizando según la luz y la energía."},
       {label:"Noche",time:"18:00",title:"Pontocho",desc:"Río Kamo y cena por Pontocho o Kawaramachi."}
     ]},
-    {date:"2026-11-16",city:"Kioto",sleep:"Hotel Resol Trinity Kyoto",title:"Fushimi Inari y Nara",map:"Fushimi Inari Taisha",slots:[
+    {date:"2026-11-16",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Fushimi Inari y Nara",map:"Fushimi Inari Taisha",slots:[
       {label:"Muy temprano",time:"06:45",title:"Fushimi Inari",desc:"Torii hasta Yotsutsuji o vuelta antes. No hace falta alcanzar la cima."},
       {label:"Mañana-tarde",time:"10:30–16:30",title:"Nara",desc:"Parque, Tōdai-ji, Nigatsu-dō y Naramachi si queda energía."},
       {label:"Tarde-noche",time:"16:30",title:"Regreso a Kioto",desc:"Cena tranquila cerca del hotel. No añadir más visitas."}
     ],transport:"JR Nara Line; sin reserva, usando IC card."},
-    {date:"2026-11-17",city:"Kioto",sleep:"Hotel Resol Trinity Kyoto",title:"Arashiyama y Pabellón Dorado",map:"Arashiyama Bamboo Forest",slots:[
+    {date:"2026-11-17",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Arashiyama y Pabellón Dorado",map:"Arashiyama Bamboo Forest",slots:[
       {label:"Muy temprano",time:"07:00",title:"Arashiyama",desc:"Bosque de bambú, Tenryū-ji opcional, río y puente Togetsukyō."},
       {label:"Mediodía",time:"11:30",title:"Comida en Arashiyama",desc:"Comer pronto antes del traslado."},
       {label:"Tarde",time:"13:00",title:"Traslado a Kinkaku-ji",desc:"Taxi práctico o Randen + bus; no volver al centro para cambiar."},
       {label:"Tarde",time:"15:00",title:"Kinkaku-ji",desc:"Recorrer el circuito del jardín y disfrutar del Pabellón Dorado."}
     ]},
-    {date:"2026-11-18",city:"Kioto",sleep:"Hotel Resol Trinity Kyoto",title:"Nishiki y tarde-noche en Osaka",map:"Dotonbori Osaka",slots:[
+    {date:"2026-11-18",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Nishiki y tarde-noche en Osaka",map:"Dotonbori Osaka",slots:[
       {label:"Mañana",time:"09:30",title:"Nishiki Market",desc:"Brunch de mercado, té, encurtidos, dulces y tiendas tradicionales."},
       {label:"Tarde",time:"14:00",title:"Osaka: Umeda o Shinsaibashi",desc:"Elegir Umeda o ir directamente a Amerikamura y Shinsaibashi."},
       {label:"Atardecer-noche",time:"17:00–22:00",title:"Dōtonbori y Namba",desc:"Neones, Hozenji Yokocho, takoyaki y okonomiyaki."},
       {label:"Noche",time:"22:00",title:"Regreso a Kioto",desc:"Volver en Hankyu o JR sin apurar el último tren."}
     ],transport:"Osaka es una excursión desde Kioto; no requiere reserva y se paga con IC card."},
-    {date:"2026-11-19",city:"Tokio",sleep:"Tokio · hotel pendiente",title:"Kioto → Tokio",map:"Tokyo Station",slots:[
-      {label:"Mañana",time:"09:00",title:"Kioto flexible",desc:"Nijō, compras, Palacio Imperial o repetir algo, sin alejarse demasiado."},
-      {label:"Mediodía-tarde",time:"13:00",title:"Shinkansen a Tokio",desc:"Nozomi o Hikari directo. Elegir Tokyo o Shinagawa según el hotel final."},
-      {label:"Tarde-noche",time:"17:00",title:"Cena libre en Tokio",desc:"Repetir conscientemente un barrio favorito; sin gran visita."}
-    ],transport:"Reservar en SmartEX cuando abra la venta."},
-    {date:"2026-11-20",city:"Tokio",sleep:"Avión",title:"Último día y Haneda",map:"Haneda Airport Terminal 3",slots:[
-      {label:"Mañana",time:"Sin alarma",title:"Última mañana flexible",desc:"Compras finales o paseo por el barrio favorito. Dejar equipaje en el hotel."},
-      {label:"Tarde",time:"12:00–18:00",title:"Un único plan",desc:"No alejarse, incluir una pausa larga y dejar energía para el viaje."},
-      {label:"Tarde-noche",time:"18:00",title:"Cena final y equipaje",desc:"Cena temprana, recoger maletas y comprobar el trayecto."},
-      {label:"Noche",time:"21:30",title:"Traslado a Haneda",desc:"Llegar unas 2,5–3 h antes del vuelo de la 01:25."}
-    ],transport:"Keikyu, Tokyo Monorail o traslado directo según la ubicación del hotel."},
+    {date:"2026-11-19",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Último día completo en Kioto",map:"Apartment Hotel 11 Gion Kyoto",slots:[
+      {label:"Mañana",time:"Sin alarma",title:"Kioto flexible",desc:"Nijō, Palacio Imperial, compras o repetir alguna zona que os haya gustado especialmente."},
+      {label:"Tarde",time:"13:00",title:"Compras y paseo tranquilo",desc:"Aprovechar el último día completo sin meter desplazamientos largos."},
+      {label:"Noche",time:"18:30",title:"Última cena en Kioto",desc:"Cena tranquila por Gion, Pontocho o Kawaramachi y volver al apartamento a preparar maletas."}
+    ],transport:"Última noche en Apartment Hotel 11 Gion. Preparar equipaje para salir hacia Tokio la mañana del 20."},
+    {date:"2026-11-20",city:"Tokio",sleep:"Avión",title:"Kioto → Tokio → Haneda",map:"Haneda Airport Terminal 3",slots:[
+      {label:"Mañana",time:"08:30–09:00",title:"Salida de Kioto",desc:"Check-out del apartamento antes de las 10:00 y Tokaido Shinkansen hacia Tokio. Reservar un tren de mañana para ir sin prisas."},
+      {label:"Mediodía",time:"11:30–12:00",title:"Llegada a Tokio",desc:"Dejar las maletas en consigna en Tokyo Station o Shinagawa y comer por la zona."},
+      {label:"Tarde",time:"13:00–18:30",title:"Últimas horas en Tokio",desc:"Compras finales o repetir un barrio favorito, sin alejarse demasiado de la ruta hacia Haneda."},
+      {label:"Noche",time:"20:30–21:00",title:"Traslado a Haneda",desc:"Recoger equipaje y dirigirse a Haneda con margen para el vuelo QR813 de las 00:25."}
+    ],transport:"Kioto → Tokio en Tokaido Shinkansen por la mañana. Después, Keikyu/Monorail o traslado directo a Haneda."},
     {date:"2026-11-21",city:"Vuelo",sleep:"Barcelona",title:"Tokio → Doha → Barcelona",map:"Haneda Airport Terminal 3",slots:[
-      {label:"Madrugada",time:"01:25",title:"QR813 · Haneda → Doha",desc:"Vuelo de 11 h 15 min. Llegada a Doha a las 06:40."},
+      {label:"Madrugada",time:"00:25",title:"QR813 · Haneda → Doha",desc:"Salida de Haneda a las 00:25. Llegada a Doha a las 06:50."},
       {label:"Mañana",time:"08:25",title:"QR145 · Doha → Barcelona",desc:"Conexión de 1 h 45 min. Llegada a Barcelona T1 a las 13:25."}
     ],transport:"Equipaje facturado: 25 kg por adulto."}
   ],
@@ -117,14 +117,13 @@ window.TRIP_DATA = {
     {id:"kanazawa",kind:"hotel",icon:"🏨",status:"confirmed",title:"Daiwa Roynet Kanazawa Eki Nishiguchi",subtitle:"2 noches · Doble Superior, 2 camas",from:"Entrada 14:00",to:"Salida 11:00",dates:"9–11 nov",detail:"Cargo automático pendiente · ¥49.438",emailId:"19f7b84b3f161740",map:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi"},
     {id:"takayama",kind:"hotel",icon:"🏨",status:"confirmed",title:"Hotel Wood Takayama",subtitle:"2 noches · Doble Estándar, 2 camas",from:"Entrada 15:00",to:"Salida 10:00",dates:"11–13 nov",detail:"Cargo automático pendiente · ¥54.000",emailId:"19f7b8e42677b352",map:"HOTEL WOOD TAKAYAMA"},
     {id:"mozumo",kind:"hotel",icon:"♨️",status:"confirmed",title:"Mozumo Ryokan",subtitle:"1 noche · llegada prevista 15:00",from:"Entrada",to:"Salida",dates:"13–14 nov",detail:"Pagado · ¥84.000",emailId:"19f5816e7a7d5474",map:"Mozumo Okuhida"},
-    {id:"kyoto",kind:"hotel",icon:"🏨",status:"confirmed",title:"Hotel Resol Trinity Kyoto",subtitle:"5 noches · Habitación Doble Grande",from:"Entrada 15:00",to:"Salida 11:00",dates:"14–19 nov",detail:"Cargo automático pendiente · ¥172.525",emailId:"19f7ba12dc5b1898",map:"Hotel Resol Trinity Kyoto"},
-    {id:"tokyo2",kind:"hotel",icon:"🏨",status:"pending",title:"Hotel en Tokio · última noche",subtitle:"Ubicación según estación y acceso a Haneda",from:"Entrada",to:"Salida",dates:"19–20 nov",detail:"Pendiente de reservar",map:"Tokyo"},
+    {id:"kyoto",kind:"hotel",icon:"🏨",status:"confirmed",title:"Apartment Hotel 11 Gion",subtitle:"6 noches · Habitación Familiar Deluxe · cocina",from:"Entrada desde 16:00",to:"Salida hasta 10:00",dates:"14–20 nov",detail:"Pendiente de pago · ¥225.738 · cancelación gratis hasta 08/11",emailId:"1a0e8668fca5f3ea",map:"Apartment Hotel 11 Gion Kyoto"},
     {id:"tokyokanazawa",kind:"transport",icon:"🚄",status:"pending",title:"Tokyo → Kanazawa",subtitle:"Hokuriku Shinkansen · Kagayaki/Hakutaka",from:"Tokyo",to:"Kanazawa",dates:"9 nov",detail:"Comprar al abrir la venta",url:"https://www.eki-net.com/en/jreast-train-reservation/Top/Index"},
     {id:"rentalcar",kind:"transport",icon:"🚗",status:"confirmed",title:"Toyota Rent a Car · Corolla Sport Hybrid",subtitle:"C3 · AT · 2WD · ETC + JAF · franquicia y NOC cubiertos",from:"Kanazawa",to:"Takayama",dates:"11–14 nov",detail:"Recogida 11/11 08:00 · devolución hasta 14/11 17:00 · ¥74.459 · neumáticos de invierno por confirmar",emailId:"1a0e71d0f15b0180",map:"Toyota Rent a Car Kanazawa Station East Exit"},
     {id:"kamikochi",kind:"transport",icon:"🚌",status:"pending",title:"Hirayu / Akandana → Kamikōchi",subtitle:"Aparcar el coche y continuar en bus local obligatorio",from:"Hirayu",to:"Kamikōchi",dates:"13 nov",detail:"Confirmar horarios de cierre de temporada; compra local",url:"https://www.nouhibus.co.jp/route_bus/kamikochi-line-en/"},
     {id:"kyototrain",kind:"transport",icon:"🚄",status:"pending",title:"Takayama → Nagoya → Kioto",subtitle:"Limited Express Hida + Tokaido Shinkansen",from:"Takayama",to:"Kioto",dates:"14 nov",detail:"Reservar al abrir la venta",url:"https://smart-ex.jp/en/"},
     {id:"osakaday",kind:"transport",icon:"🚆",status:"pending",title:"Kioto → Osaka → Kioto",subtitle:"Hankyu o JR · excursión desde Kioto",from:"Kioto",to:"Osaka",dates:"18 nov",detail:"Sin reserva; pagar con IC card",url:"https://www.hankyu.co.jp/global/en/"},
-    {id:"tokyoreturn",kind:"transport",icon:"🚄",status:"pending",title:"Kioto → Tokio",subtitle:"Tokaido Shinkansen",from:"Kioto",to:"Tokio",dates:"19 nov",detail:"Reservar en SmartEX",url:"https://smart-ex.jp/en/"}
+    {id:"tokyoreturn",kind:"transport",icon:"🚄",status:"pending",title:"Kioto → Tokio",subtitle:"Tokaido Shinkansen · salida por la mañana",from:"Kioto",to:"Tokio",dates:"20 nov",detail:"Reservar en SmartEX al abrir la venta",url:"https://smart-ex.jp/en/"}
   ],
   seedExpenses: [
     {id:"seed-flight",fixed:true,date:"2026-06-17",description:"Vuelos Qatar Airways · 2 personas",amount:1584.36,currency:"EUR",category:"Vuelos",payer:"Común",method:"Tarjeta",paid:true,notes:"BCN–DOH–HND ida y vuelta"},
@@ -132,6 +131,6 @@ window.TRIP_DATA = {
     {id:"seed-takayama",fixed:true,date:"2026-11-11",description:"Hotel Wood Takayama · 2 noches",amount:54000,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Cargo automático pendiente"},
     {id:"seed-mozumo",fixed:true,date:"2026-07-13",description:"Mozumo Ryokan · 1 noche",amount:84000,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:true,notes:"Pagado al reservar"},
     {id:"seed-rentalcar",fixed:true,date:"2026-09-28",description:"Toyota Rent a Car · Corolla Sport Hybrid C3",amount:74459,currency:"JPY",category:"Transporte",payer:"Común",method:"Tarjeta",paid:false,notes:"Reserva confirmada · pago online (cargo puede aplicarse antes de la salida) · Kanazawa 11/11 08:00 → Takayama 14/11 hasta 17:00 · one-way · ETC + JAF · franquicia/NOC cubiertos · neumáticos de invierno por confirmar"},
-    {id:"seed-kyoto",fixed:true,date:"2026-11-14",description:"Hotel Resol Trinity Kyoto · 5 noches",amount:172525,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Cargo automático pendiente"}
+    {id:"seed-kyoto",fixed:true,date:"2026-11-14",description:"Apartment Hotel 11 Gion · 6 noches",amount:225738,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Booking.com · Habitación Familiar Deluxe con cocina · pendiente de pago · cancelación gratis hasta 08/11"}
   ]
 };
