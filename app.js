@@ -7,7 +7,8 @@ const RATE_KEY = "japon2026.exchangeRate.v1";
 const RATE_DATE_KEY = "japon2026.exchangeRateDate.v1";
 const DISPLAY_CURRENCY_KEY = "japon2026.displayCurrency.v1";
 const PENDING_SYNC_KEY = "japon2026.pendingSheetSync.v1";
-const GUIDE_KEY = "japon2026.guideData.v1";
+const GUIDE_KEY = "japon2026.guideData.v2";
+const GUIDE_VERSION_KEY = "japon2026.guideVersion.v1";
 const TODAY_PREVIEW_KEY = "japon2026.todayPreview.v1";
 const RATE_ENDPOINT = "https://api.frankfurter.dev/v2/rate/EUR/JPY?providers=ECB";
 
@@ -47,8 +48,25 @@ function loadExpenses(){
   try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Array.isArray(saved) ? saved : structuredClone(seedExpenses); }
   catch { return structuredClone(seedExpenses); }
 }
-function loadGuideData(){try{const saved=JSON.parse(localStorage.getItem(GUIDE_KEY));return saved&&Array.isArray(saved.routes)?{...emptyGuideData(),...saved}:emptyGuideData();}catch{return emptyGuideData();}}
-function saveGuideData(data){guideData={...emptyGuideData(),...data};localStorage.setItem(GUIDE_KEY,JSON.stringify(guideData));renderHome();renderRoute();renderBookings();renderRestaurants();renderGuide();openPlaceFromHash();}
+function loadGuideData(){
+  try{
+    const currentVersion=window.TRIP_DATA?.updatedAt||"";
+    const savedVersion=localStorage.getItem(GUIDE_VERSION_KEY)||"";
+    if(savedVersion!==currentVersion){
+      localStorage.removeItem(GUIDE_KEY);
+      if(currentVersion)localStorage.setItem(GUIDE_VERSION_KEY,currentVersion);
+      return emptyGuideData();
+    }
+    const saved=JSON.parse(localStorage.getItem(GUIDE_KEY));
+    return saved&&Array.isArray(saved.routes)?{...emptyGuideData(),...saved}:emptyGuideData();
+  }catch{return emptyGuideData();}
+}
+function saveGuideData(data){
+  guideData={...emptyGuideData(),...data};
+  localStorage.setItem(GUIDE_KEY,JSON.stringify(guideData));
+  localStorage.setItem(GUIDE_VERSION_KEY,window.TRIP_DATA?.updatedAt||"");
+  renderHome();renderRoute();renderBookings();renderRestaurants();renderGuide();openPlaceFromHash();
+}
 function saveExpenses(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(expenses)); renderExpenses(); renderHome(); }
 function loadPendingSync(){try{const value=JSON.parse(localStorage.getItem(PENDING_SYNC_KEY));return Array.isArray(value)?value:[];}catch{return [];}}
 function queueSheetSync(operation){
