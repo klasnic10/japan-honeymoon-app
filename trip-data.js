@@ -16,9 +16,10 @@ window.TRIP_DATA = {
       {label:"Mañana",time:"07:25",title:"QR812 · Salida de Doha",desc:"Horario actualizado por Qatar Airways. Conexión en Doha y vuelo a Haneda."},
       {label:"Noche",time:"22:55",title:"Llegada a Haneda",desc:"Terminal 3. Inmigración, equipaje y taxi al Airbnb aLATO Hatsudai c02."}
     ],transport:"DOH 07:25 → HND 22:55. Horario actualizado por Qatar Airways el 11/08/2026."},
-    {date:"2026-11-04",city:"Tokio",sleep:"Tokio",title:"Tokio tradicional y popular",map:"Senso-ji Tokyo",slots:[
+    {date:"2026-11-04",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Asakusa, primer vistazo a Kappabashi y Akihabara",map:"Kappabashi Dougu Street Tokyo",slots:[
       {label:"Mañana",time:"08:30",title:"Asakusa y Sensō-ji",desc:"Kaminarimon, Nakamise-dori, templo y paseo junto al río Sumida."},
-      {label:"Mediodía",time:"12:00",title:"Ueno y Ameyoko",desc:"Mercado-calle, comida picando y paseo por el parque, adaptable al jet lag."},
+      {label:"Media mañana",time:"11:30",title:"Primer vistazo a Kappabashi",desc:"45–60 min para localizar tiendas de vajilla, cuchillos, cristal y menaje. Apuntar favoritos y comprobar cuáles abren el domingo 8."},
+      {label:"Mediodía",time:"12:45",title:"Ueno y Ameyoko",desc:"Mercado-calle, comida picando y paseo por el parque, adaptable al jet lag."},
       {label:"Tarde-noche",time:"16:00",title:"Akihabara",desc:"Electrónica, recreativos y cultura pop. Cena informal en la zona."}
     ]},
     {date:"2026-11-05",city:"Tokio",sleep:"Tokio",title:"Tokio moderno",map:"Meiji Jingu",slots:[
@@ -31,16 +32,17 @@ window.TRIP_DATA = {
       {label:"Mediodía",time:"12:45",title:"Yurakucho y Marunouchi",desc:"Comida bajo las vías o en Marunouchi."},
       {label:"Tarde-noche",time:"14:00",title:"Tokyo Station y Roppongi/Azabudai",desc:"Fachada de Marunouchi, exteriores del Palacio y vistas de Tokyo Tower."}
     ]},
-    {date:"2026-11-07",city:"Tokio",sleep:"Tokio",title:"Tokio cotidiano",map:"Yanaka Ginza",slots:[
+    {date:"2026-11-07",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Tokio cotidiano",map:"Yanaka Ginza",slots:[
       {label:"Mañana",time:"09:30",title:"Yanaka y Sendagi",desc:"Nippori, cementerio, callejones residenciales y comercios de Yanaka Ginza."},
       {label:"Tarde",time:"14:30",title:"Kiyosumi-Shirakawa",desc:"Cafés, canales y jardín Kiyosumi opcional."},
       {label:"Tarde-noche",time:"17:30",title:"Monzen-Nakachō",desc:"Santuario, shotengai, izakayas y supermercado de barrio."}
     ]},
-    {date:"2026-11-08",city:"Tokio",sleep:"Tokio",title:"Día colchón",map:"Daikanyama Tokyo",slots:[
-      {label:"Mañana",time:"Sin alarma",title:"Desayuno tranquilo",desc:"Decidir según energía y lo que os haya gustado más."},
-      {label:"Opción A",time:"11:30",title:"Daikanyama y Nakameguro",desc:"Tiendas, librerías, cafés y paseo junto al canal. Opción preferida."},
-      {label:"Opción B",time:"11:00",title:"Kagurazaka",desc:"Callejones, comercios y cafés. Por la tarde, repetir vuestro barrio favorito."}
-    ]},
+    {date:"2026-11-08",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Kappabashi: compras para casa + tarde colchón",map:"Kappabashi Dougu Street Tokyo",slots:[
+      {label:"Mañana",time:"10:00–14:00",title:"Compra grande en Kappabashi",desc:"Volver a las tiendas marcadas el día 4 y comprar con calma vajilla, cuchillos, cristalería y utensilios para casa. Pedir embalaje reforzado."},
+      {label:"Mediodía",time:"14:00",title:"Dejar compras en el apartamento",desc:"Taxi con las bolsas, reorganizar equipaje y valorar si hace falta comprar otra maleta."},
+      {label:"Tarde",time:"15:30",title:"Daikanyama y Nakameguro opcional",desc:"Si queda energía: T-Site, tiendas, cafés y paseo junto al canal. Si Kappabashi se alarga, se recorta sin problema."},
+      {label:"Noche",time:"19:30",title:"Cena y preparar Kanazawa",desc:"Cena tranquila y dejar equipaje listo para el Shinkansen del día 9."}
+    ],transport:"Kappabashi es la prioridad del día. Es domingo: el día 4 comprobad qué tiendas favoritas abren el 8."},
     {date:"2026-11-09",city:"Kanazawa",sleep:"Daiwa Roynet Kanazawa",title:"Tokio → Kanazawa",map:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi",slots:[
       {label:"Mañana",time:"07:30–12:00",title:"Hokuriku Shinkansen",desc:"Tokyo Station → Kanazawa en Kagayaki o Hakutaka directo. Comprar ekiben y reservar juntos."},
       {label:"Mediodía",time:"12:00",title:"Mercado Ōmichō",desc:"Dejar maletas y comer pescado, marisco o kaisendon."},
