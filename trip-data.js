@@ -6,7 +6,7 @@
 window.TRIP_DATA = {
   source: {
     spreadsheetId: "18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8",
-    updatedAt: "2026-09-28T15:05:00Z"
+    updatedAt: "2026-10-06T07:40:00Z"
   },
   days: [
     {date:"2026-11-02",city:"Vuelo",sleep:"Avión",title:"Barcelona → Doha",map:"Barcelona Airport Terminal 1",slots:[
@@ -16,99 +16,118 @@ window.TRIP_DATA = {
       {label:"Mañana",time:"07:25",title:"QR812 · Salida de Doha",desc:"Horario actualizado por Qatar Airways. Conexión en Doha y vuelo a Haneda."},
       {label:"Noche",time:"22:55",title:"Llegada a Haneda",desc:"Terminal 3. Inmigración, equipaje y taxi al Airbnb aLATO Hatsudai c02."}
     ],transport:"DOH 07:25 → HND 22:55. Horario actualizado por Qatar Airways el 11/08/2026."},
-    {date:"2026-11-04",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Asakusa, primer vistazo a Kappabashi y Akihabara",map:"Kappabashi Dougu Street Tokyo",slots:[
-      {label:"Mañana",time:"08:30",title:"Asakusa y Sensō-ji",desc:"Kaminarimon, Nakamise-dori, templo y paseo junto al río Sumida."},
-      {label:"Media mañana",time:"11:30",title:"Primer vistazo a Kappabashi",desc:"45–60 min para localizar tiendas de vajilla, cuchillos, cristal y menaje. Apuntar favoritos y comprobar cuáles abren el domingo 8."},
-      {label:"Mediodía",time:"12:45",title:"Ueno y Ameyoko",desc:"Mercado-calle, comida picando y paseo por el parque, adaptable al jet lag."},
-      {label:"Tarde-noche",time:"16:00",title:"Akihabara",desc:"Electrónica, recreativos y cultura pop. Cena informal en la zona."}
+    {date:"2026-11-04",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Asakusa, Kappabashi, Ueno y Akihabara",map:"Kappabashi Dougu Street Tokyo",slots:[
+      {label:"Mañana",time:"08:30–10:30",title:"Sensō-ji y entorno",desc:"Entrar por Kaminarimon, recorrer Nakamise-dori, visitar el templo y pasear por las calles laterales."},
+      {label:"Media mañana",time:"10:30–11:30",title:"Paseo junto al río Sumida",desc:"Paseo fluvial con vistas de Tokyo Skytree y contraste entre Asakusa y el Tokio moderno."},
+      {label:"Media mañana",time:"11:30–12:30",title:"Primer vistazo a Kappabashi",desc:"Primera pasada por tiendas de vajilla, cuchillos, cristalería y utensilios. Marcar favoritos para volver el día 8."},
+      {label:"Mediodía",time:"13:00–14:30",title:"Mercado-calle Ameyoko",desc:"Puestos de comida, pescado, snacks, ropa y tiendas populares. Comer aquí o picar por el mercado."},
+      {label:"Tarde",time:"14:30–15:30",title:"Parque de Ueno y alrededores",desc:"Paseo por el parque, estanques y zona cultural; bloque fácil de recortar si pesa el jet lag."},
+      {label:"Tarde-noche",time:"16:00–20:00",title:"Electrónica, recreativos y cultura pop",desc:"Recorrer Akihabara, entrar en recreativos y elegir unas pocas tiendas de electrónica, manga o coleccionismo."}
     ]},
-    {date:"2026-11-05",city:"Tokio",sleep:"Tokio",title:"Tokio moderno",map:"Meiji Jingu",slots:[
-      {label:"Mañana",time:"08:30",title:"Meiji Jingū y Harajuku",desc:"Bosque y santuario; después Takeshita, Cat Street y Omotesandō."},
-      {label:"Tarde",time:"13:30",title:"Shibuya",desc:"Cruce, Hachikō, Parco y Miyashita Park. Shibuya Sky al atardecer."},
-      {label:"Noche",time:"19:00",title:"Shinjuku",desc:"Omoide Yokochō, Kabukichō y Golden Gai. Evitar captadores."}
+    {date:"2026-11-05",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Meiji Jingū, Harajuku, Shibuya y Shinjuku",map:"Meiji Jingu",slots:[
+      {label:"Mañana",time:"08:30–10:30",title:"Bosque y santuario Meiji",desc:"Entrar por Harajuku y recorrer con calma el bosque hasta el santuario principal."},
+      {label:"Media mañana",time:"10:30–13:00",title:"Takeshita-dori, calles laterales y Omotesandō",desc:"Harajuku, Cat Street y Omotesandō, priorizando calles laterales frente a colas virales."},
+      {label:"Tarde",time:"13:30–17:00",title:"Cruce, Hachikō, Parco y Miyashita Park",desc:"Recorrer el núcleo de Shibuya antes del mirador."},
+      {label:"Atardecer",time:"17:00–18:30",title:"Shibuya Sky",desc:"Subida al mirador para ver el cambio de luz y la ciudad encendiéndose."},
+      {label:"Noche",time:"19:00–23:00",title:"Omoide Yokochō, Kabukichō y Golden Gai",desc:"Cena, neones y callejones de Shinjuku; evitar captadores."}
     ],transport:"Reservar Shibuya Sky en cuanto abra la venta."},
-    {date:"2026-11-06",city:"Tokio",sleep:"Tokio",title:"Mercado, centro elegante y skyline",map:"Tsukiji Outer Market",slots:[
-      {label:"Mañana",time:"08:30",title:"Tsukiji y Ginza",desc:"Mercado exterior, desayuno, Chuo-dori e Itoya si os apetece."},
-      {label:"Mediodía",time:"12:45",title:"Yurakucho y Marunouchi",desc:"Comida bajo las vías o en Marunouchi."},
-      {label:"Tarde-noche",time:"14:00",title:"Tokyo Station y Roppongi/Azabudai",desc:"Fachada de Marunouchi, exteriores del Palacio y vistas de Tokyo Tower."}
+    {date:"2026-11-06",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Tsukiji, Ginza, Marunouchi y Roppongi",map:"Tsukiji Outer Market",slots:[
+      {label:"Mañana",time:"08:30–10:30",title:"Mercado exterior de Tsukiji",desc:"Desayuno y recorrido por puestos de comida, pescado y productos de cocina."},
+      {label:"Media mañana",time:"10:45–12:30",title:"Paseo por Ginza",desc:"Chuo-dori, Ginza Six e Itoya si os apetece."},
+      {label:"Mediodía",time:"12:45–14:00",title:"Comida bajo las vías o zona Marunouchi",desc:"Elegir entre ambiente popular en Yurakucho o una comida más tranquila en Marunouchi."},
+      {label:"Tarde",time:"14:00–16:30",title:"Estación de Tokio y exteriores del Palacio Imperial",desc:"Fachada Marunouchi, distrito financiero y jardines exteriores del Palacio."},
+      {label:"Atardecer-noche",time:"17:00–21:30",title:"Roppongi Hills, Azabudai Hills y vistas de Tokyo Tower",desc:"Arquitectura moderna, vistas de Tokyo Tower y cena por la zona."}
     ]},
-    {date:"2026-11-07",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Tokio cotidiano",map:"Yanaka Ginza",slots:[
-      {label:"Mañana",time:"09:30",title:"Yanaka y Sendagi",desc:"Nippori, cementerio, callejones residenciales y comercios de Yanaka Ginza."},
-      {label:"Tarde",time:"14:30",title:"Kiyosumi-Shirakawa",desc:"Cafés, canales y jardín Kiyosumi opcional."},
-      {label:"Tarde-noche",time:"17:30",title:"Monzen-Nakachō",desc:"Santuario, shotengai, izakayas y supermercado de barrio."}
+    {date:"2026-11-07",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Yanaka, Kiyosumi-Shirakawa y Monzen-Nakachō",map:"Yanaka Ginza",slots:[
+      {label:"Mañana",time:"09:30–12:30",title:"Tokio de barrio: Yanaka, cementerio y Yanaka Ginza",desc:"Nippori, cementerio, callejones residenciales y comercios de Yanaka Ginza."},
+      {label:"Mediodía",time:"12:30–14:00",title:"Comida local",desc:"Soba, curry, tonkatsu o menú del día por Yanaka/Sendagi."},
+      {label:"Tarde",time:"14:30–17:30",title:"Cafés, canales y jardín Kiyosumi",desc:"Paseo por Kiyosumi-Shirakawa, café de especialidad y jardín opcional."},
+      {label:"Tarde-noche",time:"17:30–21:00",title:"Santuario, shotengai e izakayas",desc:"Monzen-Nakachō, Tomioka Hachimangū, calles comerciales y cena local."},
+      {label:"Extra",time:"19:00–19:30",title:"Entrar en un supermercado grande",desc:"Ver preparados, pescados, productos de temporada y descuentos de última hora."}
     ]},
-    {date:"2026-11-08",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Kappabashi: compras para casa + tarde colchón",map:"Kappabashi Dougu Street Tokyo",slots:[
-      {label:"Mañana",time:"10:00–14:00",title:"Compra grande en Kappabashi",desc:"Volver a las tiendas marcadas el día 4 y comprar con calma vajilla, cuchillos, cristalería y utensilios para casa. Pedir embalaje reforzado."},
-      {label:"Mediodía",time:"14:00",title:"Dejar compras en el apartamento",desc:"Taxi con las bolsas, reorganizar equipaje y valorar si hace falta comprar otra maleta."},
-      {label:"Tarde",time:"15:30",title:"Daikanyama y Nakameguro opcional",desc:"Si queda energía: T-Site, tiendas, cafés y paseo junto al canal. Si Kappabashi se alarga, se recorta sin problema."},
-      {label:"Noche",time:"19:30",title:"Cena y preparar Kanazawa",desc:"Cena tranquila y dejar equipaje listo para el Shinkansen del día 9."}
-    ],transport:"Kappabashi es la prioridad del día. Es domingo: el día 4 comprobad qué tiendas favoritas abren el 8."},
-    {date:"2026-11-09",city:"Kanazawa",sleep:"Daiwa Roynet Kanazawa",title:"Tokio → Kanazawa",map:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi",slots:[
-      {label:"Mañana",time:"07:30–12:00",title:"Hokuriku Shinkansen",desc:"Tokyo Station → Kanazawa en Kagayaki o Hakutaka directo. Comprar ekiben y reservar juntos."},
-      {label:"Mediodía",time:"12:00",title:"Mercado Ōmichō",desc:"Dejar maletas y comer pescado, marisco o kaisendon."},
-      {label:"Tarde",time:"14:00",title:"Higashi Chaya y Kazue-machi",desc:"Casas de té, artesanía, pan de oro y paseo junto al río."}
-    ],transport:"Shinkansen directo, aprox. 2 h 30–3 h. Venta normalmente un mes antes."},
-    {date:"2026-11-10",city:"Kanazawa",sleep:"Daiwa Roynet Kanazawa",title:"Jardines y barrio samurái",map:"Kenroku-en",slots:[
-      {label:"Mañana",time:"08:00",title:"Kenroku-en y castillo",desc:"Entrar pronto al jardín y cruzar después al recinto del castillo."},
-      {label:"Tarde",time:"13:30",title:"Nagamachi y Casa Nomura",desc:"Barrio samurái, canales y muros de tierra."},
-      {label:"Última tarde",time:"16:30",title:"Museo o centro",desc:"Museo del Siglo XXI, artesanía o paseo tranquilo por el centro."}
+    {date:"2026-11-08",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Kappabashi: compras grandes y tarde flexible",map:"Kappabashi Dougu Street Tokyo",slots:[
+      {label:"Mañana",time:"10:00–14:00",title:"Compras para casa en Kappabashi",desc:"Volver a los favoritos del día 4 y comprar vajilla, cuchillos, cristalería y utensilios con calma."},
+      {label:"Mediodía",time:"14:00–15:00",title:"Dejar las compras y reorganizar equipaje",desc:"Taxi al apartamento, guardar lo frágil y revisar espacio en las maletas."},
+      {label:"Tarde",time:"15:30–19:00",title:"Paseo opcional después de las compras",desc:"Daikanyama y Nakameguro si queda energía; si Kappabashi se alarga, se elimina sin problema."},
+      {label:"Noche",time:"19:00–21:30",title:"Cena y preparar salida a Kanazawa",desc:"Cena tranquila y maletas listas para el Shinkansen del día 9."}
+    ],transport:"Kappabashi es la prioridad del día. El día 4 comprobad qué tiendas favoritas abren el domingo 8."},
+    {date:"2026-11-09",city:"Kanazawa",sleep:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi",title:"Hokuriku Shinkansen y primera tarde en Kanazawa",map:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi",slots:[
+      {label:"Mañana",time:"07:30–12:00",title:"Hokuriku Shinkansen",desc:"Check-out, traslado a Tokyo Station y Kagayaki/Hakutaka directo a Kanazawa."},
+      {label:"Mediodía",time:"12:00–14:00",title:"Llegada, maletas y mercado Omicho",desc:"Dejar equipaje y comer pescado, marisco o donburi en Omicho."},
+      {label:"Tarde",time:"14:00–17:30",title:"Higashi Chaya y Kazue-machi",desc:"Casas de té, artesanía, pan de oro y paseo junto al río."},
+      {label:"Noche",time:"18:00–21:00",title:"Cena y paseo nocturno",desc:"Cena tranquila y paseo breve por el centro."}
+    ],transport:"Hokuriku Shinkansen directo a Kanazawa. Reservar cuando abra la venta."},
+    {date:"2026-11-10",city:"Kanazawa",sleep:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi",title:"Kenroku-en, castillo y Nagamachi",map:"Kenroku-en",slots:[
+      {label:"Mañana",time:"08:00–11:30",title:"Kenroku-en y castillo",desc:"Entrar pronto en Kenroku-en y cruzar después al recinto del castillo."},
+      {label:"Mediodía",time:"11:45–13:15",title:"Comida",desc:"Comer cerca del jardín, en Korinbo o volver a Omicho si quedó pendiente."},
+      {label:"Tarde",time:"13:30–16:30",title:"Nagamachi y Casa Nomura",desc:"Barrio samurái, canales y muros de tierra."},
+      {label:"Última tarde",time:"16:30–18:30",title:"Museo del Siglo XXI o centro",desc:"Arte contemporáneo, artesanía o paseo tranquilo."},
+      {label:"Noche",time:"18:30–21:30",title:"Cena final en Kanazawa",desc:"Cena y preparar el día siguiente con documentación y equipaje del coche."}
     ]},
-    {date:"2026-11-11",city:"Takayama",sleep:"Hotel Wood Takayama",title:"Kanazawa → Shirakawa-go → Takayama en coche",map:"Shirakawa-go",slots:[
-      {label:"Mañana",time:"08:00",title:"Recogida del coche en Kanazawa",desc:"Toyota Rent a Car · salida este de Kanazawa Station. Corolla Sport Hybrid C3, AT y 2WD. Revisar el coche y familiarizarse unos minutos con la conducción por la izquierda."},
-      {label:"Mañana-mediodía",time:"09:30–12:30",title:"Shirakawa-go",desc:"Llegada en coche, aparcar y visitar el mirador Shiroyama, el pueblo y las casas gassho-zukuri. Comer antes de salir."},
-      {label:"Mediodía-tarde",time:"13:00",title:"Shirakawa-go → Takayama",desc:"Continuar en coche hasta Takayama. Check-in y primera vuelta por Sanmachi con la tarde libre."}
-    ],transport:"Toyota Rent a Car reservado del 11/11 08:00 al 14/11 17:00. ETC incluida. Neumáticos de invierno pendientes de confirmar."},
-    {date:"2026-11-12",city:"Takayama",sleep:"Hotel Wood Takayama",title:"Takayama sin prisas",map:"Miyagawa Morning Market",slots:[
-      {label:"Mañana",time:"08:00",title:"Mercados matinales",desc:"Miyagawa y, si apetece, Jinya-mae. Desayuno y productos locales."},
-      {label:"Media mañana",time:"10:00",title:"Takayama Jinya",desc:"Antiguo edificio administrativo, almacenes y salas de tatami."},
-      {label:"Tarde",time:"14:00",title:"Hida no Sato o paseo libre",desc:"Excursión opcional o tarde tranquila en el centro."}
+    {date:"2026-11-11",city:"Takayama",sleep:"Hotel Wood Takayama",title:"Toyota, Shirakawa-go y primera tarde en Takayama",map:"Shirakawa-go",slots:[
+      {label:"Mañana",time:"08:00–09:30",title:"Recogida del Toyota y salida",desc:"Check-out, caminar a Toyota Rent a Car, recoger el Corolla Sport Hybrid y salir hacia Shirakawa-go."},
+      {label:"Mañana-mediodía",time:"09:30–12:30",title:"Pueblo y mirador",desc:"Aparcar, subir a Shiroyama y recorrer el pueblo y las casas gassho-zukuri."},
+      {label:"Mediodía",time:"13:00–14:00",title:"Conducción a Takayama",desc:"Salir de Shirakawa-go y conducir hasta Takayama."},
+      {label:"Tarde",time:"14:30–18:00",title:"Check-in y primera vuelta por Sanmachi",desc:"Dejar maletas y recorrer el casco antiguo con calma."},
+      {label:"Noche",time:"18:00–21:30",title:"Cena de Hida beef",desc:"Yakiniku, sukiyaki o restaurante especializado en carne de Hida."}
+    ],transport:"Toyota Rent a Car reservado. ETC incluida. Neumáticos de invierno pendientes de confirmar."},
+    {date:"2026-11-12",city:"Takayama",sleep:"Hotel Wood Takayama",title:"Mercados, Takayama Jinya y casco antiguo",map:"Miyagawa Morning Market",slots:[
+      {label:"Mañana",time:"08:00–10:00",title:"Mercados matinales",desc:"Miyagawa y, si apetece, Jinya-mae. Desayuno y productos locales."},
+      {label:"Media mañana",time:"10:00–12:00",title:"Takayama Jinya",desc:"Antiguo edificio administrativo, almacenes y salas de tatami."},
+      {label:"Mediodía",time:"12:00–14:00",title:"Casco antiguo y comida",desc:"Sanmachi, bodegas de sake y comida por el centro."},
+      {label:"Tarde",time:"14:00–17:00",title:"Hida no Sato o paseo libre",desc:"Excursión opcional o tarde tranquila en Takayama."},
+      {label:"Noche",time:"17:30–21:00",title:"Cena temprana y preparación",desc:"Cena y preparar la salida temprana hacia Kamikōchi."}
     ]},
-    {date:"2026-11-13",city:"Okuhida",sleep:"Mozumo Ryokan",title:"Kamikōchi y ryokan con coche",map:"Mozumo Okuhida",slots:[
-      {label:"Muy temprano",time:"07:00",title:"Takayama → Hirayu / Akandana",desc:"Salir en coche hacia Okuhida. Aparcar en Hirayu o Akandana; los coches particulares no entran en Kamikōchi."},
-      {label:"Mañana",time:"09:00–13:00",title:"Paseo corto por Kamikōchi",desc:"Subir en bus desde Hirayu/Akandana. Taishō-ike, Tashiro Pond y Kappa Bridge. No alargar hasta Myōjin si compromete el regreso."},
-      {label:"Tarde",time:"15:00",title:"Check-in en Mozumo",desc:"Recoger el coche, trayecto corto hasta Mozumo, onsen privado, descanso y cena kaiseki."}
-    ],transport:"Coche Takayama → Hirayu/Akandana; bus local obligatorio para entrar en Kamikōchi. Neumáticos de invierno pendientes de confirmar con Toyota."},
-    {date:"2026-11-14",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Okuhida → Takayama → Kioto",map:"Apartment Hotel 11 Gion Kyoto",slots:[
-      {label:"Mañana",time:"08:00",title:"Mozumo → Takayama en coche",desc:"Desayuno, último onsen, check-out y regreso tranquilo a Takayama."},
-      {label:"Media mañana",time:"10:30",title:"Devolver el coche en Takayama Station",desc:"Toyota permite devolverlo hasta las 17:00, pero conviene entregarlo por la mañana para aprovechar Kioto. Repostar antes de la devolución salvo que uséis el sistema de combustible de Toyota."},
-      {label:"Mediodía-tarde",time:"11:30–16:00",title:"Takayama → Nagoya → Kioto",desc:"Limited Express Hida y conexión con Tokaido Shinkansen. Dejar 25–35 min en Nagoya."},
-      {label:"Tarde-noche",time:"16:30",title:"Gion y cena",desc:"Check-in y paseo suave por Gion, Shirakawa y Hanamikoji."}
-    ],transport:"Coche reservado hasta las 17:00, aunque el plan es devolverlo antes. Después, Limited Express Hida + Tokaido Shinkansen."},
-    {date:"2026-11-15",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Higashiyama y Camino del Filósofo",map:"Kiyomizu-dera",slots:[
-      {label:"Muy temprano",time:"07:00",title:"Kiyomizu-dera, Sannenzaka y Ninenzaka",desc:"Empezar pronto y bajar hacia Gion. El paseo es el protagonista."},
-      {label:"Media mañana",time:"10:30",title:"Gion y Yasaka",desc:"Kōdai-ji exterior, Maruyama Park, Yasaka Shrine y Gion."},
-      {label:"Tarde",time:"13:30",title:"Camino del Filósofo",desc:"Ginkaku-ji, Eikan-dō y Nanzen-ji, priorizando según la luz y la energía."},
-      {label:"Noche",time:"18:00",title:"Pontocho",desc:"Río Kamo y cena por Pontocho o Kawaramachi."}
+    {date:"2026-11-13",city:"Okuhida",sleep:"Mozumo Ryokan",title:"Kamikōchi y Mozumo Ryokan",map:"Mozumo Okuhida",slots:[
+      {label:"Muy temprano",time:"07:00–08:15",title:"Conducción hacia Kamikōchi",desc:"Salir de Takayama en coche hacia Hirayu/Akandana con todo el equipaje."},
+      {label:"Mañana",time:"08:15–09:00",title:"Aparcar y preparar el bus",desc:"Dejar el coche y llevar solo mochila pequeña."},
+      {label:"Mañana",time:"09:00–09:30",title:"Bus de montaña",desc:"Bus local hacia Kamikōchi; bajar en Taishō-ike si el servicio lo permite."},
+      {label:"Mañana-mediodía",time:"09:30–13:00",title:"Paseo corto por el valle",desc:"Taishō-ike, Tashiro Pond y Kappa Bridge."},
+      {label:"Mediodía",time:"13:00–14:00",title:"Regreso al coche",desc:"Bus local de vuelta a Hirayu/Akandana."},
+      {label:"Tarde-noche",time:"14:15 en adelante",title:"Coche, check-in, onsen y cena kaiseki",desc:"Recoger el coche, conducir a Mozumo y dedicar el resto del día al ryokan."}
+    ],transport:"Coche hasta Hirayu/Akandana; bus local obligatorio para entrar en Kamikōchi."},
+    {date:"2026-11-14",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Mozumo, devolución del coche y llegada a Kioto",map:"Apartment Hotel 11 Gion Kyoto",slots:[
+      {label:"Mañana",time:"08:00–10:30",title:"Desayuno, check-out y regreso en coche",desc:"Desayuno, último onsen y regreso a Takayama para devolver el coche."},
+      {label:"Media mañana-tarde",time:"11:00–16:00",title:"Limited Express Hida + Tokaido Shinkansen",desc:"Takayama → Nagoya en Hida y conexión con Shinkansen a Kioto."},
+      {label:"Tarde-noche",time:"16:00–21:00",title:"Check-in en Apartment Hotel 11 Gion y paseo",desc:"Taxi desde Kyoto Station, check-in y paseo suave por Gion."}
+    ],transport:"Devolver el Toyota por la mañana. Después Hida a Nagoya + Tokaido Shinkansen a Kioto."},
+    {date:"2026-11-15",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Higashiyama sur y norte",map:"Kiyomizu-dera",slots:[
+      {label:"Muy temprano",time:"07:00–10:30",title:"Kiyomizu-dera, Sannenzaka y Ninenzaka",desc:"Templo y descenso a pie por las calles históricas de Higashiyama."},
+      {label:"Media mañana",time:"10:30–12:30",title:"Kōdai-ji exterior, Maruyama y Gion",desc:"Continuar a pie por Maruyama, Yasaka y Gion."},
+      {label:"Tarde",time:"13:30–17:30",title:"Ginkaku-ji, Camino del Filósofo, Eikan-dō y Nanzen-ji",desc:"Recorrido de norte a sur priorizando según luz y energía."},
+      {label:"Noche",time:"18:00–21:30",title:"Paseo y cena",desc:"Pontocho/Kawaramachi para terminar el día junto al Kamo."}
     ]},
     {date:"2026-11-16",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Fushimi Inari y Nara",map:"Fushimi Inari Taisha",slots:[
-      {label:"Muy temprano",time:"06:45",title:"Fushimi Inari",desc:"Torii hasta Yotsutsuji o vuelta antes. No hace falta alcanzar la cima."},
-      {label:"Mañana-tarde",time:"10:30–16:30",title:"Nara",desc:"Parque, Tōdai-ji, Nigatsu-dō y Naramachi si queda energía."},
-      {label:"Tarde-noche",time:"16:30",title:"Regreso a Kioto",desc:"Cena tranquila cerca del hotel. No añadir más visitas."}
+      {label:"Muy temprano",time:"06:45–09:15",title:"Sendero de torii",desc:"Subir por Fushimi Inari hasta Yotsutsuji y regresar."},
+      {label:"Mañana",time:"09:30–10:30",title:"Tren a Nara",desc:"JR Nara Line hasta JR Nara."},
+      {label:"Mañana-tarde",time:"10:30–16:30",title:"Parque, Tōdai-ji, Nigatsu-dō y Naramachi",desc:"Recorrido a pie por los grandes imprescindibles de Nara."},
+      {label:"Tarde-noche",time:"16:30–19:00",title:"Regreso y cena tranquila",desc:"Volver a Kioto y cenar cerca del apartamento."}
     ],transport:"JR Nara Line; sin reserva, usando IC card."},
-    {date:"2026-11-17",city:"Osaka",sleep:"Apartment Hotel 11 Gion",title:"Osaka de día completo",map:"Dotonbori Osaka",slots:[
-      {label:"Mañana",time:"08:15",title:"Gion → Kuromon Market",desc:"Salir desde Gion y entrar en Osaka por Keihan/metro. Empezar en Kuromon con mercado, desayuno tardío y primeras calles de Namba/Nipponbashi."},
-      {label:"Mediodía",time:"11:30",title:"Shinsekai y comida",desc:"Bajar a Shinsekai para ver la Osaka más retro y comer kushikatsu, okonomiyaki o lo que apetezca sin reservar demasiado."},
-      {label:"Tarde",time:"14:30",title:"Amerikamura y Shinsaibashi",desc:"Subir hacia Amerikamura, Triangle Park y las calles laterales de Shinsaibashi. Umeda queda opcional si queréis arquitectura/centros comerciales."},
-      {label:"Atardecer-noche",time:"17:30–22:00",title:"Dōtonbori y Namba",desc:"Canal, Hozenji Yokocho, neones, takoyaki y cena. Volver a Gion después de cenar sin apurar el último tren."}
-    ],transport:"Excursión de día completo desde Gion. No requiere tren reservado: usar IC card y elegir Keihan/Hankyu según el trayecto del día."},
+    {date:"2026-11-17",city:"Osaka",sleep:"Apartment Hotel 11 Gion",title:"Kuromon, Shinsekai y Minami de día completo",map:"Dotonbori Osaka",slots:[
+      {label:"Mañana",time:"08:15–11:30",title:"Salida desde Gion + Kuromon Market",desc:"Entrar en Osaka por Keihan + metro y empezar en Kuromon/Nippombashi."},
+      {label:"Mediodía",time:"11:30–14:00",title:"Barrio retro y comida",desc:"Shinsekai, Janjan Yokocho y comida por la zona."},
+      {label:"Tarde",time:"14:30–17:30",title:"Calles, tiendas y ambiente urbano",desc:"Amerikamura, Triangle Park y Shinsaibashi."},
+      {label:"Atardecer-noche",time:"17:30–22:00",title:"Neones, Hozenji y cena",desc:"Dōtonbori, Hozenji Yokocho y Namba."},
+      {label:"Noche",time:"22:00–23:15",title:"Regreso a Kioto",desc:"Metro + Keihan o Hankyu de vuelta a Gion."}
+    ],transport:"Excursión de día completo; sin reserva, usando IC card."},
     {date:"2026-11-18",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Nishiki, Nijō y Palacio Imperial",map:"Nijo Castle Kyoto",slots:[
-      {label:"Mañana",time:"09:30",title:"Nishiki Market",desc:"Brunch de mercado, té, encurtidos, dulces y tiendas tradicionales."},
-      {label:"Mediodía",time:"12:00",title:"Castillo de Nijō",desc:"Palacio Ninomaru y jardines. Una visita histórica distinta a los templos."},
-      {label:"Tarde",time:"14:45",title:"Palacio Imperial y Kyoto Gyoen",desc:"Visita autoguiada y paseo por el parque imperial."},
-      {label:"Tarde-noche",time:"17:00",title:"Teramachi / Shinkyogoku / Gion",desc:"Compras, café y tarde ligera cerca del apartamento."}
-    ],transport:"Día compacto en el centro de Kioto, sin grandes desplazamientos."},
+      {label:"Mañana",time:"09:30–11:30",title:"Nishiki Market",desc:"Mercado, brunch y tiendas tradicionales."},
+      {label:"Mediodía",time:"12:00–14:15",title:"Castillo de Nijō",desc:"Palacio Ninomaru y jardines."},
+      {label:"Tarde",time:"14:45–16:45",title:"Palacio Imperial de Kioto",desc:"Visita autoguiada y paseo por Kyoto Gyoen."},
+      {label:"Tarde-noche",time:"17:00–19:30",title:"Compras y paseo",desc:"Teramachi y Shinkyogoku."},
+      {label:"Noche",time:"19:30–21:30",title:"Cena tranquila",desc:"Gion/Pontocho/Kawaramachi y regreso a pie."}
+    ],transport:"Día compacto en el centro de Kioto."},
     {date:"2026-11-19",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Arashiyama, Kinkaku-ji y última noche en Kioto",map:"Arashiyama Bamboo Forest",slots:[
-      {label:"Muy temprano",time:"07:00",title:"Arashiyama",desc:"Bosque de bambú, Tenryū-ji opcional, río y puente Togetsukyō antes de las multitudes."},
-      {label:"Mediodía",time:"11:30",title:"Comida y traslado a Kinkaku-ji",desc:"Comer pronto en Arashiyama o cerca de Kinkaku-ji y trasladarse en taxi para ahorrar tiempo."},
-      {label:"Tarde",time:"14:30",title:"Kinkaku-ji",desc:"Recorrer el circuito del Pabellón Dorado y sus jardines."},
-      {label:"Noche",time:"17:00",title:"Última tarde y cena en Gion/Pontocho",desc:"Volver al apartamento, compras finales si queda algo y última cena en Kioto. Preparar maletas para el Shinkansen del día 20."}
-    ],transport:"Arashiyama y Kinkaku-ji ocupan el último día completo; taxi entre ambos es la opción más cómoda. Última noche en Apartment Hotel 11 Gion."},
-    {date:"2026-11-20",city:"Tokio",sleep:"Avión",title:"Kioto → Tokio y últimas horas antes de Haneda",map:"Shinagawa Station Tokyo",slots:[
-      {label:"Mañana",time:"08:00",title:"Check-out y Shinkansen a Tokio",desc:"Salir del apartamento con las maletas, taxi a Kyoto Station y tomar un Nozomi de mañana. Objetivo: llegar a Shinagawa alrededor de las 11:00–11:30."},
-      {label:"Mediodía-tarde",time:"11:30–17:00",title:"Últimas horas: Ginza y Marunouchi",desc:"Dejar el equipaje en consigna en Shinagawa y hacer un último bloque fácil de compras, comida y paseo por Ginza/Marunouchi/Tokyo Station."},
-      {label:"Tarde-noche",time:"17:00–19:30",title:"Cena temprana y recoger equipaje",desc:"Cena sin sobremesa larga y regreso a Shinagawa para recoger las maletas."},
-      {label:"Noche",time:"19:45–20:30",title:"Shinagawa → Haneda",desc:"Keikyu directo a Haneda Terminal 3. Llegar alrededor de las 20:30 deja margen holgado para el QR813 de las 00:25."}
-    ],transport:"Kioto → Shinagawa en Tokaido Shinkansen. Guardar equipaje en Shinagawa y volver allí antes de ir a Haneda en Keikyu."},
+      {label:"Muy temprano",time:"07:00–11:30",title:"Bosque de bambú, Tenryū-ji y río",desc:"Llegar antes de las multitudes y recorrer el bambusal, Tenryū-ji y Togetsukyō."},
+      {label:"Mediodía-tarde",time:"11:30–16:30",title:"Comida, traslado y Pabellón Dorado",desc:"Comer pronto, taxi directo y visita a Kinkaku-ji."},
+      {label:"Tarde-noche",time:"17:00–21:30",title:"Última tarde y cena en Kioto",desc:"Volver a Gion/Pontocho, hacer compras finales y preparar maletas."}
+    ],transport:"Taxi entre Arashiyama y Kinkaku-ji. Última noche en Apartment Hotel 11 Gion."},
+    {date:"2026-11-20",city:"Tokio",sleep:"Avión",title:"Kioto → Tokio y Haneda",map:"Shinagawa Station Tokyo",slots:[
+      {label:"Mañana",time:"08:00–11:30",title:"Check-out y Shinkansen a Shinagawa",desc:"Taxi a Kyoto Station y Tokaido Shinkansen hasta Shinagawa."},
+      {label:"Mediodía-tarde",time:"11:30–17:00",title:"Últimas horas en Tokio: Ginza y Marunouchi",desc:"Dejar equipaje en Shinagawa y hacer un último bloque de comida, paseo y compras."},
+      {label:"Tarde-noche",time:"17:00–19:30",title:"Cena temprana y recoger equipaje",desc:"Volver a Shinagawa con margen y recoger las maletas."},
+      {label:"Noche",time:"19:45–20:30",title:"Traslado al aeropuerto",desc:"Keikyu a Haneda Terminal 3."}
+    ],transport:"Kioto → Shinagawa en Tokaido Shinkansen; Keikyu desde Shinagawa a Haneda."},
     {date:"2026-11-21",city:"Vuelo",sleep:"Barcelona",title:"Tokio → Doha → Barcelona",map:"Haneda Airport Terminal 3",slots:[
       {label:"Madrugada",time:"00:25",title:"QR813 · Haneda → Doha",desc:"Horario actualizado por Qatar Airways: salida 00:25 y llegada a Doha 06:50."},
       {label:"Mañana",time:"08:25",title:"QR145 · Doha → Barcelona",desc:"Conexión de 1 h 45 min. Llegada a Barcelona T1 a las 13:25."}
