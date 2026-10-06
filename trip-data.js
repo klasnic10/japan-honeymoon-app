@@ -12,7 +12,7 @@ window.TRIP_DATA = {
     {date:"2026-11-02",city:"Vuelo",sleep:"Avión",title:"Barcelona → Doha",map:"Barcelona Airport Terminal 1",slots:[
       {label:"Noche",time:"22:15",title:"QR142 · Salida de Barcelona",desc:"Terminal 1. Llegar con 3–3,5 h de margen. Vuelo de 6 h a Doha."}
     ],transport:"BCN 22:15 → DOH 06:15 (+1). Equipaje facturado: 25 kg por adulto."},
-    {date:"2026-11-03",city:"Tokio",sleep:"Tokio · hotel pendiente",title:"Doha → Tokio",map:"Haneda Airport Terminal 3",slots:[
+    {date:"2026-11-03",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Doha → Tokio",map:"Haneda Airport Terminal 3",slots:[
       {label:"Mañana",time:"07:25",title:"QR812 · Salida de Doha",desc:"Horario actualizado por Qatar Airways. Conexión en Doha y vuelo a Haneda."},
       {label:"Noche",time:"22:55",title:"Llegada a Haneda",desc:"Terminal 3. Inmigración, equipaje y taxi al Airbnb aLATO Hatsudai c02."}
     ],transport:"DOH 07:25 → HND 22:55. Horario actualizado por Qatar Airways el 11/08/2026."},
@@ -135,7 +135,7 @@ window.TRIP_DATA = {
   ],
   bookings: [
     {id:"flight",kind:"flight",icon:"✈️",status:"confirmed",title:"Qatar Airways · Ida y vuelta",subtitle:"2 pasajeros · Economy · 25 kg por adulto",from:"BCN",to:"HND",dates:"2–21 nov",detail:"QR142 + QR812 · QR813 + QR145",emailId:"19ed47ac996354f5",map:"Haneda Airport Terminal 3"},
-    {id:"tokyo1",kind:"hotel",icon:"🏨",status:"pending",title:"Hotel en Tokio · primera estancia",subtitle:"Zona por decidir · 6 noches",from:"Entrada",to:"Salida",dates:"3–9 nov",detail:"Pendiente de reservar",map:"Tokyo"},
+    {id:"tokyo1",kind:"hotel",icon:"🏨",status:"confirmed",title:"aLATO Hatsudai c02 · Airbnb",subtitle:"6 noches · Shibuya/Honmachi · apartamento entero",from:"Entrada después de las 16:00",to:"Salida hasta las 10:00",dates:"3–9 nov",detail:"Reserva confirmada · prerregistro de pasaportes pendiente antes del viaje",emailId:"1a0e2ce453b1a388",map:"2-chome-2-10 Honmachi, Shibuya, Tokyo"},
     {id:"kanazawa",kind:"hotel",icon:"🏨",status:"confirmed",title:"Daiwa Roynet Kanazawa Eki Nishiguchi",subtitle:"2 noches · Doble Superior, 2 camas",from:"Entrada 14:00",to:"Salida 11:00",dates:"9–11 nov",detail:"Cargo automático pendiente · ¥49.438",emailId:"19f7b84b3f161740",map:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi"},
     {id:"takayama",kind:"hotel",icon:"🏨",status:"confirmed",title:"Hotel Wood Takayama",subtitle:"2 noches · Doble Estándar, 2 camas",from:"Entrada 15:00",to:"Salida 10:00",dates:"11–13 nov",detail:"Cargo automático pendiente · ¥54.000",emailId:"19f7b8e42677b352",map:"HOTEL WOOD TAKAYAMA"},
     {id:"mozumo",kind:"hotel",icon:"♨️",status:"confirmed",title:"Mozumo Ryokan",subtitle:"1 noche · llegada prevista 15:00",from:"Entrada",to:"Salida",dates:"13–14 nov",detail:"Pagado · ¥84.000",emailId:"19f5816e7a7d5474",map:"Mozumo Okuhida"},
