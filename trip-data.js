@@ -52,11 +52,11 @@ window.TRIP_DATA = {
       {label:"Noche",time:"19:00–21:30",title:"Cena y preparar salida a Kanazawa",desc:"Cena tranquila y maletas listas para el Shinkansen del día 9."}
     ],transport:"Kappabashi es la prioridad del día. El día 4 comprobad qué tiendas favoritas abren el domingo 8."},
     {date:"2026-11-09",city:"Kanazawa",sleep:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi",title:"Hokuriku Shinkansen y primera tarde en Kanazawa",map:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi",slots:[
-      {label:"Mañana",time:"07:30–12:00",title:"Hokuriku Shinkansen",desc:"Check-out, traslado a Tokyo Station y Kagayaki/Hakutaka directo a Kanazawa."},
+      {label:"Mañana",time:"10:22–12:49",title:"Kagayaki 509 · Tokio → Kanazawa",desc:"Billetes electrónicos confirmados. Vagón 6, asientos 14D y 14E. Ambas tarjetas Suica vinculadas."},
       {label:"Mediodía",time:"12:00–14:00",title:"Llegada, maletas y mercado Omicho",desc:"Dejar equipaje y comer pescado, marisco o donburi en Omicho."},
       {label:"Tarde",time:"14:00–17:30",title:"Higashi Chaya y Kazue-machi",desc:"Casas de té, artesanía, pan de oro y paseo junto al río."},
       {label:"Noche",time:"18:00–21:00",title:"Cena y paseo nocturno",desc:"Cena tranquila y paseo breve por el centro."}
-    ],transport:"Hokuriku Shinkansen directo a Kanazawa. Reservar cuando abra la venta."},
+    ],transport:"Kagayaki 509 reservado y pagado · Tokyo 10:22 → Kanazawa 12:49 · Vagón 6, 14D/14E · e-tickets vinculados a las Suica."},
     {date:"2026-11-10",city:"Kanazawa",sleep:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi",title:"Kenroku-en, castillo y Nagamachi",map:"Kenroku-en",slots:[
       {label:"Mañana",time:"08:00–11:30",title:"Kenroku-en y castillo",desc:"Entrar pronto en Kenroku-en y cruzar después al recinto del castillo."},
       {label:"Mediodía",time:"11:45–13:15",title:"Comida",desc:"Comer cerca del jardín, en Korinbo o volver a Omicho si quedó pendiente."},
@@ -140,7 +140,7 @@ window.TRIP_DATA = {
     {id:"takayama",kind:"hotel",icon:"🏨",status:"confirmed",title:"Hotel Wood Takayama",subtitle:"2 noches · Doble Estándar, 2 camas",from:"Entrada 15:00",to:"Salida 10:00",dates:"11–13 nov",detail:"Cargo automático pendiente · ¥54.000",emailId:"19f7b8e42677b352",map:"HOTEL WOOD TAKAYAMA"},
     {id:"mozumo",kind:"hotel",icon:"♨️",status:"confirmed",title:"Mozumo Ryokan",subtitle:"1 noche · llegada prevista 15:00",from:"Entrada",to:"Salida",dates:"13–14 nov",detail:"Pagado · ¥84.000",emailId:"19f5816e7a7d5474",map:"Mozumo Okuhida"},
     {id:"kyoto",kind:"hotel",icon:"🏨",status:"confirmed",title:"Apartment Hotel 11 Gion",subtitle:"6 noches · Habitación Familiar Deluxe · cocina",from:"Entrada desde 16:00",to:"Salida hasta 10:00",dates:"14–20 nov",detail:"Pendiente de pago · ¥225.738 · cancelación gratis hasta 08/11",emailId:"1a0e8668fca5f3ea",map:"Apartment Hotel 11 Gion Kyoto"},
-    {id:"tokyokanazawa",kind:"transport",icon:"🚄",status:"pending",title:"Tokyo → Kanazawa",subtitle:"Hokuriku Shinkansen · Kagayaki/Hakutaka",from:"Tokyo",to:"Kanazawa",dates:"9 nov",detail:"Comprar al abrir la venta",url:"https://www.eki-net.com/en/jreast-train-reservation/Top/Index"},
+    {id:"tokyokanazawa",kind:"transport",icon:"🚄",status:"confirmed",title:"Tokyo → Kanazawa · Kagayaki 509",subtitle:"Shinkansen e-ticket · 2 adultos · vagón 6, asientos 14D y 14E",from:"Tokyo 10:22",to:"Kanazawa 12:49",dates:"9 nov",detail:"Pagado · ¥28.400 · Suica vinculadas",emailId:"1a11fa250baa4eea"},
     {id:"rentalcar",kind:"transport",icon:"🚗",status:"confirmed",title:"Toyota Rent a Car · Corolla Sport Hybrid",subtitle:"C3 · AT · 2WD · ETC + JAF · franquicia y NOC cubiertos",from:"Kanazawa",to:"Takayama",dates:"11–14 nov",detail:"Recogida 11/11 08:00 · devolución hasta 14/11 17:00 · ¥74.459 · neumáticos de invierno por confirmar",emailId:"1a0e71d0f15b0180",map:"Toyota Rent a Car Kanazawa Station East Exit"},
     {id:"kamikochi",kind:"transport",icon:"🚌",status:"pending",title:"Hirayu / Akandana → Kamikōchi",subtitle:"Aparcar el coche y continuar en bus local obligatorio",from:"Hirayu",to:"Kamikōchi",dates:"13 nov",detail:"Confirmar horarios de cierre de temporada; compra local",url:"https://www.nouhibus.co.jp/route_bus/kamikochi-line-en/"},
     {id:"kyototrain",kind:"transport",icon:"🚄",status:"pending",title:"Takayama → Nagoya → Kioto",subtitle:"Limited Express Hida + Tokaido Shinkansen",from:"Takayama",to:"Kioto",dates:"14 nov",detail:"Reservar al abrir la venta",url:"https://smart-ex.jp/en/"},
@@ -148,6 +148,7 @@ window.TRIP_DATA = {
     {id:"tokyoreturn",kind:"transport",icon:"🚄",status:"pending",title:"Kioto → Tokio",subtitle:"Tokaido Shinkansen · salida por la mañana",from:"Kioto",to:"Tokio",dates:"20 nov",detail:"Reservar en SmartEX al abrir la venta",url:"https://smart-ex.jp/en/"}
   ],
   seedExpenses: [
+    {id:"seed-tokyo-kanazawa",fixed:true,date:"2026-10-09",description:"Kagayaki 509 · Tokio → Kanazawa · 2 adultos",amount:28400,currency:"JPY",category:"Transporte",payer:"Común",method:"Tarjeta",paid:true,notes:"Billete electrónico confirmado · 09/11 10:22–12:49 · vagón 6, 14D y 14E · justificante de JR East en Gmail"},
     {id:"seed-flight",fixed:true,date:"2026-06-17",description:"Vuelos Qatar Airways · 2 personas",amount:1584.36,currency:"EUR",category:"Vuelos",payer:"Común",method:"Tarjeta",paid:true,notes:"BCN–DOH–HND ida y vuelta"},
     {id:"seed-kanazawa",fixed:true,date:"2026-11-09",description:"Daiwa Roynet Kanazawa · 2 noches",amount:49438,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Cargo automático pendiente"},
     {id:"seed-takayama",fixed:true,date:"2026-11-11",description:"Hotel Wood Takayama · 2 noches",amount:54000,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Cargo automático pendiente"},
