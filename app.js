@@ -45,8 +45,15 @@ let restaurantSearchFilter = "";
 function emptyGuideData(){return {routes:[],places:[],placeGuides:[],recommendations:[],practical:[],checklist:[],notes:[],bookings:[],luggage:[],restaurants:[]};}
 
 function loadExpenses(){
-  try { const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)); return Array.isArray(saved) ? saved : structuredClone(seedExpenses); }
-  catch { return structuredClone(seedExpenses); }
+  try {
+    const saved=JSON.parse(localStorage.getItem(STORAGE_KEY));
+    if(!Array.isArray(saved))return structuredClone(seedExpenses);
+    // Keep user-added expenses, but reconcile canonical booking expenses with current reservations.
+    const canonical=new Map(seedExpenses.map(item=>[item.id,item]));
+    const legacyBookingIds=new Set(["seed-tokyo","seed-tokyo-hotel","seed-tokyo-last","seed-kyoto-old","seed-resol","seed-resol-trinity"]);
+    const custom=saved.filter(item=>!canonical.has(item.id)&&!legacyBookingIds.has(item.id)&&!(item.fixed&&/resol trinity|hotel resol|hotel anterior|hotel antiguo/i.test(item.description||"")));
+    return [...structuredClone(seedExpenses),...custom];
+  }catch{return structuredClone(seedExpenses);}
 }
 function loadGuideData(){
   try{
