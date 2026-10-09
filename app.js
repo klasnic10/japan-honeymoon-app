@@ -131,7 +131,7 @@ function sortedAlerts(todayIso){
   const alerts=[];
   (guideData.checklist||[]).filter(item=>!item.done&&item.dueDate).forEach(item=>alerts.push({date:item.dueDate,title:item.task,meta:[item.priority,item.owner].filter(Boolean).join(" · "),target:"checklist"}));
   activeBookings().filter(bookingIsPending).forEach(item=>{
-    if(item.saleOpen)alerts.push({date:item.saleOpen,title:`Abre la reserva: ${item.title}`,meta:item.time||item.detail,target:"bookings"});
+    if(item.saleOpen && item.saleOpen>=todayIso)alerts.push({date:item.saleOpen,title:`Abre la reserva: ${item.title}`,meta:item.time||item.detail,target:"bookings"});
     if(item.cancellation)alerts.push({date:item.cancellation,title:`Fin de cancelación: ${item.title}`,meta:"Revisar antes de esta fecha",target:"bookings"});
   });
   return alerts.filter(item=>item.date>=todayIso).sort((a,b)=>a.date.localeCompare(b.date)).slice(0,5);
