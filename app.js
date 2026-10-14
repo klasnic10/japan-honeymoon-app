@@ -586,3 +586,27 @@ function init(){
   }
 }
 document.addEventListener("DOMContentLoaded",init);
+
+function initializeTokyoAccess(){
+  const portal=document.getElementById("tokyoPortalPin"),room=document.getElementById("tokyoRoomPin");
+  const pdf=document.getElementById("tokyoPdfUrl"),link=document.getElementById("openTokyoPdf"),status=document.getElementById("tokyoPinsStatus");
+  if(!portal||!room)return;
+  const k="japon2026.private.tokyo.";
+  portal.value=localStorage.getItem(k+"portal")||"";
+  room.value=localStorage.getItem(k+"room")||"";
+  pdf.value=localStorage.getItem(k+"pdf")||"";
+  const refresh=()=>{const url=safeUrl(pdf.value);link.classList.toggle("hidden",!url);if(url)link.href=url;else link.removeAttribute("href");};
+  refresh();
+  document.getElementById("saveTokyoPins").addEventListener("click",()=>{
+    if(!/^\\d{4,12}$/.test(portal.value.trim())||!/^\\d{4,12}$/.test(room.value.trim())){status.textContent="Introduce ambos códigos numéricos.";return;}
+    localStorage.setItem(k+"portal",portal.value.trim());localStorage.setItem(k+"room",room.value.trim());
+    status.textContent="Códigos guardados solo en este navegador.";
+  });
+  document.getElementById("saveTokyoPdf").addEventListener("click",()=>{
+    const url=safeUrl(pdf.value.trim());
+    if(pdf.value.trim()&&!url){status.textContent="Introduce un enlace HTTPS válido.";return;}
+    if(url)localStorage.setItem(k+"pdf",url);else localStorage.removeItem(k+"pdf");
+    refresh();status.textContent="Enlace guardado solo en este navegador.";
+  });
+}
+document.addEventListener("DOMContentLoaded",initializeTokyoAccess);
