@@ -594,7 +594,7 @@ function initializeTokyoAccess(){
   const k="japon2026.private.tokyo.";
   portal.value=localStorage.getItem(k+"portal")||"";
   room.value=localStorage.getItem(k+"room")||"";
-  pdf.value=localStorage.getItem(k+"pdf")||"";
+  pdf.value=localStorage.getItem(k+"pdf")||"https://drive.google.com/file/d/1TFp8T3v4HrauAxWas1muJz107knml2sV/view";
   const refresh=()=>{const url=safeUrl(pdf.value);link.classList.toggle("hidden",!url);if(url)link.href=url;else link.removeAttribute("href");};
   refresh();
   document.getElementById("saveTokyoPins").addEventListener("click",()=>{
