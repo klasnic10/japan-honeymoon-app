@@ -118,37 +118,56 @@
           <h1 id="bookingsTitle">Reservas y transportes</h1>
           <p>Los localizadores sensibles se abren en vuestro correo; no quedan expuestos en una web pública.</p>
         </div>
-        <section class="panel" aria-labelledby="tokyoAccessTitle" style="margin-bottom:18px">
-          <p class="eyebrow">Tokio · alojamiento confirmado</p>
-          <h2 id="tokyoAccessTitle">Acceso a aLATO Hatsudai · 302</h2>
-          <p><strong>Dirección:</strong> 2-2-10 Honmachi, Shibuya-ku, Tokyo 151-0071<br><span lang="ja">東京都渋谷区本町2-2-10</span></p>
-          <p><a href="https://www.google.com/maps/search/?api=1&amp;query=35.68443456510861%2C139.68485541973664" target="_blank" rel="noreferrer">📍 Abrir dirección en Google Maps</a></p>
-          <p><strong>Entrada:</strong> 16:00–22:00 · <strong>Salida:</strong> antes de las 10:00<br><strong>Asistencia 24 h:</strong> <a href="tel:+81367787790">+81 3-6778-7790</a></p>
-          <details><summary><strong>🔑 Cómo entrar (paso a paso)</strong></summary>
-            <ol>
-              <li><strong>Portal:</strong> pulsa primero el botón superior del interfono (ver página 5 del PDF), introduce el PIN del portal y pulsa <span lang="ja">解錠</span>. Si no funciona, pulsa <span lang="ja">消</span> y repite.</li>
-              <li><strong>Habitación 302:</strong> abre la tapa de la caja de llaves junto a la puerta, mantén pulsado el panel hasta iluminarlo, escribe el PIN de la habitación y pulsa ✓.</li>
-              <li><strong>Llave:</strong> abre la caja y usa la llave sujeta a un cable para las dos cerraduras. No tires fuerte ni te lleves la llave.</li>
-              <li><strong>Al cerrar:</strong> cierra la tapa de la caja y comprueba que esté bloqueada. Cierra siempre la puerta con llave.</li>
+        <section class="tokyo-access" aria-labelledby="tokyoAccessTitle">
+          <div class="tokyo-access-hero">
+            <div class="tokyo-hero-eyebrow"><span class="tokyo-status-dot"></span> CHECK-IN COMPLETADO · TOKIO</div>
+            <div class="tokyo-hero-heading"><div><h2 id="tokyoAccessTitle">Vuestra casa en Tokio</h2><p>aLATO Hatsudai <span aria-hidden="true">·</span> Habitación 302</p></div><span class="tokyo-room-number">302</span></div>
+            <div class="tokyo-address"><span class="tokyo-mini-icon" aria-hidden="true">⌖</span><div><strong>2-2-10 Honmachi, Shibuya-ku</strong><small lang="ja">東京都渋谷区本町2-2-10</small></div></div>
+            <a class="tokyo-primary-link" href="https://www.google.com/maps/search/?api=1&amp;query=35.68443456510861%2C139.68485541973664" target="_blank" rel="noreferrer">↗ Abrir ubicación en Google Maps</a>
+          </div>
+          <div class="tokyo-access-body">
+            <div class="tokyo-time-grid">
+              <div><span>↘ Llegada</span><strong>16:00–22:00</strong><small>Desde el 3 de noviembre</small></div>
+              <div><span>↗ Salida</span><strong>Antes de las 10:00</strong><small>9 de noviembre</small></div>
+            </div>
+
+            <div class="tokyo-section-heading"><span class="tokyo-heading-icon">01</span><div><h3>Cómo entrar</h3><p>Cuatro pasos para llegar a vuestra habitación</p></div></div>
+            <ol class="tokyo-steps">
+              <li><span class="tokyo-step-number">1</span><div><strong>Abre el portal</strong><p>Pulsa primero el botón superior del interfono, introduce el PIN del edificio y pulsa <kbd>解錠</kbd> (desbloquear).</p><small>Si falla, pulsa <kbd>消</kbd> para borrar y vuelve a intentarlo.</small></div></li>
+              <li><span class="tokyo-step-number">2</span><div><strong>Ve a la habitación 302</strong><p>Abre la tapa de la caja de llaves que hay junto a la puerta. Mantén pulsado el panel hasta que se ilumine, introduce el PIN de habitación y pulsa <kbd>✓</kbd>.</p></div></li>
+              <li><span class="tokyo-step-number">3</span><div><strong>Abre las dos cerraduras</strong><p>Dentro está la llave, sujeta a un cable. Úsala para las cerraduras superior e inferior; no tires fuerte del cable ni saques la llave.</p></div></li>
+              <li><span class="tokyo-step-number">4</span><div><strong>Cierra la caja de llaves</strong><p>Al terminar, cierra la tapa y comprueba que queda bloqueada. Cuando salgas, cierra la puerta con llave.</p></div></li>
             </ol>
-          </details>
-          <details><summary><strong>🔒 Códigos privados (solo en este dispositivo)</strong></summary>
-            <p class="sub">Por seguridad los PIN no se publican en GitHub ni se sincronizan. Introducidlos una vez en cada móvil; se guardan en este navegador.</p>
-            <label>PIN del portal <input id="tokyoPortalPin" type="text" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="PIN del edificio"></label>
-            <label>PIN de habitación <input id="tokyoRoomPin" type="text" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="PIN de caja de llaves"></label>
-            <button id="saveTokyoPins" class="secondary-button" type="button">Guardar códigos en este dispositivo</button>
-            <p id="tokyoPinsStatus" role="status"></p>
-          </details>
-          <details><summary><strong>📄 Manual original y otras instrucciones</strong></summary>
-            <p>El manual de 27 páginas incluye fotos del edificio (p. 3), teclado del portal (p. 5), caja de llaves (pp. 7–9), buzón 302 (p. 11), basura (pp. 15–18) y salida (p. 26).</p>
-            <label>Enlace privado al PDF (por ejemplo, de Google Drive)
-              <input id="tokyoPdfUrl" type="url" placeholder="https://drive.google.com/..." autocomplete="off">
-            </label>
-            <button id="saveTokyoPdf" class="secondary-button" type="button">Guardar enlace en este dispositivo</button>
-            <p><a id="openTokyoPdf" href="#" target="_blank" rel="noreferrer" class="hidden">Abrir instrucciones completas (PDF)</a></p>
-            <p class="sub">Si vais a consultarlo sin internet, descargad también el PDF en el teléfono: un enlace de Drive no garantiza acceso offline.</p>
-          </details>
-          <p class="sub">Buzón 302: girar a la derecha dos veces hasta el 4; después, a la izquierda una vez hasta el 6. Al salir, cerrar la puerta y dejar la llave en su caja.</p>
+
+            <details class="tokyo-fold tokyo-code-fold">
+              <summary><span class="tokyo-fold-icon" aria-hidden="true">⌑</span><span><strong>Códigos de acceso</strong><small>Solo en este dispositivo · no publicados</small></span><span class="tokyo-chevron" aria-hidden="true">⌄</span></summary>
+              <div class="tokyo-fold-content">
+                <p class="tokyo-privacy-note">Los PIN se guardan únicamente en este navegador. Por seguridad, no aparecen en el código público de la app ni se sincronizan con el otro móvil.</p>
+                <div class="tokyo-code-grid">
+                  <label><span>Portal del edificio</span><input id="tokyoPortalPin" type="password" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="••••"></label>
+                  <label><span>Caja de llaves · 302</span><input id="tokyoRoomPin" type="password" inputmode="numeric" maxlength="12" autocomplete="off" placeholder="••••"></label>
+                </div>
+                <button id="saveTokyoPins" class="tokyo-action-button" type="button">Guardar códigos en este móvil</button>
+                <p id="tokyoPinsStatus" class="tokyo-inline-status" role="status" aria-live="polite"></p>
+              </div>
+            </details>
+
+            <div class="tokyo-pdf-card">
+              <div class="tokyo-pdf-icon" aria-hidden="true">▤</div>
+              <div class="tokyo-pdf-copy"><strong>Manual completo de entrada</strong><small>27 páginas · Fotos del portal y la caja de llaves</small></div>
+              <a id="openTokyoPdf" href="#" target="_blank" rel="noreferrer" class="tokyo-pdf-link hidden" aria-label="Abrir manual del apartamento en Google Drive">Ver PDF ↗</a>
+            </div>
+            <details class="tokyo-fold tokyo-more-fold">
+              <summary><span class="tokyo-fold-icon" aria-hidden="true">✳</span><span><strong>Más información útil</strong><small>Buzón, basura, ayuda y descarga offline</small></span><span class="tokyo-chevron" aria-hidden="true">⌄</span></summary>
+              <div class="tokyo-fold-content">
+                <div class="tokyo-extra"><strong>✉ Buzón 302</strong><p>Gira el dial dos veces a la derecha hasta el <strong>4</strong> y una vez a la izquierda hasta el <strong>6</strong>. Si te equivocas, da 2–3 vueltas a la derecha para reiniciar.</p></div>
+                <div class="tokyo-extra"><strong>♻ Basura</strong><p>Sepárala dentro del apartamento. Si necesitas sacar bolsas, el cuarto de basura está indicado con fotografías en las páginas 15–18 del manual.</p></div>
+                <div class="tokyo-extra"><strong>☎ Asistencia 24 horas</strong><p><a href="tel:+81367787790">+81 3-6778-7790</a></p></div>
+                <div class="tokyo-extra"><strong>↓ Sin conexión</strong><p>Descarga el manual de Drive en el móvil antes del viaje. El enlace por sí solo no garantiza que puedas abrirlo sin internet.</p></div>
+                <div class="tokyo-pdf-settings"><label for="tokyoPdfUrl">Cambiar enlace privado al manual</label><input id="tokyoPdfUrl" type="url" placeholder="https://drive.google.com/..." autocomplete="off"><button id="saveTokyoPdf" class="tokyo-action-button" type="button">Guardar enlace</button></div>
+              </div>
+            </details>
+          </div>
         </section>
         <div id="bookingFilters" class="filter-row" role="group" aria-label="Filtrar reservas"></div>
         <div id="bookingList" class="booking-list"></div>
