@@ -11,6 +11,41 @@ window.TRIP_DATA = {
   guideOverrides: {
     "date": "2026-11-05",
     "bookings": [
+{
+        "id": "holafly",
+        "kind": "connectivity",
+        "title": "Holafly · Internet en Japón",
+        "detail": "2 eSIM · datos ilimitados · 18 días por persona · 48,27 € cada una",
+        "startDate": "2026-11-03",
+        "endDate": "2026-11-21",
+        "origin": "",
+        "destination": "",
+        "status": "confirmed",
+        "payment": "Pagado",
+        "amount": 96.54,
+        "currency": "EUR",
+        "time": "18 días desde la activación · fechas previstas",
+        "saleOpen": "",
+        "cancellation": "",
+        "alternative": "",
+        "link": "https://mail.google.com/mail/#all/1a19b605a0c91313",
+        "map": "",
+        "notes": "Antes de viajar: con Wi-Fi estable, abre la app de Holafly con el correo de la compra e instala una eSIM en cada móvil. Si ambas están en tu cuenta, usa la opción de transferir una a la cuenta de Lali.\nTambién puedes instalarla con el QR o los códigos manuales del correo «Tu eSIM está lista». Mantén la eSIM apagada hasta llegar a Japón.\nAl llegar: activa Holafly, selecciónala para datos móviles y habilita la itinerancia de datos en esa eSIM. Desactiva la itinerancia en la línea española y el cambio automático de datos.\nDuración: 18 días desde la activación. Ventana prevista del viaje: del 3 al 21 de noviembre; la compra no confirma que ya esté activada.\nNo elimines la eSIM al terminar: Holafly recomienda conservarla para viajes futuros y Always On.\nAyuda: help@holafly.com · WhatsApp +1 661 384 8482. Pedido y recibo disponibles en el correo de compra.",
+        "documents": [
+                {
+                        "label": "Instalación y QR · correo privado",
+                        "url": "https://mail.google.com/mail/#all/1a19b605d29b9031"
+                },
+                {
+                        "label": "Recibo · 96,54 €",
+                        "url": "https://mail.google.com/mail/#all/1a19b604679ce12a"
+                },
+                {
+                        "label": "Gestionar eSIM en Holafly",
+                        "url": "https://esim.holafly.com/es/"
+                }
+        ]
+},
       {
         "id": "shibuya-sky",
         "kind": "entry",
@@ -72,6 +107,18 @@ window.TRIP_DATA = {
       }
     ],
     "checklist": [
+{
+        "id": "pre-10",
+        "phase": "Antes del viaje",
+        "category": "Conectividad",
+        "task": "Instalar las dos eSIM Holafly y descargar mapas",
+        "owner": "Común",
+        "notes": "Compra completada: 2 eSIM Japón de 18 días, 96,54 € en total. Pendiente instalar una en cada móvil, transferir la de Lali si procede y descargar mapas offline. Activar los datos solo al llegar a Japón.",
+        "dueDate": "2026-11-02",
+        "priority": "Alta",
+        "dependency": "",
+        "link": "https://mail.google.com/mail/#all/1a19b605d29b9031"
+},
       {
         "id": "pre-02",
         "done": true,
@@ -224,6 +271,7 @@ window.TRIP_DATA = {
     {id:"tokyoreturn",kind:"transport",icon:"🚄",status:"pending",title:"Kioto → Tokio",subtitle:"Tokaido Shinkansen · salida por la mañana",from:"Kioto",to:"Tokio",dates:"20 nov",detail:"Reservar en SmartEX al abrir la venta",url:"https://smart-ex.jp/en/"}
   ],
   seedExpenses: [
+    {"id":"seed-holafly","fixed":true,"date":"2026-11-02","description":"Holafly Japón · 2 eSIM ilimitadas · 18 días","amount":96.54,"currency":"EUR","category":"Otros","payer":"Común","method":"Otro","paid":true,"notes":"48,27 € por eSIM · pedido HLY06539395 · recibo R6279004 · descuento HALLOWEEN7 · método de pago no especificado en el correo"},
     {id:"seed-tokyo-kanazawa",fixed:true,date:"2026-10-09",description:"Kagayaki 509 · Tokio → Kanazawa · 2 adultos",amount:28400,currency:"JPY",category:"Tren y bus",payer:"Común",method:"Tarjeta",paid:true,notes:"Billete electrónico confirmado · 09/11 10:22–12:49 · vagón 6, 14D y 14E · justificante de JR East en Gmail"},
     {id:"seed-flight",fixed:true,date:"2026-06-17",description:"Vuelos Qatar Airways · 2 personas",amount:1584.36,currency:"EUR",category:"Vuelos",payer:"Común",method:"Tarjeta",paid:true,notes:"BCN–DOH–HND ida y vuelta"},
     {id:"seed-tokyo-airbnb",fixed:true,date:"2026-09-27",description:"Airbnb aLATO Hatsudai c02 · 6 noches",amount:576.41,currency:"EUR",category:"Alojamiento",payer:"Común",method:"Apple Pay",paid:true,notes:"Reserva confirmada · 288,22 € pagados el 27/09; 288,19 € pendientes de cobro el 19/10 · importe total 576,41 € · pago parcial"},
