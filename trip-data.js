@@ -6,8 +6,152 @@
 window.TRIP_DATA = {
   source: {
     spreadsheetId: "18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8",
-    updatedAt: "2026-11-02T08:15:52Z"
+    updatedAt: "2026-11-02T15:00:00Z"
   },
+  shopping: {
+  "2026-11-04": {
+    "title": "Compras de cocina · primera toma de contacto",
+    "intro": "11:30–12:30: elegir solo dos tiendas para comparar sin alargar la jornada. Prioridad Kamata y Kama-Asa para probar puntillas y preguntar por piedras. Dengama e Iidaya quedan para el domingo. Fotografiar modelos, precios y horarios; comprar ahora una pieza concreta si no estará disponible el día 8.",
+    "shops": [
+      {
+        "name": "Kamata Hakensha · puntilla y piedras",
+        "when": "Miércoles 4 · dentro del vistazo de 11:30–12:30",
+        "hours": "Horario publicado: 10:00–18:00; sin cierre semanal fijo.",
+        "area": "2-12-6 Matsugaya · Kappabashi",
+        "items": [
+          "Puntilla inoxidable de 90–100 mm, doble bisel y mango cómodo para pelar en la mano. Pedir “paring knife”; comparar con petty de 120 mm solo si se usará más sobre tabla. Evitar elegir por estética o comprar un petty de 150 mm pensando que es una puntilla.",
+          "Como cuchillo principal opcional: gyuto de 210 mm o santoku de 170–180 mm, inoxidable y doble bisel. Probar peso y agarre antes de decidir; no hace falta un juego."
+        ],
+        "map": "https://www.google.com/maps/search/?api=1&query=Kamata%20Hakensha%202-12-6%20Matsugaya%20Tokyo",
+        "url": "https://www.kap-kam.com/en/"
+      },
+      {
+        "name": "Kama-Asa · cuchillos, afilado y menaje",
+        "when": "Miércoles 4 · dentro del vistazo de 11:30–12:30",
+        "hours": "Horario publicado: 11:00–17:30; apertura habitual también en domingo.",
+        "area": "2-24-1 Matsugaya · Kappabashi",
+        "items": [
+          "Comparar la puntilla y el gyuto/santoku con Kamata. También tienen piedras y accesorios de afilado; pedir un conjunto adecuado a los cuchillos de casa, sin dar por hecho que tendrán Shapton.",
+          "Suribachi (mortero estriado) mediano con surikogi (mano): para sésamo, aliños y salsas."
+        ],
+        "map": "https://www.google.com/maps/search/?api=1&query=Kama-Asa%202-24-1%20Matsugaya%20Tokyo",
+        "url": "https://kama-asa.co.jp/en/pages/shops"
+      }
+    ],
+    "notes": [
+      "Llevar fotos de los cuchillos actuales y sus marcas/modelos para elegir las piedras adecuadas.",
+      "Objetivo: puntilla de 90–100 mm; comparar petty de 120 mm solo si interesa trabajar sobre tabla. Confirmar apertura del domingo y existencias."
+    ]
+  },
+  "2026-11-08": {
+    "title": "Compras de cocina · tiendas y lista para casa",
+    "intro": "Mañana principal de compras, 10:00–14:00. Secuencia orientativa: Dengama → Kamata → Kama-Asa → Iidaya; reservar 13:15–14:00 para decidir, pagar y embalar. Se pueden omitir tiendas si ya habéis encontrado lo que buscáis. Horarios revisados el 02/11/2026; no son reservas ni garantía de stock.",
+    "shops": [
+      {
+        "name": "Dengama · cerámica para casa",
+        "when": "Domingo 8 · 10:00–10:30 aprox.",
+        "hours": "Horario publicado: 10:00–18:00; cierres irregulares.",
+        "area": "1-4-3 Nishi-Asakusa · cerca de Tawaramachi",
+        "items": [
+          "Dos cuencos de ramen, cuatro platitos para acompañamientos y una fuente para servir. Elegir piezas para usar a diario y pedir embalaje reforzado.",
+          "Preguntar por microondas, lavavajillas y cuidados de cada pieza; no asumir que toda la cerámica artesanal los admite."
+        ],
+        "map": "https://www.google.com/maps/search/?api=1&query=Dengama%201-4-3%20Nishi-Asakusa%20Tokyo",
+        "url": "https://den-gama.com/en/"
+      },
+      {
+        "name": "Kamata Hakensha · puntilla y piedras",
+        "when": "Domingo 8 · 10:30–11:15 aprox.",
+        "hours": "Horario publicado: 10:00–18:00; sin cierre semanal fijo.",
+        "area": "2-12-6 Matsugaya · Kappabashi",
+        "items": [
+          "Puntilla inoxidable de 90–100 mm, doble bisel y mango cómodo para pelar en la mano. Pedir “paring knife”; comparar con petty de 120 mm solo si se usará más sobre tabla. Evitar elegir por estética o comprar un petty de 150 mm pensando que es una puntilla.",
+          "Como cuchillo principal opcional: gyuto de 210 mm o santoku de 170–180 mm, inoxidable y doble bisel. Probar peso y agarre antes de decidir; no hace falta un juego.",
+          "Referencia de compra: Shapton Ha-no-Kuromaku #1000 (naranja) + #5000 (granate), sujetas a existencias. #1000 para recuperar el filo; #5000 para acabado y retoques leves. Elegir según el acero de los cuchillos: llevar fotos o los nombres de los modelos y pedir consejo.",
+          "Añadir soporte antideslizante y placa diamantada o accesorio específico para aplanar piedras. Las piedras se desgastan y deben mantenerse planas. No comprar una nagura como sustituto del aplanador.",
+          "Como los cuchillos dañados irán primero al afilador en España, dejar la piedra gruesa #320–400 para más adelante. Pedir una demostración de ángulo estable y eliminación de rebaba; probar primero con un cuchillo económico.",
+          "Comparar aquí cuchillos y piedras con Kama-Asa; confirmar marca, grano y disponibilidad en tienda."
+        ],
+        "map": "https://www.google.com/maps/search/?api=1&query=Kamata%20Hakensha%202-12-6%20Matsugaya%20Tokyo",
+        "url": "https://www.kap-kam.com/en/"
+      },
+      {
+        "name": "Kama-Asa · cuchillos, afilado y menaje",
+        "when": "Domingo 8 · 11:15–12:15 aprox.",
+        "hours": "Horario publicado: 11:00–17:30; apertura habitual también en domingo.",
+        "area": "2-24-1 Matsugaya · Kappabashi",
+        "items": [
+          "Comparar la puntilla y el gyuto/santoku con Kamata. También tienen piedras y accesorios de afilado; pedir un conjunto adecuado a los cuchillos de casa, sin dar por hecho que tendrán Shapton.",
+          "Suribachi (mortero estriado) mediano con surikogi (mano): para sésamo, aliños y salsas.",
+          "Saibashi: un par de palillos largos de cocinar y otro más corto.",
+          "Opcionales: sartén rectangular para tamagoyaki compatible con vuestra placa y colador de ramen tebo que entre en vuestra olla. Llevar medidas."
+        ],
+        "map": "https://www.google.com/maps/search/?api=1&query=Kama-Asa%202-24-1%20Matsugaya%20Tokyo",
+        "url": "https://kama-asa.co.jp/en/pages/shops"
+      },
+      {
+        "name": "Iidaya · rallador y utensilios pequeños",
+        "when": "Domingo 8 · 12:15–13:15 aprox.",
+        "hours": "Horario publicado: 11:00–18:00, incluidos domingos; cierre de fin de año.",
+        "area": "Kappabashi / Nishi-Asakusa",
+        "items": [
+          "Oroshigane: rallador japonés pequeño con recipiente para jengibre y ajo. Referencia: Ever Grater con recipiente, 4.180 ¥ en su web.",
+          "Pelador Ever Peeler, capricho opcional: 3.300 ¥ en su web; elegir versión diestra o zurda.",
+          "Completar solo lo que falte: palillos de cocina, suribachi con mano, sartén tamagoyaki o tebo. Pedir que enseñen cómo se usa cada utensilio y comprobar medidas."
+        ],
+        "map": "https://www.google.com/maps/search/?api=1&query=Iidaya%20Kappabashi%20Tokyo",
+        "url": "https://iidaya.shop/"
+      }
+    ],
+    "notes": [
+      "Seguir las instrucciones del modelo: las Kuromaku no necesitan remojo habitual; Shapton aconseja 5–6 min antes del primer uso. No dejarlas sumergidas, no usar agua caliente y dejarlas secar al aire antes de guardarlas.",
+      "Prioridades: puntilla + piedras y accesorios; después cerámica y rallador. Gyuto/santoku, pelador, tamagoyaki y tebo quedan como opcionales.",
+      "Antes de comprar sartenes, comprobar inducción u otra placa. Antes de comprar tebo, medir la olla. Con muchas bolsas, mantener el taxi al apartamento previsto a las 14:00."
+    ]
+  },
+  "2026-11-15": {
+    "title": "Compras de cocina · especias de Kioto",
+    "intro": "Dos paradas cortas dentro del paseo ya previsto por Kiyomizu, Sannenzaka y Gion. Comprar envases pequeños para probar en casa.",
+    "shops": [
+      {
+        "name": "Shichimiya Honten · shichimi",
+        "when": "Al bajar de Kiyomizu · desde las 09:30",
+        "hours": "Horario publicado: 09:30–17:30, variable según temporada; sin cierre semanal.",
+        "area": "2-221 Kiyomizu · esquina de Kiyomizu-zaka y Sannenzaka",
+        "items": [
+          "Shichimi togarashi de la casa: mezcla de especias para noodles, sopas, verduras y pollo. Comprar un envase pequeño para comparar con el kuro shichimi.",
+          "Sansho molido, si os convence su aroma; se puede comprar aquí o en Hararyokaku, sin duplicar por obligación."
+        ],
+        "map": "https://www.google.com/maps/search/?api=1&query=Shichimiya%20Honten%202-221%20Kiyomizu%20Kyoto",
+        "url": "https://www.shichimiya.co.jp/store"
+      },
+      {
+        "name": "Hararyokaku · kuro shichimi y sansho",
+        "when": "Durante el paseo de Gion · 10:30–12:30",
+        "hours": "Tienda principal: 10:00–18:00; cierre habitual solo 1 y 2 de enero.",
+        "area": "267 Gionmachi Kitagawa · Gion",
+        "items": [
+          "Kuro shichimi: mezcla tostada aromática. Referencias web: bolsa grande 540 ¥ o lata 858 ¥.",
+          "Sansho molido: notas cítricas y sensación ligeramente adormecedora; bolsa grande 972 ¥ en su web. Pedir cómo conservarlo para mantener el aroma.",
+          "Alternativa si la tienda principal no está disponible: Ryokaku, 216-1 Nishinocho, 10:00–18:00 con cierres irregulares. La reforma anunciada de la principal empieza en enero de 2027, después de vuestro viaje."
+        ],
+        "map": "https://www.google.com/maps/search/?api=1&query=Hararyokaku%20267%20Gionmachi%20Kitagawa%20Kyoto",
+        "url": "https://shop.hararyoukaku.co.jp/tenpoichiran"
+      }
+    ],
+    "notes": [
+      "No hace falta comprar soja, miso o utensilios genéricos por acumular: priorizar piezas y mezclas concretas que os gusten. Precios orientativos publicados en web, sujetos a cambios."
+    ]
+  },
+  "2026-11-18": {
+    "title": "Compras de cocina · aviso para Nishiki",
+    "intro": "Aritsugu figura con cierre los miércoles en la web oficial del mercado: no contar con comprar allí la puntilla el miércoles 18. Priorizar su compra en Kappabashi el día 8.",
+    "shops": [],
+    "notes": [
+      "Si seguís queriendo visitar Aritsugu, comprobar horario y buscar otro día antes de las 16:00. No añadir un desvío fijo a la jornada de hoy. Fuente: https://www.kyoto-nishiki.or.jp/en/stores/aritsugu/"
+    ]
+  }
+},
   guideOverrides: {
     "date": "2026-11-05",
     "bookings": [
