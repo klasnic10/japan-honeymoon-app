@@ -344,33 +344,235 @@ window.TRIP_DATA = {
       {label:"Última tarde",time:"16:30–18:30",title:"Museo del Siglo XXI o centro",desc:"Arte contemporáneo, artesanía o paseo tranquilo."},
       {label:"Noche",time:"18:30–21:30",title:"Cena final en Kanazawa",desc:"Cena y preparar el día siguiente con documentación y equipaje del coche."}
     ]},
-    {date:"2026-11-11",city:"Takayama",sleep:"Hotel Wood Takayama",title:"Toyota, Shirakawa-go y primera tarde en Takayama",map:"Shirakawa-go",slots:[
-      {label:"Mañana",time:"08:00–09:30",title:"Recogida del Toyota y salida",desc:"Check-out, caminar a Toyota Rent a Car, recoger el Corolla Sport Hybrid y salir hacia Shirakawa-go."},
-      {label:"Mañana-mediodía",time:"09:30–12:30",title:"Pueblo y mirador",desc:"Aparcar, subir a Shiroyama y recorrer el pueblo y las casas gassho-zukuri."},
-      {label:"Mediodía",time:"13:00–14:00",title:"Conducción a Takayama",desc:"Salir de Shirakawa-go y conducir hasta Takayama."},
-      {label:"Tarde",time:"14:30–18:00",title:"Check-in y primera vuelta por Sanmachi",desc:"Dejar maletas y recorrer el casco antiguo con calma."},
-      {label:"Noche",time:"18:00–21:30",title:"Cena de Hida beef",desc:"Yakiniku, sukiyaki o restaurante especializado en carne de Hida."}
-    ],transport:"Toyota Rent a Car reservado. ETC incluida. Neumáticos de invierno pendientes de confirmar."},
-    {date:"2026-11-12",city:"Takayama",sleep:"Hotel Wood Takayama",title:"Mercados, Takayama Jinya y casco antiguo",map:"Miyagawa Morning Market",slots:[
-      {label:"Mañana",time:"08:00–10:00",title:"Mercados matinales",desc:"Miyagawa y, si apetece, Jinya-mae. Desayuno y productos locales."},
-      {label:"Media mañana",time:"10:00–12:00",title:"Takayama Jinya",desc:"Antiguo edificio administrativo, almacenes y salas de tatami."},
-      {label:"Mediodía",time:"12:00–14:00",title:"Casco antiguo y comida",desc:"Sanmachi, bodegas de sake y comida por el centro."},
-      {label:"Tarde",time:"14:00–17:00",title:"Hida no Sato o paseo libre",desc:"Excursión opcional o tarde tranquila en Takayama."},
-      {label:"Noche",time:"17:30–21:00",title:"Cena temprana y preparación",desc:"Cena y preparar la salida temprana hacia Kamikōchi."}
-    ]},
-    {date:"2026-11-13",city:"Okuhida",sleep:"Mozumo Ryokan",title:"Kamikōchi y Mozumo Ryokan",map:"Mozumo Okuhida",slots:[
-      {label:"Muy temprano",time:"07:00–08:15",title:"Conducción hacia Kamikōchi",desc:"Salir de Takayama en coche hacia Hirayu/Akandana con todo el equipaje."},
-      {label:"Mañana",time:"08:15–09:00",title:"Aparcar y preparar el bus",desc:"Dejar el coche y llevar solo mochila pequeña."},
-      {label:"Mañana",time:"09:00–09:30",title:"Bus de montaña",desc:"Bus local hacia Kamikōchi; bajar en Taishō-ike si el servicio lo permite."},
-      {label:"Mañana-mediodía",time:"09:30–13:00",title:"Paseo corto por el valle",desc:"Taishō-ike, Tashiro Pond y Kappa Bridge."},
-      {label:"Mediodía",time:"13:00–14:00",title:"Regreso al coche",desc:"Bus local de vuelta a Hirayu/Akandana."},
-      {label:"Tarde-noche",time:"14:15 en adelante",title:"Coche, check-in, onsen y cena kaiseki",desc:"Recoger el coche, conducir a Mozumo y dedicar el resto del día al ryokan."}
-    ],transport:"Coche hasta Hirayu/Akandana; bus local obligatorio para entrar en Kamikōchi."},
-    {date:"2026-11-14",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Mozumo, devolución del coche y llegada a Kioto",map:"Apartment Hotel 11 Gion Kyoto",slots:[
-      {label:"Mañana",time:"08:00–10:30",title:"Desayuno, check-out y regreso en coche",desc:"Desayuno, último onsen y regreso a Takayama para devolver el coche."},
-      {label:"Media mañana-tarde",time:"11:00–16:00",title:"Limited Express Hida + Tokaido Shinkansen",desc:"Takayama → Nagoya en Hida y conexión con Shinkansen a Kioto."},
-      {label:"Tarde-noche",time:"16:00–21:00",title:"Check-in en Apartment Hotel 11 Gion y paseo",desc:"Taxi desde Kyoto Station, check-in y paseo suave por Gion."}
-    ],transport:"Devolver el Toyota por la mañana. Después Hida a Nagoya + Tokaido Shinkansen a Kioto."},
+    {
+      "date": "2026-11-11",
+      "city": "Takayama",
+      "sleep": "Hotel Wood Takayama",
+      "title": "Ainokura, Shirakawa-go y Takayama en coche",
+      "map": "Ainokura Gassho-zukuri Village",
+      "transport": "Toyota confirmado: recogida 08:00 en Kanazawa East. Ruta Kanazawa → Ainokura → Shirakawa-go → Takayama. Tiempos orientativos; confirmar neumáticos y carreteras.",
+      "slots": [
+        {
+          "label": "Mañana",
+          "time": "08:00–10:00",
+          "title": "Recogida del Toyota y salida",
+          "desc": "Check-out y recogida del Toyota en Kanazawa Station East Exit a las 08:00, según la reserva actual. Revisar daños, mandos y neumáticos antes de conducir hacia Ainokura."
+        },
+        {
+          "label": "Mañana",
+          "time": "10:00–11:00",
+          "title": "Ainokura: aldea gasshō-zukuri",
+          "desc": "Paseo por esta pequeña aldea Patrimonio de la Humanidad: casas de tejado de paja, campos y mirador si el camino está practicable. Elegir Ainokura como parada extra; Suganuma es otra opción pequeña si preferís sustituirla."
+        },
+        {
+          "label": "Mañana-mediodía",
+          "time": "11:45–14:15",
+          "title": "Pueblo y mirador",
+          "desc": "Tras Ainokura, aparcar en Seseragi Park Parking y recorrer Ogimachi. Mirador Shiroyama si hay visibilidad y una casa-museo si encaja. Incluir una comida sencilla."
+        },
+        {
+          "label": "Mediodía",
+          "time": "14:30–15:30",
+          "title": "Conducción a Takayama",
+          "desc": "Salir de Shirakawa-go y conducir hasta Takayama. Llegar al hotel, dejar equipaje y aparcar según las indicaciones del alojamiento."
+        },
+        {
+          "label": "Tarde",
+          "time": "15:30–18:00",
+          "title": "Check-in y primera vuelta por Sanmachi",
+          "desc": "Dejar maletas y recorrer el casco antiguo de Sanmachi Suji al final de la tarde. Entrar en una bodega de sake si sigue abierta."
+        },
+        {
+          "label": "Noche",
+          "time": "18:00-21:30",
+          "title": "Cena de Hida beef",
+          "desc": "Cena de carne de Hida en yakiniku, sukiyaki o restaurante especializado. Paseo breve por el centro."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-12",
+      "city": "Takayama",
+      "sleep": "Hotel Wood Takayama",
+      "title": "Takayama y Hida Furukawa opcional",
+      "map": "Miyagawa Morning Market",
+      "transport": "Mañana a pie. Por la tarde elegir Hida Furukawa (25–30 min en coche por sentido), Hida no Sato o paseo libre. Si conducís, dejar el sake para después del regreso.",
+      "slots": [
+        {
+          "label": "Mañana",
+          "time": "08:00-10:00",
+          "title": "Mercados matinales",
+          "desc": "Recorrer Miyagawa Morning Market y, si apetece, Jinya-mae Market. Ver verduras, encurtidos, dulces y productos locales."
+        },
+        {
+          "label": "Media mañana",
+          "time": "10:00-12:00",
+          "title": "Takayama Jinya",
+          "desc": "Visitar el antiguo edificio administrativo, almacenes y salas de tatami. Es una visita distinta de los templos."
+        },
+        {
+          "label": "Mediodía",
+          "time": "12:00-14:00",
+          "title": "Casco antiguo y comida",
+          "desc": "Recorrer Sanmachi Suji con las tiendas abiertas y entrar en comercios de artesanía. Si elegís conducir a Furukawa por la tarde, dejar la degustación de sake para después de aparcar al regresar."
+        },
+        {
+          "label": "Tarde",
+          "time": "14:00-17:00",
+          "title": "Hida Furukawa (opcional), Hida no Sato o paseo libre",
+          "desc": "Opción recomendada con coche: Hida Furukawa, a 25–30 min al norte. Paseo de 1,5–2 h por el canal Setogawa, almacenes blancos y calles tradicionales. Alternativas: mantener Hida no Sato o quedarse en Takayama; no sumar las tres."
+        },
+        {
+          "label": "Noche",
+          "time": "17:30-21:00",
+          "title": "Cena temprana y preparación",
+          "desc": "Cena, comprar algo para el desayuno si salís temprano y preparar una bolsa pequeña para Mozumo/Kamikochi."
+        }
+      ]
+    },
+    {
+      "date": "2026-11-13",
+      "city": "Okuhida",
+      "sleep": "Mozumo Ryokan",
+      "title": "Kamikōchi o Shinhotaka y tarde en Mozumo",
+      "map": "Mozumo Hirayu Onsen",
+      "transport": "Elegir Kamikōchi o Shinhotaka. El horario principal es el de Kamikōchi: coche hasta Akandana y bus obligatorio al valle. Objetivo común: Mozumo sobre las 15:00.",
+      "slots": [
+        {
+          "label": "Muy temprano",
+          "time": "07:00-08:15",
+          "title": "Conducción hacia Kamikōchi",
+          "desc": "Check-out y salir en coche hacia Hirayu/Akandana. Llevar todo el equipaje en el coche y aparcar antes de subir al bus de Kamikōchi."
+        },
+        {
+          "label": "Mañana",
+          "time": "08:15-09:00",
+          "title": "Aparcar y preparar el bus",
+          "desc": "Plan Kamikōchi: aparcar en Akandana y llevar mochila pequeña. Los vehículos privados, incluidos los de alquiler, no pueden entrar en el valle."
+        },
+        {
+          "label": "Mañana",
+          "time": "09:00-09:30",
+          "title": "Bus de montaña",
+          "desc": "Comprar billete y tomar el bus hacia Kamikōchi. Si el servicio permite bajar en Taishō-ike, empezar allí el paseo."
+        },
+        {
+          "label": "Mañana-mediodía",
+          "time": "09:30-13:00",
+          "title": "Paseo corto por el valle",
+          "desc": "Ruta recomendada: Taishō-ike, Tashiro Pond y Kappa Bridge. No alargar hasta Myōjin si compromete el regreso."
+        },
+        {
+          "label": "Mediodía",
+          "time": "13:00-14:00",
+          "title": "Regreso al coche",
+          "desc": "Tomar un bus que permita estar de vuelta en Hirayu/Akandana con margen y recoger el coche."
+        },
+        {
+          "label": "Tarde-noche",
+          "time": "15:00 en adelante",
+          "title": "Coche, check-in, onsen y cena kaiseki",
+          "desc": "Tras Kamikōchi o Shinhotaka, conducir hasta Mozumo en Hirayu Onsen. Check-in desde las 15:00; onsen, descanso y cena según la reserva."
+        }
+      ],
+      "alternatives": [
+        {
+          "id": "shinhotaka",
+          "title": "Shinhotaka Ropeway",
+          "status": "Sustituye a Kamikōchi · decidir según tiempo y ganas de caminar",
+          "summary": "Una alternativa para ver grandes panorámicas de los Alpes desde un teleférico con mirador por encima de 2.000 m. Elegidla con cielo despejado y buena visibilidad; no la suméis al paseo de Kamikōchi. Con mal tiempo general, mejor Hirayu y llegar tranquilos a Mozumo.",
+          "trains": [],
+          "trainNote": "Horario y tiempos de conducción orientativos, en hora de Japón. Comprobar el estado del teleférico, la carretera y la previsión 24–48 h antes; puede suspenderse por meteorología.",
+          "accessTitle": "Cómo llegar en coche",
+          "access": [
+            "Salir de Hotel Wood Takayama sobre las 08:00 con las maletas y conducir hacia Hirayu por la ruta principal 158; continuar hacia Shinhotaka siguiendo navegación.",
+            "Prever alrededor de 1 h 30 de conducción en total, sujeto a tráfico y condiciones. Aparcar en el estacionamiento habilitado para el teleférico.",
+            "Este plan no utiliza el bus de Kamikōchi ni entra en el valle. Confirmar neumáticos y carreteras con Toyota."
+          ],
+          "heading": "Mañana en Shinhotaka, tarde en Mozumo",
+          "slots": [
+            {
+              "time": "08:00–09:30 aprox.",
+              "title": "Takayama → Shinhotaka",
+              "desc": "Salida en coche hacia Okuhida vía Hirayu. Conducir sin prisas y comprobar la operación antes de salir.",
+              "map": "Shinhotaka Ropeway"
+            },
+            {
+              "time": "09:30–12:30 aprox.",
+              "title": "Teleférico y vistas de los Alpes",
+              "desc": "Reservar 2–3 h para subir, disfrutar del mirador y bajar; puede haber colas. Llevar abrigo, guantes y buen calzado. Las vistas dependen de las nubes.",
+              "map": "Shinhotaka Ropeway"
+            },
+            {
+              "time": "12:30–15:00 aprox.",
+              "title": "Comer y llegar a Mozumo",
+              "desc": "Tras bajar, comida sencilla y unos 30–40 min orientativos de coche hasta Hirayu. Llegada al ryokan sobre las 15:00 para onsen y descanso.",
+              "map": "Mozumo Hirayu Onsen"
+            }
+          ],
+          "ticketsTitle": "Entradas y operación",
+          "tickets": [
+            "Comprar el billete del teleférico según la operación y visibilidad del día en la web oficial o en taquilla.",
+            "Los cierres de mantenimiento anunciados para noviembre de 2026 son del 24 al 27: quedan fuera de vuestra estancia. Aun así, puede cerrar por viento o mal tiempo.",
+            "Si no opera o la montaña está cubierta, cancelar esta alternativa sin sustituirla por otra ruta de alta montaña."
+          ],
+          "packingTitle": "Qué llevar y cómo elegir",
+          "packing": [
+            "Kamikōchi: elegir si os apetece caminar 3–4 h por el río, estanques y bosque; la temporada 2026 termina el 15 de noviembre.",
+            "Shinhotaka: elegir si está despejado y preferís un mirador de montaña con menos caminata.",
+            "Llevar capas, abrigo, guantes y calzado con buena suela; comprobar nieve o hielo y equipamiento del coche.",
+            "En ambos casos, reservar la tarde desde las 15:00 para Mozumo."
+          ],
+          "links": [
+            {
+              "label": "Operación y entradas oficiales",
+              "url": "https://shinhotaka-ropeway.jp/en/"
+            },
+            {
+              "label": "Ruta Takayama → Shinhotaka",
+              "url": "https://www.google.com/maps/dir/?api=1&origin=Hotel%20Wood%20Takayama&destination=Shinhotaka%20Ropeway&travelmode=driving"
+            },
+            {
+              "label": "Ruta Shinhotaka → Mozumo",
+              "url": "https://www.google.com/maps/dir/?api=1&origin=Shinhotaka%20Ropeway&destination=Mozumo%20Hirayu%20Onsen&travelmode=driving"
+            },
+            {
+              "label": "Acceso oficial Kamikōchi",
+              "url": "https://www.kamikochi.org/access/car"
+            }
+          ],
+          "verified": "2026-11-02"
+        }
+      ]
+    },
+    {
+      "date": "2026-11-14",
+      "city": "Kioto",
+      "sleep": "Apartment Hotel 11 Gion",
+      "title": "Mañana en Mozumo y Hida 36 directo a Kioto",
+      "map": "Apartment Hotel 11 Gion Kyoto",
+      "transport": "Regreso tranquilo a Takayama; devolver coche antes de las 14:00 y recoger billetes. Hida 36 confirmado 15:34 → 19:17, directo a Kioto. Después taxi al apartamento.",
+      "slots": [
+        {
+          "label": "Mañana",
+          "time": "08:00–12:00",
+          "title": "Desayuno, check-out y regreso en coche",
+          "desc": "Desayuno, último onsen y check-out según el alojamiento. Conducir a Takayama, repostar y devolver el Toyota con margen antes del tren de las 15:34."
+        },
+        {
+          "label": "Tarde",
+          "time": "15:34–19:17",
+          "title": "Limited Express Hida 36 directo a Kioto",
+          "desc": "Reserva confirmada: Hida 36, salida de Takayama a las 15:34 y llegada a Kioto a las 19:17. Dos adultos, coche 2, asientos 7C y 7D. Recoger los billetes antes de subir siguiendo la confirmación JR-WEST."
+        },
+        {
+          "label": "Tarde-noche",
+          "time": "19:30–21:30",
+          "title": "Check-in en Apartment Hotel 11 Gion y paseo",
+          "desc": "Llegada a Kyoto Station a las 19:17, taxi al Apartment Hotel 11 Gion y check-in. Cena cerca del apartamento; paseo breve por Gion/Shirakawa solo si apetece."
+        }
+      ]
+    },
     {date:"2026-11-15",city:"Kioto",sleep:"Apartment Hotel 11 Gion",title:"Higashiyama sur y norte",map:"Kiyomizu-dera",slots:[
       {label:"Muy temprano",time:"07:00–10:30",title:"Kiyomizu-dera, Sannenzaka y Ninenzaka",desc:"Templo y descenso a pie por las calles históricas de Higashiyama."},
       {label:"Media mañana",time:"10:30–12:30",title:"Kōdai-ji exterior, Maruyama y Gion",desc:"Continuar a pie por Maruyama, Yasaka y Gion."},
