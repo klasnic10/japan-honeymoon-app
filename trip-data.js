@@ -12,6 +12,41 @@ window.TRIP_DATA = {
     "date": "2026-11-05",
     "bookings": [
 {
+  "id": "haneda-transfer",
+  "kind": "transfer",
+  "title": "Transfer Klook · Haneda → apartamento",
+  "detail": "2 pasajeros · Toyota Alphard / Honda Odyssey o similar · seguimiento del vuelo",
+  "startDate": "2026-11-03",
+  "endDate": "2026-11-03",
+  "origin": "Haneda · Terminal 3",
+  "destination": "aLATO Hatsudai · 2-2-10 Honmachi, Shibuya",
+  "status": "confirmed",
+  "payment": "Reserva confirmada",
+  "time": "Vuelo QR812 · llegada 22:55 JST · recogida según aterrizaje real",
+  "link": "https://mail.google.com/mail/u/?authuser=jorge.sanchez704%40gmail.com#all/1a12fb2982ab081d",
+  "map": "2-2-10 Honmachi, Shibuya, Tokyo",
+  "instructionsTitle": "Recogida en Haneda · paso a paso",
+  "notes": "1. Tras aterrizar en la Terminal 3, conecta Holafly o el Wi-Fi gratuito del aeropuerto. Entra en Klook con la cuenta de la reserva (Lali): Cuenta → Reservas → transfer → información del conductor / chat con el operador. Confirma allí el punto exacto antes de salir: las fotos del bono son una guía, no una cita fija.\n2. Después de recoger las maletas y salir a la sala de llegadas (2F), gira a la izquierda y sigue recto hasta Tully’s Coffee. La guía indica tomar el ascensor de la derecha hasta 1F y salir por la puerta principal. Revisa las fotos de las páginas 5–7 del bono y sigue la ubicación que confirme el conductor.\n3. El conductor os recogerá en la zona exterior de recogida y bajada de pasajeros. Comprueba el nombre de la reserva y el destino antes de subir.\n4. Espera incluida: 90 minutos desde el aterrizaje real, también si el vuelo se retrasa. Después: ¥100 por minuto según el bono. Si hay retrasos en inmigración, equipaje o vuelo, avisa por el chat cuanto antes.\n5. Destino: 東京都渋谷区本町2-2-10 · aLATO Hatsudai, habitación 302. Ten a mano el manual del apartamento y los PIN guardados en tu móvil.\nOperador: Hakuu Co Ltd. · +86 13327834614 · klook-transfer-cs@qinghetrip.com. Los datos del conductor y cualquier cambio se consultan en Klook.\nEquipaje: vehículo de hasta 6 pasajeros y 4 piezas estándar. El correo indica como alternativas 4 maletas de 24″, 3 de 26″ o 2 de 28″; el bono cuenta las grandes como varias piezas estándar. Consultar al operador si lleváis más.\nAntes de salir: descarga el bono completo y el manual del apartamento en cada móvil. Los resúmenes de esta app se pueden consultar sin conexión una vez cargados; los enlaces a Gmail, Klook y documentos requieren internet o descarga previa.",
+  "documents": [
+    {
+      "label": "Bono PDF · fotos de recogida",
+      "url": "https://chatgpt.com/library?file_id=libfile_37243d78fed481919f247651b5691ec7&account_id=personal"
+    },
+    {
+      "label": "Klook · Cuenta → Reservas",
+      "url": "https://www.klook.com/"
+    },
+    {
+      "label": "Ayuda del operador · email",
+      "url": "mailto:klook-transfer-cs@qinghetrip.com"
+    },
+    {
+      "label": "Llamar al operador",
+      "url": "tel:+8613327834614"
+    }
+  ]
+},
+{
         "id": "holafly",
         "kind": "connectivity",
         "title": "Holafly · Internet en Japón",
@@ -28,17 +63,18 @@ window.TRIP_DATA = {
         "saleOpen": "",
         "cancellation": "",
         "alternative": "",
-        "link": "https://mail.google.com/mail/#all/1a19b605a0c91313",
+        "link": "https://mail.google.com/mail/u/?authuser=jorge.sanchez704%40gmail.com#all/1a19b605a0c91313",
         "map": "",
-        "notes": "Antes de viajar: con Wi-Fi estable, abre la app de Holafly con el correo de la compra e instala una eSIM en cada móvil. Si ambas están en tu cuenta, usa la opción de transferir una a la cuenta de Lali.\nTambién puedes instalarla con el QR o los códigos manuales del correo «Tu eSIM está lista». Mantén la eSIM apagada hasta llegar a Japón.\nAl llegar: activa Holafly, selecciónala para datos móviles y habilita la itinerancia de datos en esa eSIM. Desactiva la itinerancia en la línea española y el cambio automático de datos.\nDuración: 18 días desde la activación. Ventana prevista del viaje: del 3 al 21 de noviembre; la compra no confirma que ya esté activada.\nNo elimines la eSIM al terminar: Holafly recomienda conservarla para viajes futuros y Always On.\nAyuda: help@holafly.com · WhatsApp +1 661 384 8482. Pedido y recibo disponibles en el correo de compra.",
+        "instructionsTitle": "Cómo instalar y activar las eSIM",
+        "notes": "Comprobación pendiente: se han comprado dos eSIM, pero el correo de instalación recibido contiene un único QR/ICCID. Comprueba la segunda en la app de Holafly y transfiérela a Lali si procede; no instaléis el mismo QR en los dos móviles.\nAntes de viajar: con Wi-Fi estable, abre la app de Holafly con el correo de la compra e instala una eSIM en cada móvil. Si ambas están en tu cuenta, usa la opción de transferir una a la cuenta de Lali.\nTambién puedes instalarla con el QR o los códigos manuales del correo «Tu eSIM está lista». Mantén la eSIM apagada hasta llegar a Japón.\nAl llegar: activa Holafly, selecciónala para datos móviles y habilita la itinerancia de datos en esa eSIM. Desactiva la itinerancia en la línea española y el cambio automático de datos.\nDuración: 18 días desde la activación. Ventana prevista del viaje: del 3 al 21 de noviembre; la compra no confirma que ya esté activada.\nNo elimines la eSIM al terminar: Holafly recomienda conservarla para viajes futuros y Always On.\nAyuda: help@holafly.com · WhatsApp +1 661 384 8482. Pedido y recibo disponibles en el correo de compra.",
         "documents": [
                 {
                         "label": "Instalación y QR · correo privado",
-                        "url": "https://mail.google.com/mail/#all/1a19b605d29b9031"
+                        "url": "https://mail.google.com/mail/u/?authuser=jorge.sanchez704%40gmail.com#all/1a19b605d29b9031"
                 },
                 {
                         "label": "Recibo · 96,54 €",
-                        "url": "https://mail.google.com/mail/#all/1a19b604679ce12a"
+                        "url": "https://mail.google.com/mail/u/?authuser=jorge.sanchez704%40gmail.com#all/1a19b604679ce12a"
                 },
                 {
                         "label": "Gestionar eSIM en Holafly",
@@ -117,7 +153,7 @@ window.TRIP_DATA = {
         "dueDate": "2026-11-02",
         "priority": "Alta",
         "dependency": "",
-        "link": "https://mail.google.com/mail/#all/1a19b605d29b9031"
+        "link": "https://mail.google.com/mail/u/?authuser=jorge.sanchez704%40gmail.com#all/1a19b605d29b9031"
 },
       {
         "id": "pre-02",
@@ -137,8 +173,8 @@ window.TRIP_DATA = {
     ],transport:"BCN 22:15 → DOH 06:15 (+1). Equipaje facturado: 25 kg por adulto."},
     {date:"2026-11-03",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Doha → Tokio",map:"Haneda Airport Terminal 3",slots:[
       {label:"Mañana",time:"07:25",title:"QR812 · Salida de Doha",desc:"Horario actualizado por Qatar Airways. Conexión en Doha y vuelo a Haneda."},
-      {label:"Noche",time:"22:55",title:"Llegada a Haneda",desc:"Terminal 3. Inmigración, equipaje y taxi al Airbnb aLATO Hatsudai c02."}
-    ],transport:"DOH 07:25 → HND 22:55. Horario actualizado por Qatar Airways el 11/08/2026."},
+      {label:"Noche",time:"22:55",title:"Llegada a Haneda",desc:"Terminal 3. Inmigración y equipaje. Transfer Klook confirmado al Airbnb aLATO Hatsudai c02: activar Holafly o Wi-Fi, contactar con el conductor en Klook y confirmar el punto de recogida. 90 min de espera desde el aterrizaje real; después ¥100/min. Acceso directo en Inicio → Al aterrizar en Haneda."}
+    ],transport:"DOH 07:25 → HND 22:55. Horario actualizado por Qatar Airways el 11/08/2026. Transfer Klook reservado a aLATO Hatsudai; instrucciones y bono en Reservas."},
     {date:"2026-11-04",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Asakusa, Kappabashi, Ueno y Akihabara",map:"Kappabashi Dougu Street Tokyo",slots:[
       {label:"Mañana",time:"08:30–10:30",title:"Sensō-ji y entorno",desc:"Entrar por Kaminarimon, recorrer Nakamise-dori, visitar el templo y pasear por las calles laterales."},
       {label:"Media mañana",time:"10:30–11:30",title:"Paseo junto al río Sumida",desc:"Paseo fluvial con vistas de Tokyo Skytree y contraste entre Asakusa y el Tokio moderno."},
@@ -282,4 +318,5 @@ window.TRIP_DATA = {
     {id:"seed-kyoto",fixed:true,date:"2026-11-14",description:"Apartment Hotel 11 Gion · 6 noches",amount:225738,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Booking.com · Habitación Familiar Deluxe con cocina · pendiente de pago · cancelación gratis hasta 08/11"}
   ]
 };
+
 

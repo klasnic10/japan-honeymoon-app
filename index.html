@@ -41,6 +41,18 @@
 
         <section id="todayCard" class="panel today-card"></section>
 
+        <section class="arrival-pack panel" aria-labelledby="arrivalPackTitle">
+          <p class="eyebrow">3 de noviembre · 22:55 JST · Terminal 3</p>
+          <h2 id="arrivalPackTitle">Al aterrizar en Haneda</h2>
+          <p>Internet, conductor y llaves: todo a mano para llegar al apartamento.</p>
+          <div class="arrival-actions">
+            <button type="button" data-arrival-target="holafly"><span aria-hidden="true">📶</span><span><strong>1. Conectar Holafly</strong><small>Activación, QR y ayuda</small></span><span aria-hidden="true">↗</span></button>
+            <button type="button" data-arrival-target="haneda-transfer"><span aria-hidden="true">🚐</span><span><strong>2. Encontrar el transfer</strong><small>Recogida, contacto y bono con fotos</small></span><span aria-hidden="true">↗</span></button>
+            <button type="button" data-arrival-target="apartment"><span aria-hidden="true">🔑</span><span><strong>3. Entrar al apartamento</strong><small>Habitación 302 · manual y códigos</small></span><span aria-hidden="true">↗</span></button>
+          </div>
+          <p class="arrival-offline">Abre esta app antes de salir y descarga el bono y el manual en cada móvil. Los enlaces privados y QR necesitan conexión o descarga previa.</p>
+        </section>
+
         <section id="todayPlanSection" class="today-plan-section hidden">
           <div class="section-heading">
             <div><p class="eyebrow">Ritmo adaptable</p><h2 id="todayPlanTitle">Plan de hoy</h2></div>
@@ -118,7 +130,8 @@
           <h1 id="bookingsTitle">Reservas y transportes</h1>
           <p>Los localizadores sensibles se abren en vuestro correo; no quedan expuestos en una web pública.</p>
         </div>
-        <section class="tokyo-access" aria-labelledby="tokyoAccessTitle">
+        <div class="arrival-reservation-links" aria-label="Accesos de llegada"><button class="secondary-button" type="button" data-arrival-target="haneda-transfer">🚐 Transfer Haneda</button><button class="secondary-button" type="button" data-arrival-target="holafly">📶 Holafly</button><button class="secondary-button" type="button" data-arrival-target="apartment">🔑 Apartamento</button></div>
+        <section id="tokyoAccess" class="tokyo-access" tabindex="-1" aria-labelledby="tokyoAccessTitle">
           <div class="tokyo-access-hero">
             <div class="tokyo-hero-eyebrow"><span class="tokyo-status-dot"></span> CHECK-IN COMPLETADO · TOKIO</div>
             <div class="tokyo-hero-heading"><div><h2 id="tokyoAccessTitle">Vuestra casa en Tokio</h2><p>aLATO Hatsudai <span aria-hidden="true">·</span> Habitación 302</p></div><span class="tokyo-room-number">302</span></div>
@@ -328,3 +341,4 @@
   <script src="app.js" defer></script>
 </body>
 </html>
+

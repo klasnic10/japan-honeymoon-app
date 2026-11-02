@@ -330,13 +330,26 @@ function restaurantDialogMarkup(item){
 function openRestaurant(id){const item=(guideData.restaurants||[]).find(restaurant=>restaurant.id===id);if(!item)return;document.getElementById("restaurantDialogContent").innerHTML=restaurantDialogMarkup(item);document.getElementById("restaurantDialog").showModal();document.getElementById("closeRestaurantDialog").focus({preventScroll:true});}
 function closeRestaurant(){const dialog=document.getElementById("restaurantDialog");if(dialog.open)dialog.close();}
 
+function bookingDocumentUrl(value){
+  const url=safeUrl(value);if(url)return url;
+  if(/^tel:\+?[0-9 -]+$/.test(value||"")||/^mailto:[^\s?<>]+@[^\s?<>]+$/.test(value||""))return value;
+  return "";
+}
+function openArrivalInfo(target){
+  bookingFilter="all";renderBookings();navigate("bookings");
+  const card=document.getElementById(target==="apartment"?"tokyoAccess":`booking-${target}`);
+  if(!card)return;
+  const instructions=card.querySelector(".booking-instructions");if(instructions)instructions.open=true;
+  card.focus({preventScroll:true});card.scrollIntoView({behavior:"instant",block:"start"});
+}
+
 function renderBookings(){
-  const filters=[{id:"all",label:"Todas"},{id:"hotel",label:"Hoteles"},{id:"flight",label:"Vuelos"},{id:"transport",label:"Trenes y buses"},{id:"entry",label:"Entradas"},{id:"connectivity",label:"Internet"},{id:"pending",label:"Pendientes"}];
+  const filters=[{id:"all",label:"Todas"},{id:"hotel",label:"Hoteles"},{id:"flight",label:"Vuelos"},{id:"transport",label:"Transportes"},{id:"entry",label:"Entradas"},{id:"connectivity",label:"Internet"},{id:"pending",label:"Pendientes"}];
   document.getElementById("bookingFilters").innerHTML=filters.map(f=>`<button class="${bookingFilter===f.id?"active":""}" data-booking-filter="${f.id}">${f.label}</button>`).join("");
   const selected=activeBookings().filter(b=>bookingFilter==="all"||bookingGroup(b.kind)===bookingFilter||(bookingFilter==="pending"&&bookingIsPending(b)));
   document.getElementById("bookingList").innerHTML=selected.length?selected.map(b=>{
     const statusClass=bookingIsPending(b)?"pending":"confirmed",link=safeUrl(b.link),map=safeUrl(b.map)|| (b.map?mapsSearch(b.map):""),dates=b.startDate?[fmtDate(b.startDate,{day:"numeric",month:"short"}),b.endDate&&b.endDate!==b.startDate?fmtDate(b.endDate,{day:"numeric",month:"short"}):""].filter(Boolean).join(" → "):b.time;
-    return `<article class="booking-card"><div class="booking-top"><div><span class="booking-type">${bookingIcon(b.kind)}</span><h2>${escapeHtml(b.title)}</h2><p class="sub">${escapeHtml(b.detail||b.notes)}</p></div><span class="chip ${statusClass}">${escapeHtml(statusLabel(b.status))}</span></div><div class="booking-info"><div><small>Fecha / horario</small><strong>${escapeHtml([dates,b.time].filter((item,index,list)=>item&&list.indexOf(item)===index).join(" · ")||"Por definir")}</strong></div><div><small>Trayecto</small><strong>${escapeHtml([b.origin,b.destination].filter(Boolean).join(" → ")||b.payment||"—")}</strong></div>${b.amount?`<div><small>Importe</small><strong>${fmtMoney(b.amount,b.currency||"JPY")} · ${escapeHtml(b.payment||"")}</strong></div>`:""}${b.saleOpen?`<div><small>Apertura de venta</small><strong>${fmtDate(b.saleOpen,{day:"numeric",month:"long"})}</strong></div>`:""}${b.cancellation?`<div><small>Cancelar gratis hasta</small><strong>${fmtDate(b.cancellation,{day:"numeric",month:"long"})}</strong></div>`:""}</div>${bookingGroup(b.kind)==="connectivity"&&b.notes?`<details class="booking-alternative"><summary>Cómo instalar y activar las eSIM</summary>${detailTextMarkup(b.notes)}</details>`:""}${b.alternative?`<div class="booking-alternative"><strong>Plan alternativo</strong><p>${escapeHtml(b.alternative)}</p></div>`:""}<div class="booking-links">${link?`<a href="${link}" target="_blank" rel="noreferrer">${bookingIsPending(b)?"Abrir reserva":"Ver confirmación"}</a>`:""}${(b.documents||[]).map(doc=>safeUrl(doc.url)?`<a class="secondary" href="${escapeHtml(safeUrl(doc.url))}" target="_blank" rel="noreferrer">${escapeHtml(doc.label)}</a>`:"").join("")}${map?`<a class="secondary" href="${map}" target="_blank" rel="noreferrer">Google Maps</a>`:""}</div></article>`;
+    return `<article id="booking-${escapeHtml(b.id)}" class="booking-card" tabindex="-1"><div class="booking-top"><div><span class="booking-type">${b.kind==="transfer"?"🚐":bookingIcon(b.kind)}</span><h2>${escapeHtml(b.title)}</h2><p class="sub">${escapeHtml(b.detail||b.notes)}</p></div><span class="chip ${statusClass}">${escapeHtml(statusLabel(b.status))}</span></div><div class="booking-info"><div><small>Fecha / horario</small><strong>${escapeHtml([dates,b.time].filter((item,index,list)=>item&&list.indexOf(item)===index).join(" · ")||"Por definir")}</strong></div><div><small>Trayecto</small><strong>${escapeHtml([b.origin,b.destination].filter(Boolean).join(" → ")||b.payment||"—")}</strong></div>${b.amount?`<div><small>Importe</small><strong>${fmtMoney(b.amount,b.currency||"JPY")} · ${escapeHtml(b.payment||"")}</strong></div>`:""}${b.saleOpen?`<div><small>Apertura de venta</small><strong>${fmtDate(b.saleOpen,{day:"numeric",month:"long"})}</strong></div>`:""}${b.cancellation?`<div><small>Cancelar gratis hasta</small><strong>${fmtDate(b.cancellation,{day:"numeric",month:"long"})}</strong></div>`:""}</div>${(b.instructionsTitle||bookingGroup(b.kind)==="connectivity")&&b.notes?`<details class="booking-alternative booking-instructions"><summary>${escapeHtml(b.instructionsTitle||"Cómo instalar y activar las eSIM")}</summary>${detailTextMarkup(b.notes)}</details>`:""}${b.alternative?`<div class="booking-alternative"><strong>Plan alternativo</strong><p>${escapeHtml(b.alternative)}</p></div>`:""}<div class="booking-links">${link?`<a href="${link}" target="_blank" rel="noreferrer">${bookingIsPending(b)?"Abrir reserva":"Ver confirmación"}</a>`:""}${(b.documents||[]).map(doc=>bookingDocumentUrl(doc.url)?`<a class="secondary" href="${escapeHtml(bookingDocumentUrl(doc.url))}" target="_blank" rel="noreferrer">${escapeHtml(doc.label)}</a>`:"").join("")}${map?`<a class="secondary" href="${map}" target="_blank" rel="noreferrer">Google Maps</a>`:""}</div></article>`;
   }).join(""):`<div class="panel empty">No hay reservas con este filtro.</div>`;
 }
 
@@ -530,6 +543,7 @@ async function submitNote(event){
 
 function bindEvents(){
   document.addEventListener("click",event=>{
+    const arrival=event.target.closest("[data-arrival-target]");if(arrival){openArrivalInfo(arrival.dataset.arrivalTarget);return;}
     const nav=event.target.closest("[data-nav]");if(nav){navigate(nav.dataset.nav);return;}
     const target=event.target.closest("[data-open-target]");if(target){const value=target.dataset.openTarget;if(value==="bookings")navigate("bookings");else{guideTab=value==="emergency"?"Emergencia":"Checklist";navigate("more");renderGuide();}return;}
     const plan=event.target.closest("[data-today-plan]");if(plan){todayPlanMode=plan.dataset.todayPlan;renderHome();return;}
@@ -632,4 +646,5 @@ function initializeTokyoAccess(){
   });
 }
 document.addEventListener("DOMContentLoaded",initializeTokyoAccess);
+
 
