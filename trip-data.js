@@ -197,7 +197,128 @@ window.TRIP_DATA = {
       {label:"Tarde",time:"14:00–16:30",title:"Estación de Tokio y exteriores del Palacio Imperial",desc:"Fachada Marunouchi, distrito financiero y jardines exteriores del Palacio."},
       {label:"Atardecer-noche",time:"17:00–21:30",title:"Roppongi Hills, Azabudai Hills y vistas de Tokyo Tower",desc:"Arquitectura moderna, vistas de Tokyo Tower y cena por la zona."}
     ]},
-    {date:"2026-11-07",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Yanaka, Kiyosumi-Shirakawa y Monzen-Nakachō",map:"Yanaka Ginza",slots:[
+    {date:"2026-11-07",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Yanaka, Kiyosumi-Shirakawa y Monzen-Nakachō",map:"Yanaka Ginza",alternatives:[
+  {
+    "id": "nikko",
+    "title": "Nikkō · bosque y templos",
+    "summary": "Alternativa para el sábado 7 de noviembre. Excursión de día completo, con regreso al mismo apartamento. El plan de barrios de Tokio sigue disponible.",
+    "status": "Propuesta · sin reservar",
+    "verified": "2026-11-02",
+    "trains": [
+      {
+        "label": "Ida propuesta",
+        "name": "SPACIA X 1",
+        "from": "Tobu Asakusa",
+        "to": "Tobu-Nikkō",
+        "time": "07:50 → 09:39"
+      },
+      {
+        "label": "Vuelta propuesta",
+        "name": "SPACIA X 12",
+        "from": "Tobu-Nikkō",
+        "to": "Tobu Asakusa",
+        "time": "17:44 → 19:35"
+      }
+    ],
+    "trainNote": "Horarios publicados por Tobu, revisados el 02/11/2026. Confirmar operación y plazas para el sábado 07/11 en el buscador antes de comprar; no hay billetes reservados. Elegir Standard Seat y dos adultos. Si no hay plazas, buscar Kegon/Revaty directo a Tobu-Nikkō en una franja similar. SPACIA X 3 (09:00 → 10:50) permite madrugar menos, recortando las visitas opcionales.",
+    "access": [
+      "06:10–06:20: salida orientativa de aLATO Hatsudai. Caminar a Hatsudai y contar 60–75 minutos en total hasta la estación de Tobu Asakusa, más margen de embarque. Consultar la conexión concreta del sábado en Maps.",
+      "Hatsudai → Bakuro-yokoyama: Keiō New Line / Toei Shinjuku Line hacia el este. Elegir un tren que continúe a la línea Toei Shinjuku; si termina en Shinjuku, cambiar allí. Seguir el pasillo de transbordo a Higashi-nihombashi y tomar la Toei Asakusa Line hacia Oshiage hasta Asakusa.",
+      "En Asakusa, seguir los letreros de Tobu Railway, junto a EKIMISE/Matsuya. Es una estación distinta de Tsukuba Express Asakusa. Estar en la estación de Tobu sobre las 07:20; revisar andén en las pantallas. Suica sirve para el metro de Tokio, pero no sustituye la reserva del expreso."
+    ],
+    "slots": [
+      {
+        "time": "09:39–10:20",
+        "title": "Llegada, bus y puente Shinkyō",
+        "desc": "Desde Tobu-Nikkō, bus de la zona patrimonial hasta Shinkyō (aprox. 10 min más espera) o paseo de unos 25–30 min. Fotos del puente desde fuera; caminar hacia el recinto de templos.",
+        "map": "Shinkyo Bridge Nikko"
+      },
+      {
+        "time": "10:20–12:20",
+        "title": "Tōshō-gū · visita principal",
+        "desc": "Reservar unas dos horas para la puerta Yōmeimon, los tres monos y el gato dormido. Subir a la tumba si os apetece y las colas lo permiten. Entrada al santuario: ¥1.600 por adulto; llevar efectivo si se compra en taquilla.",
+        "map": "Nikko Toshogu Shrine"
+      },
+      {
+        "time": "12:20–13:15",
+        "title": "Comer por la zona de los templos",
+        "desc": "Buscar soba o un menú con yuba, la especialidad local de piel de tofu. La franja es orientativa; evitar una cola larga para conservar la tarde.",
+        "map": "soba yuba near Nikko Toshogu"
+      },
+      {
+        "time": "13:15–14:00",
+        "title": "Futarasan y paseo entre cedros",
+        "desc": "Pasear por el santuario y los caminos arbolados de la zona. Priorizar este rato al aire libre para cambiar de ambiente respecto a Tokio.",
+        "map": "Nikko Futarasan Shrine"
+      },
+      {
+        "time": "14:00–15:00",
+        "title": "Rinnō-ji y jardín Shōyō-en",
+        "desc": "Visitar Sanbutsudō; el jardín Shōyō-en es opcional y puede requerir otra entrada. Si hay mucha gente o vais cansados, elegir solo uno. Tōshō-gū cierra a las 16:00 en noviembre, con último acceso a las 15:30; por eso va primero.",
+        "map": "Nikkosan Rinnoji Temple"
+      },
+      {
+        "time": "15:00–16:30",
+        "title": "Paseo tranquilo y vuelta hacia el centro",
+        "desc": "Tiempo de margen para fotos, tiendas y café. Bajar con luz hacia Shinkyō y la calle principal. Si llueve o hace mucho frío, reducir el paseo y descansar cerca de la estación.",
+        "map": "Tobu Nikko Station"
+      },
+      {
+        "time": "16:30–17:15",
+        "title": "Llegar a Tobu-Nikkō con margen",
+        "desc": "Volver a pie o en bus según energía y tráfico. Comprar algo para el tren y confirmar andén. Objetivo: estar en la estación a las 17:10–17:15, sin apurar el último bus.",
+        "map": "Tobu Nikko Station"
+      },
+      {
+        "time": "17:44–19:35",
+        "title": "SPACIA X 12 · regreso a Asakusa",
+        "desc": "Tren directo propuesto. Después, cena en Asakusa o vuelta al apartamento por el trayecto inverso; llegada a casa orientativa sobre las 20:30–21:00, según cena y conexiones.",
+        "map": "Tobu Asakusa Station"
+      }
+    ],
+    "tickets": [
+      "Al decidir hacer la excursión, reservar primero ida y vuelta para dos personas. Los Limited Express llevan asiento reservado: hace falta tarifa base (billete o pase) más suplemento de Limited Express en cada sentido.",
+      "Para este recorrido desde Asakusa, valorar NIKKO PASS World Heritage Area: ¥3.000 por adulto (¥6.000 los dos), válido dos días. Incluye el trayecto base de ida y vuelta y buses de la zona patrimonial; los suplementos de SPACIA X/Kegon/Revaty y las entradas a templos se pagan aparte. Comprobar la cesta para no comprar dos veces la tarifa base.",
+      "Comprar por el servicio oficial Tobu Japan Trip Tickets enlazado desde la guía de compra. Si se compra un voucher en lugar de un pase digital, revisar dónde y cuándo se canjea: no dejar el canje para antes del tren temprano. Podéis pasar por Asakusa otro día para resolverlo.",
+      "Solo excursión patrimonial: mantener fuera el lago Chūzenji y Kegon. En otoño, los buses hacia el lago pueden sufrir retrasos de más de dos horas. No añadir gastos al viaje hasta que se decida y se compre."
+    ],
+    "packing": [
+      "Calzado cómodo, abrigo y capa impermeable; hay escaleras y bastante exterior.",
+      "Agua, desayuno o snack y batería externa. Llevar efectivo para entradas y pequeños comercios.",
+      "Si no hay trenes con plazas o no apetece madrugar, conservar el plan original de Tokio del día 7."
+    ],
+    "links": [
+      {
+        "label": "Apartamento → Tobu Asakusa",
+        "url": "https://www.google.com/maps/dir/?api=1&origin=2-2-10%20Honmachi%2C%20Shibuya%2C%20Tokyo&destination=Tobu%20Asakusa%20Station&travelmode=transit"
+      },
+      {
+        "label": "Paseo por los templos",
+        "url": "https://www.google.com/maps/dir/?api=1&origin=Shinkyo%20Bridge%20Nikko&destination=Nikkosan%20Rinnoji%20Temple&waypoints=Nikko%20Toshogu%20Shrine%7CNikko%20Futarasan%20Shrine&travelmode=walking"
+      },
+      {
+        "label": "Horarios SPACIA X",
+        "url": "https://www.tobu.co.jp/spaciax/en/guide/"
+      },
+      {
+        "label": "Reservar · guía oficial Tobu",
+        "url": "https://www.tobu.co.jp/en/express_info/purchase/"
+      },
+      {
+        "label": "NIKKO PASS · qué incluye",
+        "url": "https://www.tobu.co.jp/en/ticket/nikko/city.html"
+      },
+      {
+        "label": "Tōshō-gū · entradas y acceso",
+        "url": "https://www.visitnikko.jp/en/spots/nikko-toshogu-shrine/"
+      },
+      {
+        "label": "Aviso de tráfico en otoño",
+        "url": "https://www.tobu.co.jp/en/ticket/"
+      }
+    ]
+  }
+],slots:[
       {label:"Mañana",time:"09:30–12:30",title:"Tokio de barrio: Yanaka, cementerio y Yanaka Ginza",desc:"Nippori, cementerio, callejones residenciales y comercios de Yanaka Ginza."},
       {label:"Mediodía",time:"12:30–14:00",title:"Comida local",desc:"Soba, curry, tonkatsu o menú del día por Yanaka/Sendagi."},
       {label:"Tarde",time:"14:30–17:30",title:"Cafés, canales y jardín Kiyosumi",desc:"Paseo por Kiyosumi-Shirakawa, café de especialidad y jardín opcional."},
