@@ -6,7 +6,83 @@
 window.TRIP_DATA = {
   source: {
     spreadsheetId: "18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8",
-    updatedAt: "2026-10-06T07:40:00Z"
+    updatedAt: "2026-11-02T08:15:52Z"
+  },
+  guideOverrides: {
+    "date": "2026-11-05",
+    "bookings": [
+      {
+        "id": "shibuya-sky",
+        "kind": "entry",
+        "title": "Shibuya Sky",
+        "detail": "Visita diurna · 2 adultos · ¥2.700 por persona",
+        "startDate": "2026-11-05",
+        "endDate": "2026-11-05",
+        "origin": "Shibuya",
+        "destination": "Shibuya Sky",
+        "status": "confirmed",
+        "payment": "Pagado",
+        "saleOpen": "",
+        "cancellation": "",
+        "alternative": "",
+        "amount": 5400,
+        "currency": "JPY",
+        "time": "Acceso 13:00–13:19 JST · llegar sobre 12:40",
+        "link": "https://mail.google.com/mail/#all/1a19b5443baf581b",
+        "map": "Shibuya Sky",
+        "notes": "Visita estimada de 1,5 h. La franja 13:00–13:19 corresponde al acceso.",
+        "documents": [
+          {
+            "label": "Ticket 1 · QR",
+            "url": "https://chatgpt.com/library?file_id=libfile_22b7b319dffc819190fe9900fb65cde5&account_id=personal"
+          },
+          {
+            "label": "Ticket 2 · QR",
+            "url": "https://chatgpt.com/library?file_id=libfile_64f0f4e04d488191bf203a12a8173d3c&account_id=personal"
+          }
+        ]
+      }
+    ],
+    "routes": [
+      {
+        "id": "2026-11-05-03",
+        "destination": "Shibuya Sky · Shibuya Scramble Square",
+        "instruction": "Salir de Harajuku/Omotesandō hacia Shibuya a las 12:00. Llegar sobre las 12:40 para acceder a Shibuya Sky entre 13:00 y 13:19. El paseo por Shibuya queda después del mirador.",
+        "map": "https://www.google.com/maps/dir/?api=1&origin=Omotesando&destination=Shibuya%20Sky&travelmode=walking",
+        "notes": "2 entradas confirmadas · 05/11 13:00–13:19 JST · llevar ambos QR de Webket."
+      }
+    ],
+    "placeGuides": [
+      {
+        "id": "harajuku-omotesando",
+        "tips": "Salir hacia Shibuya a las 12:00 para llegar al mirador sobre las 12:40. Evitar colas largas antes de la reserva.",
+        "duration": "1,5 h"
+      },
+      {
+        "id": "shibuya-core",
+        "route": "Después de Shibuya Sky y la comida, recorrer Hachikō y el cruce, Center-gai, Parco y Miyashita Park.",
+        "tips": "La entrada al mirador es al mediodía; la tarde queda para pasear y comprar."
+      },
+      {
+        "id": "shibuya-sky",
+        "summary": "Mirador de 360 grados con visita diurna confirmada el 5 de noviembre. Franja de acceso: 13:00–13:19 (hora de Japón), para 2 adultos.",
+        "highlights": "• Cruce de Shibuya desde arriba\n• Fuji si el cielo está muy limpio\n• Tokyo Tower y la escala de Tokio a plena luz",
+        "route": "Llegar sobre las 12:40 a Shibuya Scramble Square. Acceder entre las 13:00 y las 13:19; subir a la azotea si está abierta y recorrer también el interior. Reservar aproximadamente hasta las 14:30 para la visita y comer después.",
+        "tips": "Llevar los dos QR originales de Webket en el móvil. 13:00–13:19 es la franja de entrada, no la duración de la visita. La azotea puede cerrar por viento o lluvia; revisar las indicaciones del recinto."
+      }
+    ],
+    "checklist": [
+      {
+        "id": "pre-02",
+        "done": true,
+        "notes": "Comprado el 02/11: 2 adultos, 05/11 acceso 13:00–13:19 JST. Total ¥5.400.",
+        "link": "https://mail.google.com/mail/#all/1a19b5443baf581b"
+      },
+      {
+        "id": "2026-11-05-01",
+        "notes": "Dos QR originales guardados. Acceso 13:00–13:19 JST; llegar sobre 12:40."
+      }
+    ]
   },
   days: [
     {date:"2026-11-02",city:"Vuelo",sleep:"Avión",title:"Barcelona → Doha",map:"Barcelona Airport Terminal 1",slots:[
@@ -26,11 +102,11 @@ window.TRIP_DATA = {
     ]},
     {date:"2026-11-05",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Meiji Jingū, Harajuku, Shibuya y Shinjuku",map:"Meiji Jingu",slots:[
       {label:"Mañana",time:"08:30–10:30",title:"Bosque y santuario Meiji",desc:"Entrar por Harajuku y recorrer con calma el bosque hasta el santuario principal."},
-      {label:"Media mañana",time:"10:30–13:00",title:"Takeshita-dori, calles laterales y Omotesandō",desc:"Harajuku, Cat Street y Omotesandō, priorizando calles laterales frente a colas virales."},
-      {label:"Tarde",time:"13:30–17:00",title:"Cruce, Hachikō, Parco y Miyashita Park",desc:"Recorrer el núcleo de Shibuya antes del mirador."},
-      {label:"Atardecer",time:"17:00–18:30",title:"Shibuya Sky",desc:"Subida al mirador para ver el cambio de luz y la ciudad encendiéndose."},
+      {label:"Media mañana",time:"10:30–12:00",title:"Takeshita-dori, calles laterales y Omotesandō",desc:"Harajuku, Cat Street y Omotesandō sin colas largas. Salir hacia Shibuya a las 12:00 para llegar sobre las 12:40.",food:"Snack si hace falta; comida principal después del mirador.",duration:"1,5 h"},
+      {label:"Mediodía",time:"13:00–14:30 aprox.",title:"Shibuya Sky",desc:"Reserva confirmada para 2 adultos. Acceso entre las 13:00 y las 13:19 (hora de Japón); llegar sobre las 12:40 y mostrar ambos QR de Webket. Visita diurna estimada de 1,5 h; 13:19 es el fin de la franja de acceso.",food:"Comer después de la visita.",duration:"1,5 h aprox.",reservation:"Confirmada",tips:"2 adultos. Acceso 13:00–13:19 JST; llegar sobre 12:40. QR guardados."},
+      {label:"Tarde",time:"14:30–18:00",title:"Cruce, Hachikō, Parco y Miyashita Park",desc:"Después del mirador, comida y paseo por el núcleo de Shibuya: Hachikō, el cruce, Parco y Miyashita Park.",food:"Comida tras el mirador: Oreryū Shio Ramen Shibuya Sentāgai. Después, paseo, tiendas y cafés.",duration:"3,5 h",reservation:"No",tips:"Paseo y comida después del mirador."},
       {label:"Noche",time:"19:00–23:00",title:"Omoide Yokochō, Kabukichō y Golden Gai",desc:"Cena, neones y callejones de Shinjuku; evitar captadores."}
-    ],transport:"Reservar Shibuya Sky en cuanto abra la venta."},
+    ],transport:"Shibuya Sky reservado y pagado · 05/11 acceso 13:00–13:19 JST · 2 adultos, ¥5.400. Llegar sobre las 12:40. Después, paseo por Shibuya y JR Yamanote a Shinjuku para la noche."},
     {date:"2026-11-06",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Tsukiji, Ginza, Marunouchi y Roppongi",map:"Tsukiji Outer Market",slots:[
       {label:"Mañana",time:"08:30–10:30",title:"Mercado exterior de Tsukiji",desc:"Desayuno y recorrido por puestos de comida, pescado y productos de cocina."},
       {label:"Media mañana",time:"10:45–12:30",title:"Paseo por Ginza",desc:"Chuo-dori, Ginza Six e Itoya si os apetece."},
@@ -158,3 +234,4 @@ window.TRIP_DATA = {
     {id:"seed-kyoto",fixed:true,date:"2026-11-14",description:"Apartment Hotel 11 Gion · 6 noches",amount:225738,currency:"JPY",category:"Alojamiento",payer:"Común",method:"Tarjeta",paid:false,notes:"Booking.com · Habitación Familiar Deluxe con cocina · pendiente de pago · cancelación gratis hasta 08/11"}
   ]
 };
+

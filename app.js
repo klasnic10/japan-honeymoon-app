@@ -29,7 +29,7 @@ let bookingFilter = "all";
 let expenseCategoryFilter = "all";
 let expenseStatusFilter = "all";
 let expenseDisplayCurrency = localStorage.getItem(DISPLAY_CURRENCY_KEY)==="JPY"?"JPY":"EUR";
-let guideData = loadGuideData();
+let guideData = reconcileGuideUpdates(loadGuideData());
 let routeMode = "days";
 let guideTab = "Frase";
 let deferredInstallPrompt = null;
@@ -68,8 +68,28 @@ function loadGuideData(){
     return saved&&Array.isArray(saved.routes)?{...emptyGuideData(),...saved}:emptyGuideData();
   }catch{return emptyGuideData();}
 }
+// Apply confirmed reservation changes to cached guides without clearing other trip data.
+function reconcileGuideUpdates(data){
+  const updates=window.TRIP_DATA.guideOverrides;
+  if(!updates)return data;
+  for(const key of ["routes","placeGuides","checklist"]){
+    const patches=new Map((updates[key]||[]).map(item=>[item.id,item]));
+    data[key]=(data[key]||[]).map(item=>({...item,...patches.get(item.id)}));
+  }
+  const day=days.find(item=>item.date===updates.date);
+  if(day){
+    const positions=new Map(day.slots.map((slot,index)=>[normalized(slot.title),index]));
+    const revised=data.places.filter(item=>item.date===day.date).map(item=>{
+      const slot=day.slots.find(slot=>normalized(slot.title)===normalized(item.title));
+      return slot?{...item,slot:slot.label,time:slot.time,description:slot.desc,food:slot.food??item.food,duration:slot.duration??item.duration,reservation:slot.reservation??item.reservation,tips:slot.tips??item.tips}:item;
+    }).sort((a,b)=>(positions.get(normalized(a.title))??99)-(positions.get(normalized(b.title))??99));
+    let index=0;
+    data.places=data.places.map(item=>item.date===day.date?revised[index++]:item);
+  }
+  return data;
+}
 function saveGuideData(data){
-  guideData={...emptyGuideData(),...data};
+  guideData=reconcileGuideUpdates({...emptyGuideData(),...data});
   localStorage.setItem(GUIDE_KEY,JSON.stringify(guideData));
   localStorage.setItem(GUIDE_VERSION_KEY,window.TRIP_DATA?.updatedAt||"");
   renderHome();renderRoute();renderBookings();renderRestaurants();renderGuide();openPlaceFromHash();
@@ -119,8 +139,9 @@ function navigate(view){
 function appToday(){return todayPreviewDate||japanToday();}
 
 function activeBookings(){
-  if((guideData.bookings||[]).length)return guideData.bookings;
-  return seedBookings.map(item=>({id:item.id,kind:item.kind,title:item.title,detail:item.subtitle,startDate:"",endDate:"",origin:item.from,destination:item.to,status:item.status,payment:item.detail,time:item.dates,link:item.emailId?gmail(item.emailId):item.url||"",map:item.map||"",alternative:"",notes:item.detail}));
+  const items=(guideData.bookings||[]).length?guideData.bookings:seedBookings.map(item=>({id:item.id,kind:item.kind,title:item.title,detail:item.subtitle,startDate:"",endDate:"",origin:item.from,destination:item.to,status:item.status,payment:item.detail,time:item.dates,link:item.emailId?gmail(item.emailId):item.url||"",map:item.map||"",alternative:"",notes:item.detail}));
+  const patches=new Map((window.TRIP_DATA.guideOverrides?.bookings||[]).map(item=>[item.id,item]));
+  return [...items.map(item=>({...item,...patches.get(item.id)})),...Array.from(patches.values()).filter(patch=>!items.some(item=>item.id===patch.id))];
 }
 function bookingIsPending(booking){const state=normalized(booking.status);return !state.includes("confirm")&&!state.includes("pagad")&&!state.includes("disfrut");}
 function bookingGroup(kind){const value=normalized(kind);if(value.includes("vuelo")||value==="flight")return "flight";if(value.includes("hotel")||value.includes("aloj")||value==="hotel")return "hotel";if(value.includes("entrada")||value==="entry")return "entry";if(value.includes("rest"))return "restaurant";return "transport";}
@@ -314,7 +335,7 @@ function renderBookings(){
   const selected=activeBookings().filter(b=>bookingFilter==="all"||bookingGroup(b.kind)===bookingFilter||(bookingFilter==="pending"&&bookingIsPending(b)));
   document.getElementById("bookingList").innerHTML=selected.length?selected.map(b=>{
     const statusClass=bookingIsPending(b)?"pending":"confirmed",link=safeUrl(b.link),map=safeUrl(b.map)|| (b.map?mapsSearch(b.map):""),dates=b.startDate?[fmtDate(b.startDate,{day:"numeric",month:"short"}),b.endDate&&b.endDate!==b.startDate?fmtDate(b.endDate,{day:"numeric",month:"short"}):""].filter(Boolean).join(" → "):b.time;
-    return `<article class="booking-card"><div class="booking-top"><div><span class="booking-type">${bookingIcon(b.kind)}</span><h2>${escapeHtml(b.title)}</h2><p class="sub">${escapeHtml(b.detail||b.notes)}</p></div><span class="chip ${statusClass}">${escapeHtml(statusLabel(b.status))}</span></div><div class="booking-info"><div><small>Fecha / horario</small><strong>${escapeHtml([dates,b.time].filter((item,index,list)=>item&&list.indexOf(item)===index).join(" · ")||"Por definir")}</strong></div><div><small>Trayecto</small><strong>${escapeHtml([b.origin,b.destination].filter(Boolean).join(" → ")||b.payment||"—")}</strong></div>${b.amount?`<div><small>Importe</small><strong>${fmtMoney(b.amount,b.currency||"JPY")} · ${escapeHtml(b.payment||"")}</strong></div>`:""}${b.saleOpen?`<div><small>Apertura de venta</small><strong>${fmtDate(b.saleOpen,{day:"numeric",month:"long"})}</strong></div>`:""}${b.cancellation?`<div><small>Cancelar gratis hasta</small><strong>${fmtDate(b.cancellation,{day:"numeric",month:"long"})}</strong></div>`:""}</div>${b.alternative?`<div class="booking-alternative"><strong>Plan alternativo</strong><p>${escapeHtml(b.alternative)}</p></div>`:""}<div class="booking-links">${link?`<a href="${link}" target="_blank" rel="noreferrer">${bookingIsPending(b)?"Abrir reserva":"Ver confirmación"}</a>`:""}${map?`<a class="secondary" href="${map}" target="_blank" rel="noreferrer">Google Maps</a>`:""}</div></article>`;
+    return `<article class="booking-card"><div class="booking-top"><div><span class="booking-type">${bookingIcon(b.kind)}</span><h2>${escapeHtml(b.title)}</h2><p class="sub">${escapeHtml(b.detail||b.notes)}</p></div><span class="chip ${statusClass}">${escapeHtml(statusLabel(b.status))}</span></div><div class="booking-info"><div><small>Fecha / horario</small><strong>${escapeHtml([dates,b.time].filter((item,index,list)=>item&&list.indexOf(item)===index).join(" · ")||"Por definir")}</strong></div><div><small>Trayecto</small><strong>${escapeHtml([b.origin,b.destination].filter(Boolean).join(" → ")||b.payment||"—")}</strong></div>${b.amount?`<div><small>Importe</small><strong>${fmtMoney(b.amount,b.currency||"JPY")} · ${escapeHtml(b.payment||"")}</strong></div>`:""}${b.saleOpen?`<div><small>Apertura de venta</small><strong>${fmtDate(b.saleOpen,{day:"numeric",month:"long"})}</strong></div>`:""}${b.cancellation?`<div><small>Cancelar gratis hasta</small><strong>${fmtDate(b.cancellation,{day:"numeric",month:"long"})}</strong></div>`:""}</div>${b.alternative?`<div class="booking-alternative"><strong>Plan alternativo</strong><p>${escapeHtml(b.alternative)}</p></div>`:""}<div class="booking-links">${link?`<a href="${link}" target="_blank" rel="noreferrer">${bookingIsPending(b)?"Abrir reserva":"Ver confirmación"}</a>`:""}${(b.documents||[]).map(doc=>safeUrl(doc.url)?`<a class="secondary" href="${escapeHtml(safeUrl(doc.url))}" target="_blank" rel="noreferrer">${escapeHtml(doc.label)}</a>`:"").join("")}${map?`<a class="secondary" href="${map}" target="_blank" rel="noreferrer">Google Maps</a>`:""}</div></article>`;
   }).join(""):`<div class="panel empty">No hay reservas con este filtro.</div>`;
 }
 
@@ -610,3 +631,4 @@ function initializeTokyoAccess(){
   });
 }
 document.addEventListener("DOMContentLoaded",initializeTokyoAccess);
+
