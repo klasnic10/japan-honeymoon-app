@@ -652,7 +652,7 @@ function initializeTokyoAccess(){
   const refresh=()=>{const url=safeUrl(pdf.value);link.classList.toggle("hidden",!url);if(url)link.href=url;else link.removeAttribute("href");};
   refresh();
   document.getElementById("saveTokyoPins").addEventListener("click",()=>{
-    if(!/^\\d{4,12}$/.test(portal.value.trim())||!/^\\d{4,12}$/.test(room.value.trim())){status.textContent="Introduce ambos códigos numéricos.";return;}
+    if(!/^\d{4,12}$/.test(portal.value.trim())||!/^\d{4,12}$/.test(room.value.trim())){status.textContent="Introduce ambos códigos numéricos.";return;}
     localStorage.setItem(k+"portal",portal.value.trim());localStorage.setItem(k+"room",room.value.trim());
     status.textContent="Códigos guardados solo en este navegador.";
   });
