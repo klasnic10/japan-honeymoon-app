@@ -173,8 +173,8 @@ window.TRIP_DATA = {
   "notes": "1. Tras aterrizar en la Terminal 3, conecta Holafly o el Wi-Fi gratuito del aeropuerto. Entra en Klook con la cuenta de la reserva (Lali): Cuenta → Reservas → transfer → información del conductor / chat con el operador. Confirma allí el punto exacto antes de salir: las fotos del bono son una guía, no una cita fija.\n2. Después de recoger las maletas y salir a la sala de llegadas (2F), gira a la izquierda y sigue recto hasta Tully’s Coffee. La guía indica tomar el ascensor de la derecha hasta 1F y salir por la puerta principal. Revisa las fotos de las páginas 5–7 del bono y sigue la ubicación que confirme el conductor.\n3. El conductor os recogerá en la zona exterior de recogida y bajada de pasajeros. Comprueba el nombre de la reserva y el destino antes de subir.\n4. Espera incluida: 90 minutos desde el aterrizaje real, también si el vuelo se retrasa. Después: ¥100 por minuto según el bono. Si hay retrasos en inmigración, equipaje o vuelo, avisa por el chat cuanto antes.\n5. Destino: 東京都渋谷区本町2-2-10 · aLATO Hatsudai, habitación 302. Ten a mano el manual del apartamento y los PIN guardados en tu móvil.\nOperador: Hakuu Co Ltd. · +86 13327834614 · klook-transfer-cs@qinghetrip.com. Los datos del conductor y cualquier cambio se consultan en Klook.\nEquipaje: vehículo de hasta 6 pasajeros y 4 piezas estándar. El correo indica como alternativas 4 maletas de 24″, 3 de 26″ o 2 de 28″; el bono cuenta las grandes como varias piezas estándar. Consultar al operador si lleváis más.\nAntes de salir: descarga el bono completo y el manual del apartamento en cada móvil. Los resúmenes de esta app se pueden consultar sin conexión una vez cargados; los enlaces a Gmail, Klook y documentos requieren internet o descarga previa.",
   "documents": [
     {
-      "label": "Bono PDF · abrir adjunto del correo de Lali",
-      "url": "https://mail.google.com/mail/u/?authuser=jorge.sanchez704%40gmail.com#all/1a12fb2982ab081d"
+      "label": "Bono PDF · fotos de recogida (Drive)",
+      "url": "https://drive.google.com/file/d/1DKCxwivMLZq16uvVCxUglWrs6cpjik41/view?usp=drivesdk"
     },
     {
       "label": "Klook · Cuenta → Reservas",
