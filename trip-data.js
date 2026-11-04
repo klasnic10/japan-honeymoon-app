@@ -6,7 +6,7 @@
 window.TRIP_DATA = {
   source: {
     spreadsheetId: "18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8",
-    updatedAt: "2026-11-02T15:00:00Z"
+    updatedAt: "2026-11-05T02:30:00Z"
   },
   shopping: {
   "2026-11-04": {
@@ -45,11 +45,11 @@ window.TRIP_DATA = {
   },
   "2026-11-08": {
     "title": "Compras de cocina · tiendas y lista para casa",
-    "intro": "Mañana principal de compras, 10:00–14:00. Secuencia orientativa: Dengama → Kamata → Kama-Asa → Iidaya; reservar 13:15–14:00 para decidir, pagar y embalar. Se pueden omitir tiendas si ya habéis encontrado lo que buscáis. Horarios revisados el 02/11/2026; no son reservas ni garantía de stock.",
+    "intro": "Compras después de Ueno y la comida en Ameyoko, 12:30–16:00. Secuencia orientativa: Dengama → Kamata → Kama-Asa → Iidaya; reservar 15:30–16:00 para decidir, pagar y embalar. Se pueden omitir tiendas si ya habéis encontrado lo que buscáis. Horarios revisados el 02/11/2026; no son reservas ni garantía de stock.",
     "shops": [
       {
         "name": "Dengama · cerámica para casa",
-        "when": "Domingo 8 · 10:00–10:30 aprox.",
+        "when": "Domingo 8 · 12:30–13:00 aprox.",
         "hours": "Horario publicado: 10:00–18:00; cierres irregulares.",
         "area": "1-4-3 Nishi-Asakusa · cerca de Tawaramachi",
         "items": [
@@ -61,7 +61,7 @@ window.TRIP_DATA = {
       },
       {
         "name": "Kamata Hakensha · puntilla y piedras",
-        "when": "Domingo 8 · 10:30–11:15 aprox.",
+        "when": "Domingo 8 · 13:00–13:45 aprox.",
         "hours": "Horario publicado: 10:00–18:00; sin cierre semanal fijo.",
         "area": "2-12-6 Matsugaya · Kappabashi",
         "items": [
@@ -77,7 +77,7 @@ window.TRIP_DATA = {
       },
       {
         "name": "Kama-Asa · cuchillos, afilado y menaje",
-        "when": "Domingo 8 · 11:15–12:15 aprox.",
+        "when": "Domingo 8 · 13:45–14:45 aprox.",
         "hours": "Horario publicado: 11:00–17:30; apertura habitual también en domingo.",
         "area": "2-24-1 Matsugaya · Kappabashi",
         "items": [
@@ -91,7 +91,7 @@ window.TRIP_DATA = {
       },
       {
         "name": "Iidaya · rallador y utensilios pequeños",
-        "when": "Domingo 8 · 12:15–13:15 aprox.",
+        "when": "Domingo 8 · 14:45–15:30 aprox.",
         "hours": "Horario publicado: 11:00–18:00, incluidos domingos; cierre de fin de año.",
         "area": "Kappabashi / Nishi-Asakusa",
         "items": [
@@ -319,21 +319,19 @@ window.TRIP_DATA = {
       {label:"Mañana",time:"07:25",title:"QR812 · Salida de Doha",desc:"Horario actualizado por Qatar Airways. Conexión en Doha y vuelo a Haneda."},
       {label:"Noche",time:"22:55",title:"Llegada a Haneda",desc:"Terminal 3. Inmigración y equipaje. Transfer Klook confirmado al Airbnb aLATO Hatsudai c02: activar Holafly o Wi-Fi, contactar con el conductor en Klook y confirmar el punto de recogida. 90 min de espera desde el aterrizaje real; después ¥100/min. Acceso directo en Inicio → Al aterrizar en Haneda."}
     ],transport:"DOH 07:25 → HND 22:55. Horario actualizado por Qatar Airways el 11/08/2026. Transfer Klook reservado a aLATO Hatsudai; instrucciones y bono en Reservas."},
-    {date:"2026-11-04",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Asakusa, Kappabashi, Ueno y Akihabara",map:"Kappabashi Dougu Street Tokyo",slots:[
+    {date:"2026-11-04",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Asakusa, Kappabashi y Akihabara",map:"Kappabashi Dougu Street Tokyo",slots:[
       {label:"Mañana",time:"08:30–10:30",title:"Sensō-ji y entorno",desc:"Entrar por Kaminarimon, recorrer Nakamise-dori, visitar el templo y pasear por las calles laterales."},
       {label:"Media mañana",time:"10:30–11:30",title:"Paseo junto al río Sumida",desc:"Paseo fluvial con vistas de Tokyo Skytree y contraste entre Asakusa y el Tokio moderno."},
       {label:"Media mañana",time:"11:30–12:30",title:"Primer vistazo a Kappabashi",desc:"Primera pasada por tiendas de vajilla, cuchillos, cristalería y utensilios. Marcar favoritos para volver el día 8."},
-      {label:"Mediodía",time:"13:00–14:30",title:"Mercado-calle Ameyoko",desc:"Puestos de comida, pescado, snacks, ropa y tiendas populares. Comer aquí o picar por el mercado."},
-      {label:"Tarde",time:"14:30–15:30",title:"Parque de Ueno y alrededores",desc:"Paseo por el parque, estanques y zona cultural; bloque fácil de recortar si pesa el jet lag."},
       {label:"Tarde-noche",time:"16:00–20:00",title:"Electrónica, recreativos y cultura pop",desc:"Recorrer Akihabara, entrar en recreativos y elegir unas pocas tiendas de electrónica, manga o coleccionismo."}
     ]},
-    {date:"2026-11-05",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Meiji Jingū, Harajuku, Shibuya y Shinjuku",map:"Meiji Jingu",slots:[
-      {label:"Mañana",time:"08:30–10:30",title:"Bosque y santuario Meiji",desc:"Entrar por Harajuku y recorrer con calma el bosque hasta el santuario principal."},
+    {date:"2026-11-05",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Harajuku, Shibuya y Shinjuku · plan de lluvia",map:"Harajuku Station",slots:[
+      {label:"Mañana",time:"09:30–10:30",title:"Desayuno y tiendas cubiertas de Harajuku",desc:"Día de lluvia: empezar con calma por tiendas, galerías y cafés. Meiji Jingū se traslada al sábado 7, con mejor previsión."},
       {label:"Media mañana",time:"10:30–12:00",title:"Takeshita-dori, calles laterales y Omotesandō",desc:"Harajuku, Cat Street y Omotesandō sin colas largas. Salir hacia Shibuya a las 12:00 para llegar sobre las 12:40.",food:"Snack si hace falta; comida principal después del mirador.",duration:"1,5 h"},
-      {label:"Mediodía",time:"13:00–14:30 aprox.",title:"Shibuya Sky",desc:"Reserva confirmada para 2 adultos. Acceso entre las 13:00 y las 13:19 (hora de Japón); llegar sobre las 12:40 y mostrar ambos QR de Webket. Visita diurna estimada de 1,5 h; 13:19 es el fin de la franja de acceso.",food:"Comer después de la visita.",duration:"1,5 h aprox.",reservation:"Confirmada",tips:"2 adultos. Acceso 13:00–13:19 JST; llegar sobre 12:40. QR guardados."},
+      {label:"Mediodía",time:"13:00–14:30 aprox.",title:"Shibuya Sky",desc:"Ojo: se prevé lluvia a mediodía y el rooftop puede cerrar; comprobar situación oficial antes de entrar. Reserva confirmada para 2 adultos. Acceso entre las 13:00 y las 13:19 (hora de Japón); llegar sobre las 12:40 y mostrar ambos QR de Webket. Visita diurna estimada de 1,5 h; 13:19 es el fin de la franja de acceso.",food:"Comer después de la visita.",duration:"1,5 h aprox.",reservation:"Confirmada",tips:"2 adultos. Acceso 13:00–13:19 JST; llegar sobre 12:40. QR guardados."},
       {label:"Tarde",time:"14:30–18:00",title:"Cruce, Hachikō, Parco y Miyashita Park",desc:"Después del mirador, comida y paseo por el núcleo de Shibuya: Hachikō, el cruce, Parco y Miyashita Park.",food:"Comida tras el mirador: Oreryū Shio Ramen Shibuya Sentāgai. Después, paseo, tiendas y cafés.",duration:"3,5 h",reservation:"No",tips:"Paseo y comida después del mirador."},
       {label:"Noche",time:"19:00–23:00",title:"Omoide Yokochō, Kabukichō y Golden Gai",desc:"Cena, neones y callejones de Shinjuku; evitar captadores."}
-    ],transport:"Shibuya Sky reservado y pagado · 05/11 acceso 13:00–13:19 JST · 2 adultos, ¥5.400. Llegar sobre las 12:40. Después, paseo por Shibuya y JR Yamanote a Shinjuku para la noche."},
+    ],transport:"Shibuya Sky reservado y pagado · 05/11 acceso 13:00–13:19 JST · 2 adultos, ¥5.400. Llegar sobre las 12:40. Rooftop sujeto a cierre si llueve; mirador interior disponible. Después, paseo por Shibuya y JR Yamanote a Shinjuku para la noche."},
     {date:"2026-11-06",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Tsukiji, Ginza, Marunouchi y Roppongi",map:"Tsukiji Outer Market",slots:[
       {label:"Mañana",time:"08:30–10:30",title:"Mercado exterior de Tsukiji",desc:"Desayuno y recorrido por puestos de comida, pescado y productos de cocina."},
       {label:"Media mañana",time:"10:45–12:30",title:"Paseo por Ginza",desc:"Chuo-dori, Ginza Six e Itoya si os apetece."},
@@ -341,7 +339,7 @@ window.TRIP_DATA = {
       {label:"Tarde",time:"14:00–16:30",title:"Estación de Tokio y exteriores del Palacio Imperial",desc:"Fachada Marunouchi, distrito financiero y jardines exteriores del Palacio."},
       {label:"Atardecer-noche",time:"17:00–21:30",title:"Roppongi Hills, Azabudai Hills y vistas de Tokyo Tower",desc:"Arquitectura moderna, vistas de Tokyo Tower y cena por la zona."}
     ]},
-    {date:"2026-11-07",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Yanaka, Kiyosumi-Shirakawa y Monzen-Nakachō",map:"Yanaka Ginza",alternatives:[
+    {date:"2026-11-07",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Meiji Jingū, Yanaka y barrios de Tokio",map:"Meiji Jingu",alternatives:[
   {
     "id": "nikko",
     "title": "Nikkō · bosque y templos",
@@ -463,18 +461,21 @@ window.TRIP_DATA = {
     ]
   }
 ],slots:[
-      {label:"Mañana",time:"09:30–12:30",title:"Tokio de barrio: Yanaka, cementerio y Yanaka Ginza",desc:"Nippori, cementerio, callejones residenciales y comercios de Yanaka Ginza."},
+      {label:"Mañana",time:"08:00–09:15",title:"Bosque y santuario Meiji",desc:"Visita reprogramada al sábado soleado: entrada desde Harajuku, paseo por el bosque y santuario. Salir hacia Nippori sobre las 09:15."},
+      {label:"Media mañana",time:"10:15–12:30",title:"Tokio de barrio: Yanaka, cementerio y Yanaka Ginza",desc:"Desde Meiji, JR Yamanote Harajuku → Nippori y paseo por cementerio, callejones y comercios de Yanaka Ginza."},
       {label:"Mediodía",time:"12:30–14:00",title:"Comida local",desc:"Soba, curry, tonkatsu o menú del día por Yanaka/Sendagi."},
       {label:"Tarde",time:"14:30–17:30",title:"Cafés, canales y jardín Kiyosumi",desc:"Paseo por Kiyosumi-Shirakawa, café de especialidad y jardín opcional."},
       {label:"Tarde-noche",time:"17:30–21:00",title:"Santuario, shotengai e izakayas",desc:"Monzen-Nakachō, Tomioka Hachimangū, calles comerciales y cena local."},
       {label:"Extra",time:"19:00–19:30",title:"Entrar en un supermercado grande",desc:"Ver preparados, pescados, productos de temporada y descuentos de última hora."}
     ]},
-    {date:"2026-11-08",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Kappabashi: compras grandes y tarde flexible",map:"Kappabashi Dougu Street Tokyo",slots:[
-      {label:"Mañana",time:"10:00–14:00",title:"Compras para casa en Kappabashi",desc:"Volver a los favoritos del día 4 y comprar vajilla, cuchillos, cristalería y utensilios con calma."},
-      {label:"Mediodía",time:"14:00–15:00",title:"Dejar las compras y reorganizar equipaje",desc:"Taxi al apartamento, guardar lo frágil y revisar espacio en las maletas."},
-      {label:"Tarde",time:"15:30–19:00",title:"Paseo opcional después de las compras",desc:"Daikanyama y Nakameguro si queda energía; si Kappabashi se alarga, se elimina sin problema."},
+    {date:"2026-11-08",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Ueno, Ameyoko y compras en Kappabashi",map:"Ueno Park Tokyo",slots:[
+      {label:"Mañana",time:"09:00–10:15",title:"Parque de Ueno y alrededores",desc:"Recuperar el paseo pendiente del miércoles: parque y estanque Shinobazu, sin dedicar tiempo a museos."},
+      {label:"Media mañana",time:"10:15–12:00",title:"Mercado-calle Ameyoko",desc:"Comer en los puestos y recorrer los pasajes del mercado junto a Ueno. Compartir bocados y llegar a Kappabashi sobre las 12:30."},
+      {label:"Tarde",time:"12:30–16:00",title:"Compras para casa en Kappabashi",desc:"Dengama → Kamata → Kama-Asa → Iidaya, lista de cuchillos, piedras y menaje. Horarios ajustados tras Ueno y Ameyoko."},
+      {label:"Mediodía",time:"16:15–17:15",title:"Dejar las compras y reorganizar equipaje",desc:"Taxi al apartamento, guardar lo frágil y revisar espacio en las maletas."},
+      {label:"Tarde",time:"17:30–19:00 · opcional",title:"Paseo opcional después de las compras",desc:"Daikanyama y Nakameguro únicamente si todavía queda energía. No es parte del plan base; mejor preparar equipaje."},
       {label:"Noche",time:"19:00–21:30",title:"Cena y preparar salida a Kanazawa",desc:"Cena tranquila y maletas listas para el Shinkansen del día 9."}
-    ],transport:"Kappabashi es la prioridad del día. El día 4 comprobad qué tiendas favoritas abren el domingo 8."},
+    ],transport:"09:00 Ueno Park → 10:15 Ameyoko (comida en el mercado) → 12:30–16:00 Kappabashi → taxi con compras al Airbnb. Mantener la salida a Kanazawa del 9 como prioridad."},
     {date:"2026-11-09",city:"Kanazawa",sleep:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi",title:"Hokuriku Shinkansen y primera tarde en Kanazawa",map:"Daiwa Roynet Hotel Kanazawa Eki Nishiguchi",slots:[
       {label:"Mañana",time:"10:22–12:49",title:"Kagayaki 509 · Tokio → Kanazawa",desc:"Billetes electrónicos confirmados. Vagón 6, asientos 14D y 14E. Ambas tarjetas Suica vinculadas."},
       {label:"Mediodía",time:"12:00–14:00",title:"Llegada, maletas y mercado Omicho",desc:"Dejar equipaje y comer pescado, marisco o donburi en Omicho."},
