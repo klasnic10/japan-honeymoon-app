@@ -6,7 +6,7 @@
 window.TRIP_DATA = {
   source: {
     spreadsheetId: "18hY04omi7OXIXVbWBiuDK10Jn0kbM_OPNQpeBMrvFL8",
-    updatedAt: "2026-11-05T02:30:00Z"
+    updatedAt: "2026-11-05T05:00:00Z"
   },
   shopping: {
   "2026-11-04": {
@@ -229,63 +229,51 @@ window.TRIP_DATA = {
       {
         "id": "shibuya-sky",
         "kind": "entry",
-        "title": "Shibuya Sky",
-        "detail": "Visita diurna · 2 adultos · ¥2.700 por persona",
+        "title": "Shibuya Sky · entrada cancelada",
+        "detail": "Entrada antigua jueves 5 noviembre a las 13:00 · 2 adultos · ¥5.400 · CANCELADA gratis en Webket. Nueva opción: sábado 7 a las 13:20, pendiente de comprar.",
         "startDate": "2026-11-05",
         "endDate": "2026-11-05",
         "origin": "Shibuya",
         "destination": "Shibuya Sky",
-        "status": "confirmed",
-        "payment": "Pagado",
-        "saleOpen": "",
-        "cancellation": "",
-        "alternative": "",
+        "status": "cancelled",
+        "payment": "Cancelación gratuita · reembolso sujeto a tarjeta",
         "amount": 5400,
         "currency": "JPY",
-        "time": "Acceso 13:00–13:19 JST · llegar sobre 12:40",
-        "link": "https://mail.google.com/mail/#all/1a19b5443baf581b",
+        "time": "05/11 13:00–13:19 CANCELADA",
+        "link": "https://www.shibuya-scramble-square.com/sky/ticket/",
         "map": "Shibuya Sky",
-        "notes": "Visita estimada de 1,5 h. La franja 13:00–13:19 corresponde al acceso.",
-        "documents": [
-          {
-            "label": "Ticket 1 · ver QR en correo de compra",
-            "url": "https://mail.google.com/mail/#all/1a19b5443baf581b"
-          },
-          {
-            "label": "Ticket 2 · ver QR en correo de compra",
-            "url": "https://mail.google.com/mail/#all/1a19b5443baf581b"
-          }
-        ]
+        "notes": "Los QR antiguos no son válidos. Nueva compra aún no confirmada.",
+        "documents": []
       }
     ],
     "routes": [
-      {
-        "id": "2026-11-05-03",
-        "destination": "Shibuya Sky · Shibuya Scramble Square",
-        "instruction": "Salir de Harajuku/Omotesandō hacia Shibuya a las 12:00. Llegar sobre las 12:40 para acceder a Shibuya Sky entre 13:00 y 13:19. El paseo por Shibuya queda después del mirador.",
-        "map": "https://www.google.com/maps/dir/?api=1&origin=Omotesando&destination=Shibuya%20Sky&travelmode=walking",
-        "notes": "2 entradas confirmadas · 05/11 13:00–13:19 JST · llevar ambos QR de Webket."
-      }
-    ],
+  {
+    "id": "2026-11-05-03",
+    "destination": "Shibuya PARCO / Shibuya LOFT",
+    "instruction": "Sin Sky el jueves: comida en Shibuya, PARCO Nintendo/Pokémon, Hands/LOFT y después Shinjuku por la noche.",
+    "map": "https://www.google.com/maps/dir/?api=1&origin=Shibuya%20Station&destination=Shibuya%20PARCO&travelmode=walking",
+    "notes": "Entrada original del jueves CANCELADA; sábado 7 a las 13:20 es propuesta pendiente."
+  }
+],
     "placeGuides": [
-      {
-        "id": "harajuku-omotesando",
-        "tips": "Salir hacia Shibuya a las 12:00 para llegar al mirador sobre las 12:40. Evitar colas largas antes de la reserva.",
-        "duration": "1,5 h"
-      },
-      {
-        "id": "shibuya-core",
-        "route": "Después de Shibuya Sky y la comida, recorrer Hachikō y el cruce, Center-gai, Parco y Miyashita Park.",
-        "tips": "La entrada al mirador es al mediodía; la tarde queda para pasear y comprar."
-      },
-      {
-        "id": "shibuya-sky",
-        "summary": "Mirador de 360 grados con visita diurna confirmada el 5 de noviembre. Franja de acceso: 13:00–13:19 (hora de Japón), para 2 adultos.",
-        "highlights": "• Cruce de Shibuya desde arriba\n• Fuji si el cielo está muy limpio\n• Tokyo Tower y la escala de Tokio a plena luz",
-        "route": "Llegar sobre las 12:40 a Shibuya Scramble Square. Acceder entre las 13:00 y las 13:19; subir a la azotea si está abierta y recorrer también el interior. Reservar aproximadamente hasta las 14:30 para la visita y comer después.",
-        "tips": "Llevar los dos QR originales de Webket en el móvil. 13:00–13:19 es la franja de entrada, no la duración de la visita. La azotea puede cerrar por viento o lluvia; revisar las indicaciones del recinto."
-      }
-    ],
+  {
+    "id": "harajuku-omotesando",
+    "tips": "Harajuku se programa sábado 7 después de Meiji, 09:30–11:30.",
+    "duration": "2 h"
+  },
+  {
+    "id": "shibuya-core",
+    "route": "Jueves Shibuya: comida, PARCO 6F con Nintendo y Pokémon, Hands, LOFT, Hachikō y cruce.",
+    "tips": "No hay mirador reservado jueves."
+  },
+  {
+    "id": "shibuya-sky",
+    "summary": "Entrada original jueves 5 cancelada sin penalización; nueva mejor opción sábado 7 a las 13:20 todavía PENDIENTE de compra.",
+    "highlights": "• Cruce de Shibuya\n• Tokyo Tower desde arriba\n• Atardecer hacia las 16:40",
+    "route": "Sábado 7, si hay nueva compra, llegar a Shibuya Scramble Square hacia las 13:00 con los QR nuevos.",
+    "tips": "Viernes 12:40 demasiado justo después de Salesforce; domingo 15:00 choca con Kappabashi. No mostrar QR cancelados."
+  }
+],
     "checklist": [
 {
         "id": "pre-10",
@@ -302,12 +290,12 @@ window.TRIP_DATA = {
       {
         "id": "pre-02",
         "done": true,
-        "notes": "Comprado el 02/11: 2 adultos, 05/11 acceso 13:00–13:19 JST. Total ¥5.400.",
+        "notes": "Comprado el 02/11 pero CANCELADO el 05/11 gratis; ahora se plantea sábado 07/11 13:20, pendiente de nueva compra.",
         "link": "https://mail.google.com/mail/#all/1a19b5443baf581b"
       },
       {
         "id": "2026-11-05-01",
-        "notes": "Dos QR originales guardados. Acceso 13:00–13:19 JST; llegar sobre 12:40."
+        "notes": "Los QR originales de jueves 05/11 están CANCELADOS y no son válidos."
       }
     ]
   },
@@ -325,149 +313,9 @@ window.TRIP_DATA = {
       {label:"Media mañana",time:"11:30–12:30",title:"Primer vistazo a Kappabashi",desc:"Primera pasada por tiendas de vajilla, cuchillos, cristalería y utensilios. Marcar favoritos para volver el día 8."},
       {label:"Tarde-noche",time:"16:00–20:00",title:"Electrónica, recreativos y cultura pop",desc:"Recorrer Akihabara, entrar en recreativos y elegir unas pocas tiendas de electrónica, manga o coleccionismo."}
     ]},
-    {date:"2026-11-05",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Harajuku, Shibuya y Shinjuku · plan de lluvia",map:"Harajuku Station",slots:[
-      {label:"Mañana",time:"09:30–10:30",title:"Desayuno y tiendas cubiertas de Harajuku",desc:"Día de lluvia: empezar con calma por tiendas, galerías y cafés. Meiji Jingū se traslada al sábado 7, con mejor previsión."},
-      {label:"Media mañana",time:"10:30–12:00",title:"Takeshita-dori, calles laterales y Omotesandō",desc:"Harajuku, Cat Street y Omotesandō sin colas largas. Salir hacia Shibuya a las 12:00 para llegar sobre las 12:40.",food:"Snack si hace falta; comida principal después del mirador.",duration:"1,5 h"},
-      {label:"Mediodía",time:"13:00–14:30 aprox.",title:"Shibuya Sky",desc:"Ojo: se prevé lluvia a mediodía y el rooftop puede cerrar; comprobar situación oficial antes de entrar. Reserva confirmada para 2 adultos. Acceso entre las 13:00 y las 13:19 (hora de Japón); llegar sobre las 12:40 y mostrar ambos QR de Webket. Visita diurna estimada de 1,5 h; 13:19 es el fin de la franja de acceso.",food:"Comer después de la visita.",duration:"1,5 h aprox.",reservation:"Confirmada",tips:"2 adultos. Acceso 13:00–13:19 JST; llegar sobre 12:40. QR guardados."},
-      {label:"Tarde",time:"14:30–18:00",title:"Cruce, Hachikō, Parco y Miyashita Park",desc:"Después del mirador, comida y paseo por el núcleo de Shibuya: Hachikō, el cruce, Parco y Miyashita Park.",food:"Comida tras el mirador: Oreryū Shio Ramen Shibuya Sentāgai. Después, paseo, tiendas y cafés.",duration:"3,5 h",reservation:"No",tips:"Paseo y comida después del mirador."},
-      {label:"Noche",time:"19:00–23:00",title:"Omoide Yokochō, Kabukichō y Golden Gai",desc:"Cena, neones y callejones de Shinjuku; evitar captadores."}
-    ],transport:"Shibuya Sky reservado y pagado · 05/11 acceso 13:00–13:19 JST · 2 adultos, ¥5.400. Llegar sobre las 12:40. Rooftop sujeto a cierre si llueve; mirador interior disponible. Después, paseo por Shibuya y JR Yamanote a Shinjuku para la noche."},
-    {date:"2026-11-06",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Tsukiji, Ginza, Marunouchi y Roppongi",map:"Tsukiji Outer Market",slots:[
-      {label:"Mañana",time:"08:30–10:30",title:"Mercado exterior de Tsukiji",desc:"Desayuno y recorrido por puestos de comida, pescado y productos de cocina."},
-      {label:"Media mañana",time:"10:45–12:30",title:"Paseo por Ginza",desc:"Chuo-dori, Ginza Six e Itoya si os apetece."},
-      {label:"Mediodía",time:"12:45–14:00",title:"Comida bajo las vías o zona Marunouchi",desc:"Elegir entre ambiente popular en Yurakucho o una comida más tranquila en Marunouchi."},
-      {label:"Tarde",time:"14:00–16:30",title:"Estación de Tokio y exteriores del Palacio Imperial",desc:"Fachada Marunouchi, distrito financiero y jardines exteriores del Palacio."},
-      {label:"Atardecer-noche",time:"17:00–21:30",title:"Roppongi Hills, Azabudai Hills y vistas de Tokyo Tower",desc:"Arquitectura moderna, vistas de Tokyo Tower y cena por la zona."}
-    ]},
-    {date:"2026-11-07",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Meiji Jingū, Yanaka y barrios de Tokio",map:"Meiji Jingu",alternatives:[
-  {
-    "id": "nikko",
-    "title": "Nikkō · bosque y templos",
-    "summary": "Alternativa para el sábado 7 de noviembre. Excursión de día completo, con regreso al mismo apartamento. El plan de barrios de Tokio sigue disponible.",
-    "status": "Propuesta · sin reservar",
-    "verified": "2026-11-02",
-    "trains": [
-      {
-        "label": "Ida propuesta",
-        "name": "SPACIA X 1",
-        "from": "Tobu Asakusa",
-        "to": "Tobu-Nikkō",
-        "time": "07:50 → 09:39"
-      },
-      {
-        "label": "Vuelta propuesta",
-        "name": "SPACIA X 12",
-        "from": "Tobu-Nikkō",
-        "to": "Tobu Asakusa",
-        "time": "17:44 → 19:35"
-      }
-    ],
-    "trainNote": "Horarios publicados por Tobu, revisados el 02/11/2026. Confirmar operación y plazas para el sábado 07/11 en el buscador antes de comprar; no hay billetes reservados. Elegir Standard Seat y dos adultos. Si no hay plazas, buscar Kegon/Revaty directo a Tobu-Nikkō en una franja similar. SPACIA X 3 (09:00 → 10:50) permite madrugar menos, recortando las visitas opcionales.",
-    "access": [
-      "06:10–06:20: salida orientativa de aLATO Hatsudai. Caminar a Hatsudai y contar 60–75 minutos en total hasta la estación de Tobu Asakusa, más margen de embarque. Consultar la conexión concreta del sábado en Maps.",
-      "Hatsudai → Bakuro-yokoyama: Keiō New Line / Toei Shinjuku Line hacia el este. Elegir un tren que continúe a la línea Toei Shinjuku; si termina en Shinjuku, cambiar allí. Seguir el pasillo de transbordo a Higashi-nihombashi y tomar la Toei Asakusa Line hacia Oshiage hasta Asakusa.",
-      "En Asakusa, seguir los letreros de Tobu Railway, junto a EKIMISE/Matsuya. Es una estación distinta de Tsukuba Express Asakusa. Estar en la estación de Tobu sobre las 07:20; revisar andén en las pantallas. Suica sirve para el metro de Tokio, pero no sustituye la reserva del expreso."
-    ],
-    "slots": [
-      {
-        "time": "09:39–10:20",
-        "title": "Llegada, bus y puente Shinkyō",
-        "desc": "Desde Tobu-Nikkō, bus de la zona patrimonial hasta Shinkyō (aprox. 10 min más espera) o paseo de unos 25–30 min. Fotos del puente desde fuera; caminar hacia el recinto de templos.",
-        "map": "Shinkyo Bridge Nikko"
-      },
-      {
-        "time": "10:20–12:20",
-        "title": "Tōshō-gū · visita principal",
-        "desc": "Reservar unas dos horas para la puerta Yōmeimon, los tres monos y el gato dormido. Subir a la tumba si os apetece y las colas lo permiten. Entrada al santuario: ¥1.600 por adulto; llevar efectivo si se compra en taquilla.",
-        "map": "Nikko Toshogu Shrine"
-      },
-      {
-        "time": "12:20–13:15",
-        "title": "Comer por la zona de los templos",
-        "desc": "Buscar soba o un menú con yuba, la especialidad local de piel de tofu. La franja es orientativa; evitar una cola larga para conservar la tarde.",
-        "map": "soba yuba near Nikko Toshogu"
-      },
-      {
-        "time": "13:15–14:00",
-        "title": "Futarasan y paseo entre cedros",
-        "desc": "Pasear por el santuario y los caminos arbolados de la zona. Priorizar este rato al aire libre para cambiar de ambiente respecto a Tokio.",
-        "map": "Nikko Futarasan Shrine"
-      },
-      {
-        "time": "14:00–15:00",
-        "title": "Rinnō-ji y jardín Shōyō-en",
-        "desc": "Visitar Sanbutsudō; el jardín Shōyō-en es opcional y puede requerir otra entrada. Si hay mucha gente o vais cansados, elegir solo uno. Tōshō-gū cierra a las 16:00 en noviembre, con último acceso a las 15:30; por eso va primero.",
-        "map": "Nikkosan Rinnoji Temple"
-      },
-      {
-        "time": "15:00–16:30",
-        "title": "Paseo tranquilo y vuelta hacia el centro",
-        "desc": "Tiempo de margen para fotos, tiendas y café. Bajar con luz hacia Shinkyō y la calle principal. Si llueve o hace mucho frío, reducir el paseo y descansar cerca de la estación.",
-        "map": "Tobu Nikko Station"
-      },
-      {
-        "time": "16:30–17:15",
-        "title": "Llegar a Tobu-Nikkō con margen",
-        "desc": "Volver a pie o en bus según energía y tráfico. Comprar algo para el tren y confirmar andén. Objetivo: estar en la estación a las 17:10–17:15, sin apurar el último bus.",
-        "map": "Tobu Nikko Station"
-      },
-      {
-        "time": "17:44–19:35",
-        "title": "SPACIA X 12 · regreso a Asakusa",
-        "desc": "Tren directo propuesto. Después, cena en Asakusa o vuelta al apartamento por el trayecto inverso; llegada a casa orientativa sobre las 20:30–21:00, según cena y conexiones.",
-        "map": "Tobu Asakusa Station"
-      }
-    ],
-    "tickets": [
-      "Al decidir hacer la excursión, reservar primero ida y vuelta para dos personas. Los Limited Express llevan asiento reservado: hace falta tarifa base (billete o pase) más suplemento de Limited Express en cada sentido.",
-      "Para este recorrido desde Asakusa, valorar NIKKO PASS World Heritage Area: ¥3.000 por adulto (¥6.000 los dos), válido dos días. Incluye el trayecto base de ida y vuelta y buses de la zona patrimonial; los suplementos de SPACIA X/Kegon/Revaty y las entradas a templos se pagan aparte. Comprobar la cesta para no comprar dos veces la tarifa base.",
-      "Comprar por el servicio oficial Tobu Japan Trip Tickets enlazado desde la guía de compra. Si se compra un voucher en lugar de un pase digital, revisar dónde y cuándo se canjea: no dejar el canje para antes del tren temprano. Podéis pasar por Asakusa otro día para resolverlo.",
-      "Solo excursión patrimonial: mantener fuera el lago Chūzenji y Kegon. En otoño, los buses hacia el lago pueden sufrir retrasos de más de dos horas. No añadir gastos al viaje hasta que se decida y se compre."
-    ],
-    "packing": [
-      "Calzado cómodo, abrigo y capa impermeable; hay escaleras y bastante exterior.",
-      "Agua, desayuno o snack y batería externa. Llevar efectivo para entradas y pequeños comercios.",
-      "Si no hay trenes con plazas o no apetece madrugar, conservar el plan original de Tokio del día 7."
-    ],
-    "links": [
-      {
-        "label": "Apartamento → Tobu Asakusa",
-        "url": "https://www.google.com/maps/dir/?api=1&origin=2-2-10%20Honmachi%2C%20Shibuya%2C%20Tokyo&destination=Tobu%20Asakusa%20Station&travelmode=transit"
-      },
-      {
-        "label": "Paseo por los templos",
-        "url": "https://www.google.com/maps/dir/?api=1&origin=Shinkyo%20Bridge%20Nikko&destination=Nikkosan%20Rinnoji%20Temple&waypoints=Nikko%20Toshogu%20Shrine%7CNikko%20Futarasan%20Shrine&travelmode=walking"
-      },
-      {
-        "label": "Horarios SPACIA X",
-        "url": "https://www.tobu.co.jp/spaciax/en/guide/"
-      },
-      {
-        "label": "Reservar · guía oficial Tobu",
-        "url": "https://www.tobu.co.jp/en/express_info/purchase/"
-      },
-      {
-        "label": "NIKKO PASS · qué incluye",
-        "url": "https://www.tobu.co.jp/en/ticket/nikko/city.html"
-      },
-      {
-        "label": "Tōshō-gū · entradas y acceso",
-        "url": "https://www.visitnikko.jp/en/spots/nikko-toshogu-shrine/"
-      },
-      {
-        "label": "Aviso de tráfico en otoño",
-        "url": "https://www.tobu.co.jp/en/ticket/"
-      }
-    ]
-  }
-],slots:[
-      {label:"Mañana",time:"08:00–09:15",title:"Bosque y santuario Meiji",desc:"Visita reprogramada al sábado soleado: entrada desde Harajuku, paseo por el bosque y santuario. Salir hacia Nippori sobre las 09:15."},
-      {label:"Media mañana",time:"10:15–12:30",title:"Tokio de barrio: Yanaka, cementerio y Yanaka Ginza",desc:"Desde Meiji, JR Yamanote Harajuku → Nippori y paseo por cementerio, callejones y comercios de Yanaka Ginza."},
-      {label:"Mediodía",time:"12:30–14:00",title:"Comida local",desc:"Soba, curry, tonkatsu o menú del día por Yanaka/Sendagi."},
-      {label:"Tarde",time:"14:30–17:30",title:"Cafés, canales y jardín Kiyosumi",desc:"Paseo por Kiyosumi-Shirakawa, café de especialidad y jardín opcional."},
-      {label:"Tarde-noche",time:"17:30–21:00",title:"Santuario, shotengai e izakayas",desc:"Monzen-Nakachō, Tomioka Hachimangū, calles comerciales y cena local."},
-      {label:"Extra",time:"19:00–19:30",title:"Entrar en un supermercado grande",desc:"Ver preparados, pescados, productos de temporada y descuentos de última hora."}
-    ]},
+    {"date":"2026-11-05","city":"Tokio","sleep":"Airbnb aLATO Hatsudai c02","title":"Toyosu, Shibuya y Shinjuku · lluvia","map":"Shibuya PARCO","slots":[{"label":"Madrugada","time":"05:30–08:00 · realizado","title":"Subasta y mercado de Toyosu","desc":"Visita realizada a la subasta de atún y desayuno. Después descanso y traslado."},{"label":"Media mañana","time":"08:30–12:00 · flexible","title":"Descanso / interior opcional","desc":"Descansar por el madrugón, o teamLab Borderless sólo si encontráis entradas."},{"label":"Mediodía","time":"12:00–13:30","title":"Comida en Shibuya","desc":"Ramen, curry o tonkatsu. La entrada de hoy de Shibuya Sky está CANCELADA; no usar los QR."},{"label":"Tarde","time":"13:30–17:30","title":"Shibuya PARCO, Nintendo, Pokémon, Hands y LOFT","desc":"Tiendas cubiertas y café por Shibuya; ver Hachikō y el cruce en una pausa de lluvia."},{"label":"Noche","time":"18:00–21:30","title":"Shinjuku: Omoide Yokochō, Kabukichō y Golden Gai","desc":"Neones, cena y, si apetece, una copa. Recortar sin problemas si estáis cansados."}],"transport":"Shibuya Sky del jueves 5 cancelado gratis. Tarde tiendas Shibuya; noche Shinjuku."},
+    {"date":"2026-11-06","city":"Tokio","sleep":"Airbnb aLATO Hatsudai c02","title":"Salesforce Tower, Marunouchi, Ginza y Roppongi","map":"Salesforce Tower Tokyo Marunouchi","slots":[{"label":"Temprano","time":"08:00–09:15 · opcional","title":"Tsukiji exterior, si apetece","desc":"Ya habéis estado en Toyosu, por tanto Tsukiji no es imprescindible. No retrasar Salesforce."},{"label":"Mañana","time":"Según cita","title":"Salesforce Tower Tokyo","desc":"Visita prevista a Salesforce Tower Tokyo en Marunouchi. Comprobar la hora acordada."},{"label":"Mediodía","time":"11:30–14:00 · flexible","title":"Tokyo Station, Marunouchi y comida","desc":"Fachada de Tokyo Station, alrededores del Palacio Imperial y comer por Yurakucho/Marunouchi."},{"label":"Tarde","time":"14:00–17:00","title":"Ginza, Ginza Six e Itoya","desc":"Paseo por Ginza, diseño, papelería y grandes almacenes."},{"label":"Noche","time":"17:30–21:30","title":"Roppongi, Azabudai y Tokyo Tower de noche","desc":"Vistas de Tokyo Tower iluminada y cena. No hay Shibuya Sky este día."}]},
+    {"date":"2026-11-07","city":"Tokio","sleep":"Airbnb aLATO Hatsudai c02","title":"Meiji, Harajuku y Shibuya Sky · entrada pendiente","map":"Meiji Jingu","slots":[{"label":"Mañana","time":"08:00–09:15","title":"Santuario Meiji","desc":"Bosque, torii y santuario; salir hacia Harajuku."},{"label":"Media mañana","time":"09:30–11:30","title":"Harajuku, Takeshita, Cat Street y Omotesandō","desc":"Desayuno y visita a tiendas desde las 10:00."},{"label":"Mediodía","time":"11:30–12:50","title":"Comida temprana y traslado a Shibuya","desc":"Comer sin cola y estar en Shibuya Scramble Square sobre las 13:00."},{"label":"Tarde","time":"13:20–16:45 · PENDIENTE","title":"Shibuya Sky · sábado 13:20","desc":"Esta es la mejor franja indicada como disponible pero AÚN NO COMPRADA. Llevar QR nuevos, no los cancelados del jueves. Se puede permanecer hasta el atardecer aprox. 16:40."},{"label":"Tarde-noche","time":"17:15–20:30","title":"Daikanyama, Nakameguro y cena","desc":"T-Site, canal, cafeterías y cena; o cenar en Shibuya si estáis cansados."},{"label":"Extra","time":"19:00–20:30 · opcional","title":"Supermercado japonés","desc":"Parada breve en un supermercado del barrio si encaja."}],"transport":"Sábado íntegramente Tokio; Nikkō descartado. Meiji → Harajuku → Shibuya Sky a las 13:20 sólo si se compran nuevas entradas → Daikanyama/Nakameguro."},
     {date:"2026-11-08",city:"Tokio",sleep:"Airbnb aLATO Hatsudai c02",title:"Ueno, Ameyoko y compras en Kappabashi",map:"Ueno Park Tokyo",slots:[
       {label:"Mañana",time:"09:00–10:15",title:"Parque de Ueno y alrededores",desc:"Recuperar el paseo pendiente del miércoles: parque y estanque Shinobazu, sin dedicar tiempo a museos."},
       {label:"Media mañana",time:"10:15–12:00",title:"Mercado-calle Ameyoko",desc:"Comer en los puestos y recorrer los pasajes del mercado junto a Ueno. Compartir bocados y llegar a Kappabashi sobre las 12:30."},
